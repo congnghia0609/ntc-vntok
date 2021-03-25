@@ -13,21 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.ntc.vntok;
 
-import com.ntc.vntok.tokens.TaggedWord;
+import java.util.ResourceBundle;
 
 /**
  *
  * @author nghiatc
- * @since Mar 24, 2021
+ * @since Mar 25, 2021
  */
-public interface ITokenizerListener {
-
+public class ResourceHandler {
     /**
-     * Process a token
-     *
-     * @param token
-     */
-    public void processToken(TaggedWord token);
+	 * Get a resource value
+	 * @param key a key of resource
+	 * @return value of resource
+	 */
+	public static String get(String key) {
+		return resource.getString(key);
+	}
+	
+	/**
+	 * The ressource bundle of the package
+	 */
+	static final ResourceBundle resource = ResourceBundle.getBundle("vntok");
 }

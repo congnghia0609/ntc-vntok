@@ -13,21 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ntc.vntok;
+package com.ntc.vntok.nio;
 
 import com.ntc.vntok.tokens.TaggedWord;
+import java.util.List;
 
 /**
  *
  * @author nghiatc
- * @since Mar 24, 2021
+ * @since Mar 25, 2021
  */
-public interface ITokenizerListener {
+public interface IExporter {
 
     /**
-     * Process a token
+     * Creates a string representation of an array of lists of tokens.
      *
-     * @param token
+     * @param list
+     * @return a string
      */
-    public void processToken(TaggedWord token);
+    public String export(List<List<TaggedWord>> list);
 }

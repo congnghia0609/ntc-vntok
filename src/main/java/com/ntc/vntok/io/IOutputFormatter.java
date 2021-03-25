@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ntc.vntok;
+package com.ntc.vntok.io;
 
 import com.ntc.vntok.tokens.TaggedWord;
 
 /**
  *
  * @author nghiatc
- * @since Mar 24, 2021
+ * @since Mar 25, 2021
  */
-public interface ITokenizerListener {
+public interface IOutputFormatter {
 
     /**
-     * Process a token
+     * Output a token
      *
      * @param token
+     * @return a string representing the output of the token.
      */
-    public void processToken(TaggedWord token);
+    public String outputLexeme(TaggedWord token);
 }

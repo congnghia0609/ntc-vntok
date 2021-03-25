@@ -13,21 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ntc.vntok;
+package com.ntc.vntok.io;
 
 import com.ntc.vntok.tokens.TaggedWord;
 
 /**
  *
  * @author nghiatc
- * @since Mar 24, 2021
+ * @since Mar 25, 2021
  */
-public interface ITokenizerListener {
+public class TwoColumnsFormatter implements IOutputFormatter {
 
     /**
-     * Process a token
-     *
-     * @param token
+     * (non-Javadoc)
      */
-    public void processToken(TaggedWord token);
+    @Override
+    public String outputLexeme(TaggedWord token) {
+        StringBuffer stBuf = new StringBuffer();
+        // output the text
+        stBuf.append(token.getText());
+        // a tab character
+        stBuf.append("\t");
+        // its type
+        stBuf.append(token.getRule().getName());
+        // end of line
+        stBuf.append("\n");
+        return stBuf.toString();
+    }
 }

@@ -13,21 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ntc.vntok;
+package com.ntc.vntok.io;
 
 import com.ntc.vntok.tokens.TaggedWord;
 
 /**
  *
  * @author nghiatc
- * @since Mar 24, 2021
+ * @since Mar 25, 2021
  */
-public interface ITokenizerListener {
+public class PlainFormatter implements IOutputFormatter {
 
-    /**
-     * Process a token
-     *
-     * @param token
+    /* (non-Javadoc)
+	 * @see vn.hus.tokenizer.io.IOutputFormatter#outputLexeme(vn.hus.tokenizer.tokens.LexerToken)
      */
-    public void processToken(TaggedWord token);
+    @Override
+    public String outputLexeme(TaggedWord token) {
+        StringBuffer stBuf = new StringBuffer();
+        // output only the text of the token
+        stBuf.append(token.getText());
+        // end of line
+        stBuf.append("\n");
+        return stBuf.toString();
+    }
 }
