@@ -40,5 +40,6 @@ public interface IConstants {
     /**
      * The named entity prefix.
      */
-    public static final String NAMED_ENTITY_PREFIX = "models/tokenization/prefix/namedEntityPrefix.xml";
+    //public static final String NAMED_ENTITY_PREFIX = "models/tokenization/prefix/namedEntityPrefix.xml";
+    public static final String NAMED_ENTITY_PREFIX = "models/tok/prefix/namePrefix.xml";
 }

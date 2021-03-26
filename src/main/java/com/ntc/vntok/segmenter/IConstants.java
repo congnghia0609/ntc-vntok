@@ -25,14 +25,18 @@ public interface IConstants {
     /**
      * The lexicon dfa.
      */
-    static String LEXICON_DFA = "models/tokenization/automata/dfaLexicon.xml";
+    //static String LEXICON_DFA = "models/tokenization/automata/dfaLexicon.xml";
+    static String LEXICON_DFA = "models/tok/dfa/dfaLexicon.xml";
 
     /**
      * The external lexicon
      */
-    static String EXTERNAL_LEXICON = "models/tokenization/automata/externalLexicon.xml";
+    //static String EXTERNAL_LEXICON = "models/tokenization/automata/externalLexicon.xml";
+    static String EXTERNAL_LEXICON = "models/tok/dfa/externalLexicon.xml";
+    
     /**
      * The file contains normalization rules for Vietnamese accents.
      */
-    static String NORMALIZATION_RULES = "models/tokenization/normalization/rules.txt";
+    //static String NORMALIZATION_RULES = "models/tokenization/normalization/rules.txt";
+    static String NORMALIZATION_RULES = "models/tok/rules/rules.txt";
 }
