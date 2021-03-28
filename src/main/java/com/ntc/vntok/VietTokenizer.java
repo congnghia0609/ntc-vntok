@@ -109,11 +109,13 @@ public class VietTokenizer {
 //			e.printStackTrace();
 //		}
 //	}
+//    
 //	private static void createSentenceDetector(Properties properties) {
 //		if (sentenceDetector == null) {
 //			sentenceDetector = SentenceDetectorFactory.create(properties);
 //		}
 //	}
+    
     /**
      * A segment method, written for integration with other tools.
      *
@@ -121,7 +123,7 @@ public class VietTokenizer {
      * @return a segmented sentence
      */
     public String segment(String sentence) {
-        StringBuffer result = new StringBuffer(1000);
+        StringBuffer result = new StringBuffer();
         StringReader reader = new StringReader(sentence);
         // tokenize the sentence
         try {
@@ -158,7 +160,7 @@ public class VietTokenizer {
      * @see SentenceDetector
      */
     public String[] tokenize(String text) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         //StringReader reader = new StringReader(text);
         if (TokenizerOptions.USE_SENTENCE_DETECTOR) {
             try {
@@ -233,7 +235,7 @@ public class VietTokenizer {
                 }
             }
         } else { // XML outputer
-            List<List<TaggedWord>> list = new ArrayList<List<TaggedWord>>();
+            List<List<TaggedWord>> list = new ArrayList<>();
             for (String p : paragraphs) {
                 try {
                     tokenizer.tokenize(new StringReader(p));
@@ -241,7 +243,7 @@ public class VietTokenizer {
                     e.printStackTrace();
                 }
                 // make a copy of the result of tokenization
-                List<TaggedWord> result = new ArrayList<TaggedWord>(tokenizer.getResult());
+                List<TaggedWord> result = new ArrayList<>(tokenizer.getResult());
                 list.add(result);
                 nTokens += result.size();
             }
