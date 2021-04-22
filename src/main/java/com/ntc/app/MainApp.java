@@ -16,6 +16,8 @@
 
 package com.ntc.app;
 
+import com.ntc.vntok.VietTokenizer;
+
 /**
  *
  * @author nghiatc
@@ -27,7 +29,15 @@ public class MainApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            VietTokenizer vntok = new VietTokenizer();
+            String s = " Học sinh học sinh học.";
+            System.out.println(s);
+            String ls = vntok.tokenizeSentence(s);
+            System.out.println(ls);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
