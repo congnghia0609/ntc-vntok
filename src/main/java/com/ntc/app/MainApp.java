@@ -31,7 +31,7 @@ public class MainApp {
     public static void main(String[] args) {
         try {
             VietTokenizer vntok = new VietTokenizer();
-            String s = " Học sinh học sinh học.";
+            String s = "Học sinh học sinh học.";
             System.out.println(s);
             String ls = vntok.tokenizeSentence(s);
             System.out.println(ls);
