@@ -47,7 +47,8 @@ public class LexiconUnmarshaller {
         jaxbContext = null;
         try {
             ClassLoader cl = ObjectFactory.class.getClassLoader();
-            jaxbContext = JAXBContext.newInstance(LexiconUnmarshaller.class.getName(), cl);
+            //jaxbContext = JAXBContext.newInstance(LexiconUnmarshaller.class.getName(), cl);
+            jaxbContext = JAXBContext.newInstance("com.ntc.vntok.lexicon.jaxb", cl);
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -80,6 +81,22 @@ public class LexiconUnmarshaller {
         try {
             InputStream stream = new FileInputStream(filename); //getClass().getResourceAsStream(filename);
 
+            if (stream != null) {
+                Object object = getUnmarshaller().unmarshal(stream);
+                if (object instanceof Corpus) {
+                    Corpus corpus = (Corpus) object;
+                    return corpus;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Corpus unmarshal(InputStream stream) {
+        try {
+            //InputStream stream = new FileInputStream(filename); //getClass().getResourceAsStream(filename);
             if (stream != null) {
                 Object object = getUnmarshaller().unmarshal(stream);
                 if (object instanceof Corpus) {

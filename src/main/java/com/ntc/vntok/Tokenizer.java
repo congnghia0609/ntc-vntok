@@ -23,6 +23,7 @@ import com.ntc.vntok.segmenter.Segmenter;
 import com.ntc.vntok.tokens.LexerRule;
 import com.ntc.vntok.tokens.TaggedWord;
 import com.ntc.vntok.tokens.WordToken;
+import com.ntc.vntok.utils.ResourceUtil;
 import com.ntc.vntok.utils.UTF8FileUtility;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -103,6 +104,29 @@ public class Tokenizer {
 
     private final ResultSplitter resultSplitter;
 
+    /**
+     * Creates a tokenizer from a lexers filename and a segmenter.
+     *
+     * @param segmenter a lexical segmenter<ol></ol>
+     */
+    public Tokenizer(Segmenter segmenter) {
+        // load the lexer rules
+        loadLexerRules();
+        this.segmenter = segmenter;
+        result = new ArrayList<TaggedWord>();
+        // use a plain (default) outputer
+        createOutputer();
+        // create result merger
+        resultMerger = new ResultMerger();
+        // create a result splitter
+        resultSplitter = new ResultSplitter();
+        // create logger
+        createLogger();
+        // add a simple tokenizer listener for reporting 
+        // tokenization progress
+        addTokenizerListener(new SimpleProgressReporter());
+    }
+    
     /**
      * Creates a tokenizer from a lexers filename and a segmenter.
      *
@@ -187,6 +211,26 @@ public class Tokenizer {
         }
     }
 
+    /**
+     * Load lexer specification file. This text file contains lexical rules to tokenize a text
+     *
+     * @param lexersFilename specification file
+     */
+    private void loadLexerRules() {
+        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
+        InputStream lexersStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXERS);
+        Corpus corpus = unmarshaller.unmarshal(lexersStream);
+        ArrayList<LexerRule> ruleList = new ArrayList<LexerRule>();
+        List<W> lexers = corpus.getBody().getW();
+        for (W w : lexers) {
+            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
+//			System.out.println(w.getMsd() + ": " + w.getContent());
+            ruleList.add(lr);
+        }
+        // convert the list of rules to an array and save it
+        rules = ruleList.toArray(rules);
+    }
+    
     /**
      * Load lexer specification file. This text file contains lexical rules to tokenize a text
      *

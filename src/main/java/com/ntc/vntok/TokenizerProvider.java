@@ -55,34 +55,57 @@ public class TokenizerProvider {
 
     /**
      * Private constructor
-     *
      */
+//    private TokenizerProvider() {
+//        Properties properties = new Properties();
+//        try {
+//            File wdir = new File("");
+//            //String conf = wdir.getAbsolutePath() + File.separator + "tokenizer.properties";
+//            String conf = wdir.getAbsolutePath() + File.separator + "conf" + File.separator + "config.properties";
+//            //properties.load(getClass().getResourceAsStream(conf));
+//            properties.load(new FileInputStream(conf));
+//            System.out.println("properties: " + properties);
+//            // create a unigram resolver. 
+//            //
+//            resolver = new UnigramResolver(properties.getProperty("unigramModel"));
+//            // create a lexical segmenter that use the unigram resolver
+//            //
+//            System.out.println("Creating lexical segmenter...");
+//            segmenter = new Segmenter(properties, resolver);
+//            System.out.println("Lexical segmenter created.");
+//            // init the tokenizer
+//            System.out.print("Initializing tokenizer...");
+//            tokenizer = new Tokenizer(properties, segmenter);
+//            // Do not resolve the ambiguity.
+////			tokenizer.setAmbiguitiesResolved(false);
+//            System.out.println("OK");
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+    
     private TokenizerProvider() {
-        Properties properties = new Properties();
         try {
-            File wdir = new File("");
-            //String conf = wdir.getAbsolutePath() + File.separator + "tokenizer.properties";
-            String conf = wdir.getAbsolutePath() + File.separator + "conf" + File.separator + "config.properties";
-            //properties.load(getClass().getResourceAsStream(conf));
-            properties.load(new FileInputStream(conf));
-            System.out.println("properties: " + properties);
             // create a unigram resolver. 
             //
-            resolver = new UnigramResolver(properties.getProperty("unigramModel"));
+            //resolver = new UnigramResolver(properties.getProperty("unigramModel"));
+            resolver = new UnigramResolver();
             // create a lexical segmenter that use the unigram resolver
             //
             System.out.println("Creating lexical segmenter...");
-            segmenter = new Segmenter(properties, resolver);
+            //segmenter = new Segmenter(properties, resolver);
+            segmenter = new Segmenter(resolver);
             System.out.println("Lexical segmenter created.");
             // init the tokenizer
             System.out.print("Initializing tokenizer...");
-            tokenizer = new Tokenizer(properties, segmenter);
+            //tokenizer = new Tokenizer(properties, segmenter);
+            tokenizer = new Tokenizer(segmenter);
             // Do not resolve the ambiguity.
 //			tokenizer.setAmbiguitiesResolved(false);
             System.out.println("OK");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

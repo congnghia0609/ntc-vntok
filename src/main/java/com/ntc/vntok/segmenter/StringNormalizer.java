@@ -15,6 +15,7 @@
  */
 package com.ntc.vntok.segmenter;
 
+import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,11 +35,40 @@ public class StringNormalizer {
 
     private static Map<String, String> map;
 
+    private StringNormalizer() {
+        map = new HashMap<String, String>();
+        init();
+    }
+    
     private StringNormalizer(String mapFile) {
         map = new HashMap<String, String>();
         init(mapFile);
     }
 
+    private void init() {
+        try {
+            //InputStream stream = new FileInputStream(mapFile); //getClass().getResourceAsStream(mapFile);
+            InputStream stream = ResourceUtil.getResourceAsStream(IConstants.NORMALIZATION_RULES);
+            List<String> rules;
+            rules = IOUtils.readLines(stream, "UTF-8");
+
+            for (int i = 0; i < rules.size(); i++) {
+                String rule = rules.get(i);
+
+                String[] s = rule.split("\\s+");
+                if (s.length == 2) {
+                    map.put(s[0], s[1]);
+                } else {
+                    System.err.println("Wrong syntax in the map file " + IConstants.NORMALIZATION_RULES + " at line " + i);
+                }
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+    
     private void init(String mapFile) {
         try {
             InputStream stream = new FileInputStream(mapFile); //getClass().getResourceAsStream(mapFile);
@@ -62,12 +92,12 @@ public class StringNormalizer {
         }
 
     }
-
+    
     /**
      * @return an instance of the class.
      */
     public static StringNormalizer getInstance() {
-        return new StringNormalizer(IConstants.NORMALIZATION_RULES);
+        return new StringNormalizer();
     }
 
     /**

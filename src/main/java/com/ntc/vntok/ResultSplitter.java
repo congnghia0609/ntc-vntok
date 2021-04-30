@@ -20,6 +20,8 @@ import com.ntc.vntok.lexicon.jaxb.Corpus;
 import com.ntc.vntok.lexicon.jaxb.W;
 import com.ntc.vntok.tokens.LexerRule;
 import com.ntc.vntok.tokens.TaggedWord;
+import com.ntc.vntok.utils.ResourceUtil;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -41,7 +43,17 @@ public class ResultSplitter {
      * Default constructor.
      */
     public ResultSplitter() {
-        this(IConstants.NAMED_ENTITY_PREFIX);
+        // load the prefix lexicon
+        // 
+        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
+        InputStream namedEntityPrefixStream = ResourceUtil.getResourceAsStream(IConstants.NAMED_ENTITY_PREFIX);
+        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixStream);
+        List<W> ws = lexicon.getBody().getW();
+        prefix = new HashSet<String>();
+        // add all prefixes to the set after converting them to lowercase
+        for (W w : ws) {
+            prefix.add(w.getContent().toLowerCase());
+        }
     }
 
     /**

@@ -133,4 +133,55 @@ public class FSMUnmarshaller {
         }
         return fsm;
     }
+    
+    /**
+     * Unmarshal a fsm from a file.
+     *
+     * @param filename a file.
+     * @return a state machine
+     */
+    public FSM unmarshal(InputStream stream, String machineType) {
+        FSM fsm;
+        if (machineType.equalsIgnoreCase(IConstants.FSM_DFA)) {
+            fsm = new DFA();
+        } else {
+			//System.out.println("Unmarshal a FST");
+            fsm = new FST();
+        }
+
+        getUnmarshaller();
+        try {
+            //InputStream stream = new FileInputStream(filename); //getClass().getResourceAsStream(filename);
+            Object obj = unmarshaller.unmarshal(stream);
+            if (obj != null) {
+                Fsm fsm2 = (Fsm) obj;
+                // fill the states 
+                States states = fsm2.getStates();
+                for (Iterator<S> it = states.getS().iterator(); it.hasNext();) {
+                    S s = it.next();
+                    State state = new State(s.getId());
+                    state.setType(s.getType());
+                    fsm.addState(state);
+                }
+                // fill the transitions
+                Transitions transitions = fsm2.getTransitions();
+                for (Iterator<T> it = transitions.getT().iterator(); it.hasNext();) {
+                    T t = it.next();
+                    char input = t.getInp().charAt(0);
+                    String output = t.getOut();
+                    Transition transition;
+                    if (output != null && output.equals(IConstants.EMPTY_STRING)) {
+                        transition = new Transition(t.getSrc(), t.getTar(), input);
+                    } else {
+                        transition = new Transition(t.getSrc(), t.getTar(), input, output);
+                    }
+                    fsm.addTransition(transition);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error when unmarshalling the machine.");
+            e.printStackTrace();
+        }
+        return fsm;
+    }
 }

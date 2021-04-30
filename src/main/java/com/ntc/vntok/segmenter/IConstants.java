@@ -22,6 +22,8 @@ package com.ntc.vntok.segmenter;
  */
 public interface IConstants {
 
+    static String LEXERS = "models/tok/lexers/lexers.xml";
+    
     /**
      * The lexicon dfa.
      */

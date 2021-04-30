@@ -196,7 +196,7 @@ public class Segmenter {
         if (lexiconRecognizer == null) {
             // use the DFA lexicon recognizer
             // user can use any lexicon recognizer here.
-            lexiconRecognizer = DFALexiconRecognizer.getInstance(IConstants.LEXICON_DFA);
+            lexiconRecognizer = DFALexiconRecognizer.getInstance();
         }
         return lexiconRecognizer;
     }

@@ -18,6 +18,8 @@ package com.ntc.vntok.segmenter;
 import com.ntc.vntok.lexicon.LexiconUnmarshaller;
 import com.ntc.vntok.lexicon.jaxb.Corpus;
 import com.ntc.vntok.lexicon.jaxb.W;
+import com.ntc.vntok.utils.ResourceUtil;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -39,6 +41,12 @@ public class UnigramResolver extends AbstractResolver {
      */
     private Map<String, Integer> unigram;
 
+    public UnigramResolver() {
+        init();
+        // load the unigram model.
+        loadUnigram();
+    }
+    
     /**
      * Default construtor.
      *
@@ -57,6 +65,20 @@ public class UnigramResolver extends AbstractResolver {
         unigram = new HashMap<String, Integer>();
     }
 
+    private void loadUnigram() {
+        System.out.print("Loading unigram model...");
+        // load unigram model
+        InputStream stream = ResourceUtil.getResourceAsStream(com.ntc.vntok.lang.IConstants.UNIGRAM_MODEL);
+        Corpus unigramCorpus = unmarshaller.unmarshal(stream);
+        List<W> ws = unigramCorpus.getBody().getW();
+        for (W w : ws) {
+            String freq = w.getMsd();
+            String word = w.getContent();
+            unigram.put(word, Integer.parseInt(freq));
+        }
+        System.out.println("OK");
+    }
+    
     /**
      * Load unigram model and calculate frequencies.
      *
@@ -67,8 +89,7 @@ public class UnigramResolver extends AbstractResolver {
         // load unigram model
         Corpus unigramCorpus = unmarshaller.unmarshal(unigramFilename);
         List<W> ws = unigramCorpus.getBody().getW();
-        for (Iterator<W> iterator = ws.iterator(); iterator.hasNext();) {
-            W w = iterator.next();
+        for (W w : ws) {
             String freq = w.getMsd();
             String word = w.getContent();
             unigram.put(word, Integer.parseInt(freq));
@@ -82,21 +103,18 @@ public class UnigramResolver extends AbstractResolver {
      * words are represented by their frequencies, we can calculate and compare the sum of frequencies of words of
      * segmentations. It is always much more rapid to perform simple operations (like addition) on integers than complex
      * operations (like multiply or division) on doubles.
-     *
-     * @see vn.hus.nlp.tokenizer.segmenter.AbstractResolver#resolve(java.util.List)
+     * @return Array String
      */
     @Override
     public String[] resolve(List<String[]> segmentations) {
         String[] choice = null;
         int maxFrequency = 0;
-        for (Iterator<String[]> it = segmentations.iterator(); it.hasNext();) {
-            String[] segmentation = it.next();
+        for (String[] segmentation : segmentations) {
             int frequency = 0;
-            for (int i = 0; i < segmentation.length; i++) {
-                String word = segmentation[i];
+            for (String word : segmentation) {
                 int wordFreq = 0;
                 if (unigram.containsKey(word)) {
-                    wordFreq = unigram.get(word).intValue();
+                    wordFreq = unigram.get(word);
                 }
                 frequency += wordFreq;
             }

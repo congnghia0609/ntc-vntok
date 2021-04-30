@@ -18,6 +18,8 @@ package com.ntc.vntok.segmenter;
 import com.ntc.vntok.lexicon.LexiconUnmarshaller;
 import com.ntc.vntok.lexicon.jaxb.Corpus;
 import com.ntc.vntok.lexicon.jaxb.W;
+import com.ntc.vntok.utils.ResourceUtil;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -36,7 +38,18 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
      * Default constructor.
      */
     public ExternalLexiconRecognizer() {
-        this(IConstants.EXTERNAL_LEXICON);
+        // load the prefix lexicon
+        // 
+        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
+        InputStream externalLexiconStream = ResourceUtil.getResourceAsStream(IConstants.EXTERNAL_LEXICON);
+        Corpus lexicon = lexiconUnmarshaller.unmarshal(externalLexiconStream);
+        List<W> ws = lexicon.getBody().getW();
+        externalLexicon = new HashSet<String>();
+        // add all prefixes to the set after converting them to lowercase
+        for (W w : ws) {
+            externalLexicon.add(w.getContent().toLowerCase());
+        }
+        System.out.println("External lexicon loaded.");
     }
 
     /**
@@ -63,7 +76,7 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
     }
 
     /* (non-Javadoc)
-	 * @see vn.hus.nlp.tokenizer.segmenter.AbstractLexiconRecognizer#accept(java.lang.String)
+	 * @see AbstractLexiconRecognizer#accept(java.lang.String)
      */
     @Override
     public boolean accept(String token) {
@@ -71,7 +84,7 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
     }
 
     /* (non-Javadoc)
-	 * @see vn.hus.nlp.tokenizer.segmenter.AbstractLexiconRecognizer#dispose()
+	 * @see AbstractLexiconRecognizer#dispose()
      */
     @Override
     public void dispose() {
