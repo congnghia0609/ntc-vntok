@@ -21,7 +21,6 @@ import com.ntc.vntok.lexicon.jaxb.W;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
