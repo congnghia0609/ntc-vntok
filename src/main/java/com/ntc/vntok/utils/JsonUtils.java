@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.ntc.vntok.utils;
 
 import java.io.InputStream;
@@ -32,149 +31,177 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * @since Sep 11, 2015
  */
 public class JsonUtils {
-	private final ObjectMapper objMapper = new ObjectMapper();
-	private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
-	public JsonUtils() {}
+    private final ObjectMapper objMapper = new ObjectMapper();
+    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
-	public static JsonUtils Instance = new JsonUtils();
+    public JsonUtils() {
+    }
 
-	public JsonUtils(Map<SerializationFeature, Boolean> config) {
-		for(SerializationFeature feature : config.keySet()) {
-			objMapper.configure(feature, config.get(feature));
-		}
-		objMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
-		objMapper.setSerializationInclusion(Include.NON_NULL);
-	}
+    public static JsonUtils Instance = new JsonUtils();
 
-	public <T> List<T> getList(String json){
-		try {
-			return objMapper.readValue(json, new TypeReference<List<T>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public JsonUtils(Map<SerializationFeature, Boolean> config) {
+        for (SerializationFeature feature : config.keySet()) {
+            objMapper.configure(feature, config.get(feature));
+        }
+        objMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+        objMapper.setSerializationInclusion(Include.NON_NULL);
+    }
 
-	public <T> List<T> getList(InputStream inputStream){
-		try {
-			return objMapper.readValue(inputStream, new TypeReference<List<T>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public <T> List<T> getList(String json) {
+        try {
+            return objMapper.readValue(json, new TypeReference<List<T>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, String> getMap(String json){
-		try {
-			return objMapper.readValue(json, new TypeReference<Map<String, String>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public <T> List<T> getList(InputStream inputStream) {
+        try {
+            return objMapper.readValue(inputStream, new TypeReference<List<T>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, String> getMap(InputStream inpuStream){
-		try {
-			return objMapper.readValue(inpuStream, new TypeReference<Map<String, String>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public Map<String, String> getMap(String json) {
+        try {
+            return objMapper.readValue(json, new TypeReference<Map<String, String>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, String> getMap(byte[] data){
-		try {
-			return objMapper.readValue(data, new TypeReference<Map<String, String>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public Map<String, String> getMap(InputStream inpuStream) {
+        try {
+            return objMapper.readValue(inpuStream, new TypeReference<Map<String, String>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, Integer> getMapInteger(String json){
-		try {
-			return objMapper.readValue(json, new TypeReference<Map<String, Integer>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public Map<String, String> getMap(byte[] data) {
+        try {
+            return objMapper.readValue(data, new TypeReference<Map<String, String>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, Object> getMapObject(String json){
-		try {
-			return objMapper.readValue(json, new TypeReference<Map<String, Object>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public Map<String, Integer> getMapInteger(String json) {
+        try {
+            return objMapper.readValue(json, new TypeReference<Map<String, Integer>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, Object> getMapObject(InputStream inpuStream){
-		try {
-			return objMapper.readValue(inpuStream, new TypeReference<Map<String, Object>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public Map<String, Object> getMapObject(String json) {
+        try {
+            return objMapper.readValue(json, new TypeReference<Map<String, Object>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public Map<String, Object> getMapObject(byte[] data){
-		try {
-			return objMapper.readValue(data, new TypeReference<Map<String, Object>>(){});
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public Map<String, Object> getMapObject(InputStream inpuStream) {
+        try {
+            return objMapper.readValue(inpuStream, new TypeReference<Map<String, Object>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public <T> T getObject(Class<T> type ,String json){
-		try {
-			return objMapper.readValue(json, type);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public Map<String, Object> getMapObject(byte[] data) {
+        try {
+            return objMapper.readValue(data, new TypeReference<Map<String, Object>>() {
+            });
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public <T> T getObject(Class<T> type ,byte[] data){
-		try {
-			return objMapper.readValue(data, type);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public <T> T getObject(Class<T> type, String json) {
+        try {
+            return objMapper.readValue(json, type);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	public <T> T getObject(String json, TypeReference<T> type){
-		try {
-			return objMapper.readValue(json, type);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			return null;
-		}
-	}
+    public <T> T getObject(Class<T> type, byte[] data) {
+        try {
+            return objMapper.readValue(data, type);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-	public String toJson(Object obj){
-		try {
-			return objMapper.writeValueAsString(obj);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public <T> T getObject(String json, TypeReference<T> type) {
+        try {
+            return objMapper.readValue(json, type);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
 
-	public byte[] toByteJson(Object obj){
-		try {
-			return objMapper.writeValueAsBytes(obj);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
-			return null;
-		}
-	}
+    public <T> T getObject(byte[] data, TypeReference<T> type) {
+        try {
+            return objMapper.readValue(data, type);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
+
+    public <T> T getObject(InputStream inpuStream, TypeReference<T> type) {
+        try {
+            return objMapper.readValue(inpuStream, type);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return null;
+        }
+    }
+
+    public String toJson(Object obj) {
+        try {
+            return objMapper.writeValueAsString(obj);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public byte[] toByteJson(Object obj) {
+        try {
+            return objMapper.writeValueAsBytes(obj);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
-

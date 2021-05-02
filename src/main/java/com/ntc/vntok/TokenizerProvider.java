@@ -17,6 +17,7 @@ package com.ntc.vntok;
 
 import com.ntc.vntok.segmenter.AbstractResolver;
 import com.ntc.vntok.segmenter.Segmenter;
+import com.ntc.vntok.segmenter.UnigramModel;
 import com.ntc.vntok.segmenter.UnigramResolver;
 import java.io.File;
 import java.io.FileInputStream;
@@ -91,7 +92,8 @@ public class TokenizerProvider {
             // create a unigram resolver. 
             //
             //resolver = new UnigramResolver(properties.getProperty("unigramModel"));
-            resolver = new UnigramResolver();
+            //resolver = new UnigramResolver();
+            resolver = new UnigramModel();
             // create a lexical segmenter that use the unigram resolver
             //
             System.out.println("Creating lexical segmenter...");
@@ -103,7 +105,7 @@ public class TokenizerProvider {
             //tokenizer = new Tokenizer(properties, segmenter);
             tokenizer = new Tokenizer(segmenter);
             // Do not resolve the ambiguity.
-//			tokenizer.setAmbiguitiesResolved(false);
+			//tokenizer.setAmbiguitiesResolved(false);
             System.out.println("OK");
         } catch (Exception e) {
             e.printStackTrace();
