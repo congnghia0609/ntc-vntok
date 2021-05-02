@@ -34,8 +34,10 @@ public class MainApp {
             
             //String s = "Học sinh học sinh học.";
             // Học_sinh học_sinh học .
-            String s = "VNTok là công cụ tách từ Tiếng Việt.";
+            //String s = "VNTok là công cụ tách từ Tiếng Việt.";
             // VNTok là công_cụ tách từ Tiếng_Việt .
+            String s = "VNTok là công cụ tách từ Tiếng Việt. Học sinh học sinh học.";
+            // VNTok là công_cụ tách từ Tiếng_Việt . Học_sinh học_sinh học .
             
             System.out.println(s);
             String ls = vntok.tokenizeSentence(s);
