@@ -19,6 +19,7 @@ import com.ntc.fsm.fsa.DFA;
 import com.ntc.fsm.fsa.DFASimulator;
 import com.ntc.fsm.io.FSMUnmarshaller;
 import com.ntc.fsm.IConstants;
+import com.ntc.vntok.TCommon;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.InputStream;
 
@@ -40,12 +41,22 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
      *
      * @param dfaLexiconFilename
      */
+//    private DFALexiconRecognizer() {
+//        if (lexiconDFA == null) {
+//            // build the lexicon DFA
+//            System.out.print("Load the lexicon automaton...");
+//            InputStream dfaLexiconStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXICON_DFA);
+//            lexiconDFA = (DFA) new FSMUnmarshaller().unmarshal(dfaLexiconStream, IConstants.FSM_DFA);
+//            System.out.println("OK.");
+//        }
+//    }
     private DFALexiconRecognizer() {
         if (lexiconDFA == null) {
             // build the lexicon DFA
             System.out.print("Load the lexicon automaton...");
-            InputStream dfaLexiconStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXICON_DFA);
-            lexiconDFA = (DFA) new FSMUnmarshaller().unmarshal(dfaLexiconStream, IConstants.FSM_DFA);
+            lexiconDFA = new DFA();
+            InputStream dfaLexiconStream = ResourceUtil.getResourceAsStream(TCommon.LEXICON_DFA);
+            lexiconDFA.load(dfaLexiconStream);
             System.out.println("OK.");
         }
     }
@@ -65,7 +76,7 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
     }
 
     /**
-     * @param dfaLexiconFilename the DFA lexicon filen
+     * @param dfaLexiconFilename the DFA lexicon file
      * @return The singleton instance of the lexicon DFA.
      */
     public static DFALexiconRecognizer getInstance(String dfaLexiconFilename) {
@@ -76,7 +87,6 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
     }
     
     /**
-     * @param dfaLexiconFilename the DFA lexicon filen
      * @return The singleton instance of the lexicon DFA.
      */
     public static DFALexiconRecognizer getInstance() {

@@ -17,7 +17,6 @@ package com.ntc.fsm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +46,11 @@ public abstract class FSM {
      * Default constructor.
      */
     public FSM() {
-        states = new HashMap<Integer, State>();
+        states = new HashMap<>();
         // create the initial state
         createInitialState();
         nTransitions = 0;
-        intransitionMap = new HashMap<Integer, List<Transition>>();
+        intransitionMap = new HashMap<>();
     }
 
     private void createInitialState() {
@@ -96,7 +95,7 @@ public abstract class FSM {
     private void addIntransitionMap(Transition t) {
         List<Transition> list = intransitionMap.get(t.getTarget());
         if (list == null) {
-            list = new ArrayList<Transition>();
+            list = new ArrayList<>();
             intransitionMap.put(t.getTarget(), list);
         }
         list.add(t);
@@ -163,7 +162,7 @@ public abstract class FSM {
         if (id < 0 || id > states.size()) {
             return null;
         }
-        return states.get(new Integer(id));
+        return states.get(id);
     }
 
     /**
@@ -176,8 +175,7 @@ public abstract class FSM {
     public Transition getTransition(int src, int tar) {
         State s = getState(src);
         List<Transition> outTransitions = s.getOutTransitions();
-        for (Iterator<Transition> it = outTransitions.iterator(); it.hasNext();) {
-            Transition t = it.next();
+        for (Transition t : outTransitions) {
             if (t.getTarget() == tar) {
                 return t;
             }
@@ -191,7 +189,7 @@ public abstract class FSM {
      * @return The initial state of the machine. By convention, the initial state always has id zero.
      */
     public State getInitialState() {
-        return states.get(new Integer(0));
+        return states.get(0);
     }
 
     /**
@@ -218,8 +216,7 @@ public abstract class FSM {
      * @return the next state or <tt>null</tt>.
      */
     public State getNextState(State currentState, char input) {
-        for (Iterator<Transition> it = currentState.getOutTransitions().iterator(); it.hasNext();) {
-            Transition t = it.next();
+        for (Transition t : currentState.getOutTransitions()) {
             if (t.getInput() == input) {
                 return getState(t.getTarget());
             }
@@ -235,8 +232,7 @@ public abstract class FSM {
      * @return the output
      */
     public String getNextOutput(State currentState, char input) {
-        for (Iterator<Transition> it = currentState.getOutTransitions().iterator(); it.hasNext();) {
-            Transition t = it.next();
+        for (Transition t : currentState.getOutTransitions()) {
             if (t.getInput() == input) {
                 return t.getOutput();
             }

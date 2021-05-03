@@ -34,7 +34,7 @@ public class FST extends FSM {
     }
 
     /* (non-Javadoc)
-	 * @see vn.hus.fsm.FSM#getSimulator()
+	 * @see FSM#getSimulator()
      */
     @Override
     public ISimulator getSimulator() {
@@ -42,7 +42,7 @@ public class FST extends FSM {
     }
 
     /* (non-Javadoc)
-	 * @see vn.hus.fsm.FSM#dispose()
+	 * @see FSM#dispose()
      */
     @Override
     public void dispose() {

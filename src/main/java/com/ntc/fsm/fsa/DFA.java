@@ -15,9 +15,20 @@
  */
 package com.ntc.fsm.fsa;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.ntc.fsm.FSM;
+import com.ntc.fsm.IConstants;
 import com.ntc.fsm.ISimulator;
 import com.ntc.fsm.Simulator;
+import com.ntc.fsm.State;
+import com.ntc.fsm.Transition;
+import com.ntc.fsm.jaxb.Fsm;
+import com.ntc.fsm.jaxb.S;
+import com.ntc.fsm.jaxb.States;
+import com.ntc.fsm.jaxb.T;
+import com.ntc.fsm.jaxb.Transitions;
+import com.ntc.vntok.utils.JsonUtils;
+import java.io.InputStream;
 
 /**
  *
@@ -34,8 +45,42 @@ public class DFA extends FSM {
         super();
     }
 
+    /**
+     * Load a DFA from a InputStream.
+     *
+     * @param stream InputStream
+     */
+    public void load(InputStream stream) {
+        try {
+            Fsm fsm = JsonUtils.Instance.getObject(stream, new TypeReference<Fsm>() {});
+            // fill the states 
+            States states = fsm.getStates();
+            for (S s : states.getS()) {
+                State state = new State(s.getId());
+                state.setType(s.getType());
+                addState(state);
+            }
+            // fill the transitions
+            Transitions transitions = fsm.getTransitions();
+            for (T t : transitions.getT()) {
+                char input = t.getInp().charAt(0);
+                String output = t.getOut();
+                Transition transition;
+                if (output != null && output.equals(IConstants.EMPTY_STRING)) {
+                    transition = new Transition(t.getSrc(), t.getTar(), input);
+                } else {
+                    transition = new Transition(t.getSrc(), t.getTar(), input, output);
+                }
+                addTransition(transition);
+            }
+        } catch (Exception e) {
+            System.out.println("Error when load a DFA from a InputStream.");
+            e.printStackTrace();
+        }
+    }
+
     /* (non-Javadoc)
-	 * @see vn.hus.fsm.FSM#getSimulator()
+	 * @see FSM#getSimulator()
      */
     @Override
     public ISimulator getSimulator() {
@@ -43,7 +88,7 @@ public class DFA extends FSM {
     }
 
     /* (non-Javadoc)
-	 * @see vn.hus.fsm.FSM#dispose()
+	 * @see FSM#dispose()
      */
     @Override
     public void dispose() {

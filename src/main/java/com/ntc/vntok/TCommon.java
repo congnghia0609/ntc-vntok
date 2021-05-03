@@ -25,5 +25,7 @@ public class TCommon {
     // Unigram model
     public static final String UNIGRAM_MODEL = "models/tok/ngram/unigram.json";
     
+    // The lexicon dfa.
+    public static String LEXICON_DFA = "models/tok/dfa/dfaLexicon.json";
     
 }

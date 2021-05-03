@@ -59,6 +59,9 @@ public class Transitions {
     @XmlElement(required = true)
     protected List<T> t;
 
+    public Transitions() {
+    }
+
     /**
      * Gets the value of the t property.
      *
@@ -84,5 +87,9 @@ public class Transitions {
             t = new ArrayList<T>();
         }
         return this.t;
+    }
+
+    public void setT(List<T> t) {
+        this.t = t;
     }
 }

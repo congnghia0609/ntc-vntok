@@ -135,9 +135,10 @@ public class FSMUnmarshaller {
     }
     
     /**
-     * Unmarshal a fsm from a file.
+     * load a fsm from a InputStream.
      *
-     * @param filename a file.
+     * @param stream InputStream
+     * @param machineType String
      * @return a state machine
      */
     public FSM unmarshal(InputStream stream, String machineType) {
@@ -157,16 +158,14 @@ public class FSMUnmarshaller {
                 Fsm fsm2 = (Fsm) obj;
                 // fill the states 
                 States states = fsm2.getStates();
-                for (Iterator<S> it = states.getS().iterator(); it.hasNext();) {
-                    S s = it.next();
+                for (S s : states.getS()) {
                     State state = new State(s.getId());
                     state.setType(s.getType());
                     fsm.addState(state);
                 }
                 // fill the transitions
                 Transitions transitions = fsm2.getTransitions();
-                for (Iterator<T> it = transitions.getT().iterator(); it.hasNext();) {
-                    T t = it.next();
+                for (T t : transitions.getT()) {
                     char input = t.getInp().charAt(0);
                     String output = t.getOut();
                     Transition transition;

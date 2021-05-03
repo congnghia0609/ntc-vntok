@@ -59,6 +59,9 @@ public class States {
     @XmlElement(required = true)
     protected List<S> s;
 
+    public States() {
+    }
+
     /**
      * Gets the value of the s property.
      *
@@ -84,5 +87,9 @@ public class States {
             s = new ArrayList<S>();
         }
         return this.s;
+    }
+
+    public void setS(List<S> s) {
+        this.s = s;
     }
 }

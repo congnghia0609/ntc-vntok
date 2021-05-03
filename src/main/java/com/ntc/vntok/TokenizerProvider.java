@@ -19,7 +19,6 @@ import com.ntc.vntok.segmenter.AbstractResolver;
 import com.ntc.vntok.segmenter.Segmenter;
 import com.ntc.vntok.segmenter.UnigramModel;
 import com.ntc.vntok.segmenter.UnigramResolver;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

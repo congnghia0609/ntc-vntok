@@ -98,7 +98,7 @@ public class Segmenter {
      * @param resolver
      */
     public Segmenter(Properties properties, AbstractResolver resolver) {
-        result = new ArrayList<String[]>();
+        result = new ArrayList<>();
 //        createLogger();
         // create DFA lexicon recognizer
         getDFALexiconRecognizer(properties);
