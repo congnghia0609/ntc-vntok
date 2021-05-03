@@ -87,12 +87,12 @@ public class Tokenizer {
      * A lexer token outputer
      */
     private Outputer outputer = null;
-    
+
     /**
      * A list of tokenizer listeners
      */
     private final List<ITokenizerListener> tokenizerListener = new ArrayList<>();
-    
+
     /**
      * Are ambiguities resolved? True by default.
      */
@@ -126,7 +126,7 @@ public class Tokenizer {
         // tokenization progress
         addTokenizerListener(new SimpleProgressReporter());
     }
-    
+
     /**
      * Creates a tokenizer from a lexers filename and a segmenter.
      *
@@ -230,7 +230,7 @@ public class Tokenizer {
         // convert the list of rules to an array and save it
         rules = ruleList.toArray(rules);
     }
-    
+
     /**
      * Load lexer specification file. This text file contains lexical rules to tokenize a text
      *

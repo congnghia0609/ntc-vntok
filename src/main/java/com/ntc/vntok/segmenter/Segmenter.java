@@ -28,9 +28,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,9 +38,9 @@ import java.util.logging.Logger;
  */
 public class Segmenter {
 
-    private static StringNormalizer normalizer;
+    private Logger logger = LoggerFactory.getLogger(Segmenter.class);
 
-    private Logger logger;
+    private static StringNormalizer normalizer;
 
     /**
      * The DFA representing Vietnamese lexicon (the internal lexicon).
@@ -73,7 +72,7 @@ public class Segmenter {
      */
     public Segmenter() {
         result = new ArrayList<String[]>();
-        createLogger();
+//        createLogger();
         // create DFA lexicon recognizer
         getDFALexiconRecognizer();
         // create external lexicon recognizer
@@ -100,7 +99,7 @@ public class Segmenter {
      */
     public Segmenter(Properties properties, AbstractResolver resolver) {
         result = new ArrayList<String[]>();
-        createLogger();
+//        createLogger();
         // create DFA lexicon recognizer
         getDFALexiconRecognizer(properties);
         // create external lexicon recognizer
@@ -110,15 +109,14 @@ public class Segmenter {
         this.resolver = resolver;
     }
 
-    private void createLogger() {
-        if (logger == null) {
-            logger = Logger.getLogger(Segmenter.class.getName());
-            // use a console handler to trace the log
-            logger.addHandler(new ConsoleHandler());
-            logger.setLevel(Level.FINEST);
-        }
-    }
-
+//    private void createLogger() {
+//        if (logger == null) {
+//            logger = Logger.getLogger(Segmenter.class.getName());
+//            // use a console handler to trace the log
+//            logger.addHandler(new ConsoleHandler());
+//            logger.setLevel(Level.FINEST);
+//        }
+//    }
     /**
      * @return The result list. Each element of the list is a possible segmentation. The list is normally contains less
      * than 4 results.
@@ -298,7 +296,7 @@ public class Segmenter {
         }
         // make sure that the graph is now connected:
         if (GraphConnectivity.countComponents(graph) != 1) {
-            logger.log(Level.INFO, "Hmm, fail to connect the graph!");
+            logger.info("Hmm, fail to connect the graph!");
         }
     }
 

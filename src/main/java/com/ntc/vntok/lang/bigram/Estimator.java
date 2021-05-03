@@ -88,16 +88,16 @@ public class Estimator {
      */
     private void init() {
         // init the collections
-        unigram = new HashMap<String, Integer>();
-        bigram = new HashMap<Couple, Integer>();
-        probabilities = new ArrayList<Couple>();
+        unigram = new HashMap<>();
+        bigram = new HashMap<>();
+        probabilities = new ArrayList<>();
         // create the unmarshaller
         unmarshaller = new LexiconUnmarshaller();
         // create the marshaller
         marshaller = new LexiconMarshaller();
 
         //
-        tokenMap = new HashMap<String, List<Couple>>();
+        tokenMap = new HashMap<>();
     }
 
     /**
@@ -290,8 +290,7 @@ public class Estimator {
         // load unigram model
         Corpus unigramCorpus = unmarshaller.unmarshal(unigramDataFile);
         List<W> ws = unigramCorpus.getBody().getW();
-        for (Iterator<W> iterator = ws.iterator(); iterator.hasNext();) {
-            W w = iterator.next();
+        for (W w : ws) {
             String freq = w.getMsd();
             String word = w.getContent();
             unigram.put(word, Integer.parseInt(freq));
@@ -300,8 +299,7 @@ public class Estimator {
         // and initialize the token map 
         Corpus bigramCorpus = unmarshaller.unmarshal(bigramDataFile);
         ws = bigramCorpus.getBody().getW();
-        for (Iterator<W> iterator = ws.iterator(); iterator.hasNext();) {
-            W w = iterator.next();
+        for (W w : ws) {
             String freq = w.getMsd();
             String words = w.getContent();
             // split the word using a comma. 
@@ -321,7 +319,7 @@ public class Estimator {
                 //
                 List<Couple> secondTokens = tokenMap.get(first);
                 if (secondTokens == null) {
-                    secondTokens = new ArrayList<Couple>();
+                    secondTokens = new ArrayList<>();
                     secondTokens.add(couple);
                     tokenMap.put(first, secondTokens);
                 } else {
@@ -343,7 +341,7 @@ public class Estimator {
         Iterator<String> token = unigram.keySet().iterator();
         while (token.hasNext()) {
             String t = token.next();
-            n += (unigram.get(t).intValue());
+            n += unigram.get(t);
         }
         return n;
     }
@@ -357,20 +355,18 @@ public class Estimator {
     private void marshalConditionalProbabilities(String filename) {
         System.out.println("Marshalling conditional probabilities...");
         // prepare a map for marshalling
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         System.out.println("probabilities's size = " + probabilities.size());
         String key;
         String value;
         DecimalFormat decimalFormat = new DecimalFormat("#.000");
-        for (Iterator<Couple> it = probabilities.iterator(); it.hasNext();) {
-            Couple c = it.next();
+        for (Couple c : probabilities) {
             key = c.getFirst() + "|" + c.getSecond();
             value = decimalFormat.format(c.getProb());
             map.put(key, value);
         }
         // marshal the map
         marshaller.marshal(map, filename);
-
     }
 
     /**
@@ -412,7 +408,6 @@ public class Estimator {
         estimateConditionalProb();
 //		estimator.outputConditionalProbabilities(IConstants.CONDITIONAL_PROBABILITIES);
         marshalConditionalProbabilities(IConstants.CONDITIONAL_PROBABILITIES);
-
     }
 
     /**

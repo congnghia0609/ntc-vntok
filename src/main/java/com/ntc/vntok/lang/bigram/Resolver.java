@@ -83,8 +83,7 @@ public class Resolver {
         // load unigram model
         Corpus unigramCorpus = unmarshaller.unmarshal(unigramFilename);
         List<W> ws = unigramCorpus.getBody().getW();
-        for (Iterator<W> iterator = ws.iterator(); iterator.hasNext();) {
-            W w = iterator.next();
+        for (W w : ws) {
             String freq = w.getMsd();
             String word = w.getContent();
             unigram.put(word, Double.parseDouble(freq));
@@ -92,9 +91,9 @@ public class Resolver {
     }
 
     private void init() {
-        probabilities = new HashMap<Couple, Integer>();
-        unigram = new HashMap<String, Double>();
-        ambiguities = new HashSet<Ambiguity>();
+        probabilities = new HashMap<>();
+        unigram = new HashMap<>();
+        ambiguities = new HashSet<>();
 
         // create the unmarshaller
         unmarshaller = new LexiconUnmarshaller();
@@ -200,8 +199,7 @@ public class Resolver {
      * @see #resolve(Ambiguity)
      */
     public void resolve(List<Ambiguity> ambiguities) {
-        for (Iterator<Ambiguity> it = ambiguities.iterator(); it.hasNext();) {
-            Ambiguity a = it.next();
+        for (Ambiguity a : ambiguities) {
             resolve(a);
         }
     }

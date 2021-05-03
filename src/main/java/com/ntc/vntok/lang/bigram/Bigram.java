@@ -147,9 +147,8 @@ public class Bigram {
      */
     public void marshal(String filename) {
         // prepare a map for marshalling
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        for (Iterator<Couple> it = bigram.keySet().iterator(); it.hasNext();) {
-            Couple c = it.next();
+        Map<String, Integer> map = new HashMap<>();
+        for (Couple c : bigram.keySet()) {
             String key = c.getFirst() + "," + c.getSecond();
             int value = c.getFreq();
             map.put(key, value);
