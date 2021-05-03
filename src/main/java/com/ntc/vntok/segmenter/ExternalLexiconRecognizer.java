@@ -44,7 +44,7 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
         InputStream externalLexiconStream = ResourceUtil.getResourceAsStream(IConstants.EXTERNAL_LEXICON);
         Corpus lexicon = lexiconUnmarshaller.unmarshal(externalLexiconStream);
         List<W> ws = lexicon.getBody().getW();
-        externalLexicon = new HashSet<String>();
+        externalLexicon = new HashSet<>();
         // add all prefixes to the set after converting them to lowercase
         for (W w : ws) {
             externalLexicon.add(w.getContent().toLowerCase());
@@ -63,7 +63,7 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
         LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
         Corpus lexicon = lexiconUnmarshaller.unmarshal(externalLexiconFilename);
         List<W> ws = lexicon.getBody().getW();
-        externalLexicon = new HashSet<String>();
+        externalLexicon = new HashSet<>();
         // add all prefixes to the set after converting them to lowercase
         for (W w : ws) {
             externalLexicon.add(w.getContent().toLowerCase());
@@ -75,17 +75,11 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
         this(properties.getProperty("externalLexicon"));
     }
 
-    /* (non-Javadoc)
-	 * @see AbstractLexiconRecognizer#accept(java.lang.String)
-     */
     @Override
     public boolean accept(String token) {
         return externalLexicon.contains(token);
     }
 
-    /* (non-Javadoc)
-	 * @see AbstractLexiconRecognizer#dispose()
-     */
     @Override
     public void dispose() {
         externalLexicon.clear();

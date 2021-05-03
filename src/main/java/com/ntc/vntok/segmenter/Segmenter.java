@@ -24,8 +24,8 @@ import com.ntc.vntok.graph.io.GraphIO;
 import com.ntc.vntok.graph.search.ShortestPathFinder;
 import com.ntc.vntok.graph.util.GraphConnectivity;
 import com.ntc.vntok.utils.CaseConverter;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import org.slf4j.Logger;
@@ -71,7 +71,7 @@ public class Segmenter {
      * Default constructor.
      */
     public Segmenter() {
-        result = new ArrayList<String[]>();
+        result = new ArrayList<>();
 //        createLogger();
         // create DFA lexicon recognizer
         getDFALexiconRecognizer();
@@ -97,7 +97,7 @@ public class Segmenter {
      * @param properties
      * @param resolver
      */
-    public Segmenter(Properties properties, AbstractResolver resolver) {
+    public Segmenter(Properties properties, AbstractResolver resolver) throws FileNotFoundException {
         result = new ArrayList<>();
 //        createLogger();
         // create DFA lexicon recognizer
@@ -109,14 +109,6 @@ public class Segmenter {
         this.resolver = resolver;
     }
 
-//    private void createLogger() {
-//        if (logger == null) {
-//            logger = Logger.getLogger(Segmenter.class.getName());
-//            // use a console handler to trace the log
-//            logger.addHandler(new ConsoleHandler());
-//            logger.setLevel(Level.FINEST);
-//        }
-//    }
     /**
      * @return The result list. Each element of the list is a possible segmentation. The list is normally contains less
      * than 4 results.
@@ -204,7 +196,7 @@ public class Segmenter {
      *
      * @return the DFA lexicon recognizer in use
      */
-    private AbstractLexiconRecognizer getDFALexiconRecognizer(Properties properties) {
+    private AbstractLexiconRecognizer getDFALexiconRecognizer(Properties properties) throws FileNotFoundException {
         if (lexiconRecognizer == null) {
             // use the DFA lexicon recognizer
             // user can use any lexicon recognizer here.
@@ -233,7 +225,7 @@ public class Segmenter {
      */
     private AbstractLexiconRecognizer getExternalLexiconRecognizer(Properties properties) {
         if (externalLexiconRecognizer == null) {
-            externalLexiconRecognizer = new ExternalLexiconRecognizer(properties);
+            externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
         }
         return externalLexiconRecognizer;
     }
@@ -396,10 +388,9 @@ public class Segmenter {
      * Print the result of the segmentation.
      */
     public void printResult() {
-        for (Iterator<String[]> it = result.iterator(); it.hasNext();) {
-            String[] segmentation = it.next();
-            for (int i = 0; i < segmentation.length; i++) {
-                System.out.print("[" + segmentation[i] + "] ");
+        for (String[] segmentation : result) {
+            for (String segmentation1 : segmentation) {
+                System.out.print("[" + segmentation1 + "] ");
             }
             System.out.println();
         }

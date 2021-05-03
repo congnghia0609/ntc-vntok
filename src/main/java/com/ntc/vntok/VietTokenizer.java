@@ -115,7 +115,6 @@ public class VietTokenizer {
 //			sentenceDetector = SentenceDetectorFactory.create(properties);
 //		}
 //	}
-    
     /**
      * A segment method, written for integration with other tools.
      *
@@ -141,7 +140,6 @@ public class VietTokenizer {
             }
             // update nTokens
             nTokens += list.size();
-            // 
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,16 +159,12 @@ public class VietTokenizer {
      */
     public String[] tokenize(String text) {
         List<String> result = new ArrayList<>();
-        //StringReader reader = new StringReader(text);
         if (TokenizerOptions.USE_SENTENCE_DETECTOR) {
             try {
-                //String[] sentences = sentenceDetector.detectSentences(reader);
                 String[] sentences = sentenceDetector.visd(text);
                 for (String sentence : sentences) {
                     // segment the sentence
                     result.add(segment(sentence));
-//					// add an empty line
-//					result.add("\n\n");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -183,12 +177,25 @@ public class VietTokenizer {
         return result.toArray(new String[result.size()]);
     }
 
+    public List<String> tokenize2(String text) {
+        List<String> result = new ArrayList<>();
+        if (TokenizerOptions.USE_SENTENCE_DETECTOR) {
+            String[] sentences = sentenceDetector.visd(text);
+            for (String sentence : sentences) {
+                // segment the sentence
+                result.add(segment(sentence));
+            }
+        } else {
+            // process all the text without detecting sentences
+            result.add(segment(text));
+        }
+        // return the result
+        return result;
+    }
+
     public String tokenizeSentence(String input) {
-        String rs = "";
-        String[] sentences = tokenize(input);
-        //System.out.println("sentences:" + Arrays.asList(sentences));
-        rs = String.join(" ", sentences);
-        return rs;
+        List<String> sentences = tokenize2(input);
+        return String.join(" ", sentences);
     }
 
     /**

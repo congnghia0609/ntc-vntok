@@ -37,6 +37,7 @@ public abstract class FSM {
      * don't need to iterate through all states to find intransitions to a state.
      */
     protected Map<Integer, List<Transition>> intransitionMap;
+    
     /**
      * Number of transitions.
      */
@@ -62,7 +63,7 @@ public abstract class FSM {
     /**
      * Add a state to the machine.
      *
-     * @param s
+     * @param s State
      */
     public void addState(State s) {
         states.put(s.getId(), s);
@@ -71,7 +72,7 @@ public abstract class FSM {
     /**
      * Remove a state from the machine. A state to be removed must not be the initial state.
      *
-     * @param s
+     * @param s State
      */
     public void removeState(State s) {
         // cannot remove the initial state.
@@ -90,7 +91,7 @@ public abstract class FSM {
     /**
      * Add a transition to the intransition map.
      *
-     * @param t
+     * @param t Transition
      */
     private void addIntransitionMap(Transition t) {
         List<Transition> list = intransitionMap.get(t.getTarget());
@@ -104,7 +105,7 @@ public abstract class FSM {
     /**
      * Remove a transition from the intransition map.
      *
-     * @param t
+     * @param t Transition
      */
     private void removeIntransitionMap(Transition t) {
         List<Transition> list = intransitionMap.get(t.getTarget());
@@ -114,7 +115,7 @@ public abstract class FSM {
     /**
      * Add a transition to the machine.
      *
-     * @param t
+     * @param t Transition
      */
     public void addTransition(Transition t) {
         if (t != null) {
@@ -130,7 +131,7 @@ public abstract class FSM {
     /**
      * Remove a transition from the machine.
      *
-     * @param t
+     * @param t Transition
      */
     public void removeTransition(Transition t) {
         if (t != null) {

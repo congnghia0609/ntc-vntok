@@ -17,10 +17,10 @@ package com.ntc.vntok.segmenter;
 
 import com.ntc.fsm.fsa.DFA;
 import com.ntc.fsm.fsa.DFASimulator;
-import com.ntc.fsm.io.FSMUnmarshaller;
-import com.ntc.fsm.IConstants;
 import com.ntc.vntok.TCommon;
 import com.ntc.vntok.utils.ResourceUtil;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
@@ -31,9 +31,7 @@ import java.io.InputStream;
 public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
 
     private static DFA lexiconDFA = null;
-
     private static DFASimulator simulator = null;
-
     private static DFALexiconRecognizer recognizer = null;
 
     /**
@@ -66,32 +64,42 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
      *
      * @param dfaLexiconFilename
      */
-    private DFALexiconRecognizer(String dfaLexiconFilename) {
+//    private DFALexiconRecognizer(String dfaLexiconFilename) {
+//        if (lexiconDFA == null) {
+//            // build the lexicon DFA
+//            System.out.print("Load the lexicon automaton... ");
+//            lexiconDFA = (DFA) new FSMUnmarshaller().unmarshal(dfaLexiconFilename, IConstants.FSM_DFA);
+//            System.out.println("OK.");
+//        }
+//    }
+    private DFALexiconRecognizer(String dfaLexiconFilename) throws FileNotFoundException {
         if (lexiconDFA == null) {
             // build the lexicon DFA
-            System.out.print("Load the lexicon automaton... ");
-            lexiconDFA = (DFA) new FSMUnmarshaller().unmarshal(dfaLexiconFilename, IConstants.FSM_DFA);
+            System.out.print("Load the lexicon automaton from: "+dfaLexiconFilename+" ...");
+            lexiconDFA = new DFA();
+            InputStream dfaLexiconStream = new FileInputStream(dfaLexiconFilename);
+            lexiconDFA.load(dfaLexiconStream);
             System.out.println("OK.");
         }
     }
 
-    /**
-     * @param dfaLexiconFilename the DFA lexicon file
-     * @return The singleton instance of the lexicon DFA.
-     */
-    public static DFALexiconRecognizer getInstance(String dfaLexiconFilename) {
-        if (recognizer == null) {
-            recognizer = new DFALexiconRecognizer(dfaLexiconFilename);
-        }
-        return recognizer;
-    }
-    
     /**
      * @return The singleton instance of the lexicon DFA.
      */
     public static DFALexiconRecognizer getInstance() {
         if (recognizer == null) {
             recognizer = new DFALexiconRecognizer();
+        }
+        return recognizer;
+    }
+    
+    /**
+     * @param dfaLexiconFilename the DFA lexicon file
+     * @return The singleton instance of the lexicon DFA.
+     */
+    public static DFALexiconRecognizer getInstance(String dfaLexiconFilename) throws FileNotFoundException {
+        if (recognizer == null) {
+            recognizer = new DFALexiconRecognizer(dfaLexiconFilename);
         }
         return recognizer;
     }
@@ -106,17 +114,11 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
         return simulator;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.segmenter.AbstractLexiconRecognizer#accept(java.lang.String)
-     */
     @Override
     public boolean accept(String token) {
         return getDFASimulator().accept(token);
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.segmenter.AbstractLexiconRecognizer#dispose()
-     */
     @Override
     public void dispose() {
         lexiconDFA.dispose();

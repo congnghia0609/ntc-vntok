@@ -33,14 +33,14 @@ import java.io.LineNumberReader;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -48,6 +48,8 @@ import java.util.regex.Pattern;
  * @since Mar 25, 2021
  */
 public class Tokenizer {
+
+    private Logger logger = LoggerFactory.getLogger(Tokenizer.class);
 
     /**
      * List of rules for this lexer
@@ -98,8 +100,6 @@ public class Tokenizer {
      */
     private boolean isAmbiguitiesResolved = true;
 
-    private Logger logger;
-
     private final ResultMerger resultMerger;
 
     private final ResultSplitter resultSplitter;
@@ -113,7 +113,7 @@ public class Tokenizer {
         // load the lexer rules
         loadLexerRules();
         this.segmenter = segmenter;
-        result = new ArrayList<TaggedWord>();
+        result = new ArrayList<>();
         // use a plain (default) outputer
         createOutputer();
         // create result merger
@@ -121,7 +121,7 @@ public class Tokenizer {
         // create a result splitter
         resultSplitter = new ResultSplitter();
         // create logger
-        createLogger();
+        //createLogger();
         // add a simple tokenizer listener for reporting 
         // tokenization progress
         addTokenizerListener(new SimpleProgressReporter());
@@ -137,7 +137,7 @@ public class Tokenizer {
         // load the lexer rules
         loadLexerRules(lexersFilename);
         this.segmenter = segmenter;
-        result = new ArrayList<TaggedWord>();
+        result = new ArrayList<>();
         // use a plain (default) outputer
         createOutputer();
         // create result merger
@@ -145,7 +145,7 @@ public class Tokenizer {
         // create a result splitter
         resultSplitter = new ResultSplitter();
         // create logger
-        createLogger();
+        //createLogger();
         // add a simple tokenizer listener for reporting 
         // tokenization progress
         addTokenizerListener(new SimpleProgressReporter());
@@ -161,7 +161,7 @@ public class Tokenizer {
         // load the lexer rules
         loadLexerRules(properties.getProperty("lexers"));
         this.segmenter = segmenter;
-        result = new ArrayList<TaggedWord>();
+        result = new ArrayList<>();
         // use a plain (default) outputer
         createOutputer();
         // create result merger
@@ -169,7 +169,7 @@ public class Tokenizer {
         // create a result splitter
         resultSplitter = new ResultSplitter(properties);
         // create logger
-        createLogger();
+        //createLogger();
         // add a simple tokenizer listener for reporting 
         // tokenization progress
         addTokenizerListener(new SimpleProgressReporter());
@@ -195,22 +195,22 @@ public class Tokenizer {
         this.outputer = outputer;
     }
 
-    private void createLogger() {
-        if (logger == null) {
-            logger = Logger.getLogger(Segmenter.class.getName());
-            // use a console handler to trace the log
-//			logger.addHandler(new ConsoleHandler());
-            try {
-                logger.addHandler(new FileHandler("tokenizer.log"));
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            logger.setLevel(Level.FINEST);
-        }
-    }
-
+//    private void createLogger() {
+//        if (logger == null) {
+//            logger = Logger.getLogger(Segmenter.class.getName());
+//            // use a console handler to trace the log
+////			logger.addHandler(new ConsoleHandler());
+//            try {
+//                logger.addHandler(new FileHandler("tokenizer.log"));
+//            } catch (SecurityException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            logger.setLevel(Level.FINEST);
+//        }
+//    }
+    
     /**
      * Load lexer specification file. This text file contains lexical rules to tokenize a text
      *
@@ -220,7 +220,7 @@ public class Tokenizer {
         LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
         InputStream lexersStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXERS);
         Corpus corpus = unmarshaller.unmarshal(lexersStream);
-        ArrayList<LexerRule> ruleList = new ArrayList<LexerRule>();
+        List<LexerRule> ruleList = new ArrayList<>();
         List<W> lexers = corpus.getBody().getW();
         for (W w : lexers) {
             LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
@@ -239,7 +239,7 @@ public class Tokenizer {
     private void loadLexerRules(String lexersFilename) {
         LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
         Corpus corpus = unmarshaller.unmarshal(lexersFilename);
-        ArrayList<LexerRule> ruleList = new ArrayList<LexerRule>();
+        List<LexerRule> ruleList = new ArrayList<>();
         List<W> lexers = corpus.getBody().getW();
         for (W w : lexers) {
             LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
@@ -254,6 +254,8 @@ public class Tokenizer {
      * Tokenize a reader. If ambiguities are not resolved, this method selects the first segmentation for a phrase if
      * there are more than one segmentations. Otherwise, it selects automatically the most probable segmentation
      * returned by the ambiguity resolver.
+     * @param reader
+     * @throws java.io.IOException
      */
     public void tokenize(Reader reader) throws IOException {
         // Firstly, the result list is emptied
@@ -281,8 +283,8 @@ public class Tokenizer {
                     String[] tokens = null;
                     // segment the phrase
                     List<String[]> segmentations = segmenter.segment(phrase);
-                    if (segmentations.size() == 0) {
-                        logger.log(Level.WARNING, "The segmenter cannot segment the phrase \"" + phrase + "\"");
+                    if (segmentations.isEmpty()) {
+                        logger.warn("The segmenter cannot segment the phrase \"" + phrase + "\"");
                     }
                     // resolved the result if there is such option
                     // and the there are many segmentations.
@@ -296,15 +298,16 @@ public class Tokenizer {
                         }
                     }
                     if (tokens == null) {
-                        logger.log(Level.WARNING, "Problem: " + phrase);
+                        logger.warn("Problem: " + phrase);
                     }
 
                     // build tokens of the segmentation
-                    for (int j = 0; j < tokens.length; j++) {
-                        WordToken token = new WordToken(
-                                new LexerRule("word"), tokens[j], lineReader.getLineNumber(), column);
-                        result.add(token);
-                        column += tokens[j].length();
+                    if (tokens != null) {
+                        for (String tok : tokens) {
+                            WordToken token = new WordToken(new LexerRule("word"), tok, lineReader.getLineNumber(), column);
+                            result.add(token);
+                            column += tok.length();
+                        }
                     }
                 } else { // phrase is simple
                     if (phrase.length() > 0) {
@@ -317,9 +320,7 @@ public class Tokenizer {
                     // try to split the lexer into two lexers
                     TaggedWord[] tokens = resultSplitter.split(taggedWord);
                     if (tokens != null) {
-                        for (TaggedWord token : tokens) {
-                            result.add(token);
-                        }
+                        result.addAll(Arrays.asList(tokens));
                     } else {
                         result.add(taggedWord);
                     }
@@ -366,11 +367,7 @@ public class Tokenizer {
      */
     private boolean isSimplePhrase(String phrase) {
         phrase = phrase.trim();
-        if (phrase.indexOf(' ') >= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return phrase.indexOf(' ') < 0;
     }
 
     /**
@@ -438,8 +435,7 @@ public class Tokenizer {
         }
         // if we didn't match anything, we exit...
         if (token == null) {
-            logger.log(Level.WARNING, "Error! line = " + lineReader.getLineNumber()
-                    + ", col = " + column);
+            logger.warn("Error! line = " + lineReader.getLineNumber() + ", col = " + column);
             System.out.println(line);
             System.exit(1);
             return null;
@@ -481,8 +477,7 @@ public class Tokenizer {
         TaggedWord token = null;
         // the end of the next token, within the line
         int tokenEnd = -1;
-        // the length of the rule that matches the most characters from the
-        // input
+        // the length of the rule that matches the most characters from the input
         int longestMatchLen = -1;
         int lineNumber = lineReader.getLineNumber();
         LexerRule selectedRule = null;

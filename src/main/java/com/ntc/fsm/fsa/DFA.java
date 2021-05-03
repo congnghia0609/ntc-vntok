@@ -37,9 +37,6 @@ import java.io.InputStream;
  */
 public class DFA extends FSM {
 
-    /**
-     * Default constructor of the DFA.
-     */
     public DFA() {
         // init the state machine
         super();
@@ -51,45 +48,34 @@ public class DFA extends FSM {
      * @param stream InputStream
      */
     public void load(InputStream stream) {
-        try {
-            Fsm fsm = JsonUtils.Instance.getObject(stream, new TypeReference<Fsm>() {});
-            // fill the states 
-            States states = fsm.getStates();
-            for (S s : states.getS()) {
-                State state = new State(s.getId());
-                state.setType(s.getType());
-                addState(state);
+        Fsm fsm = JsonUtils.Instance.getObject(stream, new TypeReference<Fsm>() {});
+        // fill the states 
+        States states = fsm.getStates();
+        for (S s : states.getS()) {
+            State state = new State(s.getId());
+            state.setType(s.getType());
+            this.addState(state);
+        }
+        // fill the transitions
+        Transitions transitions = fsm.getTransitions();
+        for (T t : transitions.getT()) {
+            char input = t.getInp().charAt(0);
+            String output = t.getOut();
+            Transition transition;
+            if (output != null && output.equals(IConstants.EMPTY_STRING)) {
+                transition = new Transition(t.getSrc(), t.getTar(), input);
+            } else {
+                transition = new Transition(t.getSrc(), t.getTar(), input, output);
             }
-            // fill the transitions
-            Transitions transitions = fsm.getTransitions();
-            for (T t : transitions.getT()) {
-                char input = t.getInp().charAt(0);
-                String output = t.getOut();
-                Transition transition;
-                if (output != null && output.equals(IConstants.EMPTY_STRING)) {
-                    transition = new Transition(t.getSrc(), t.getTar(), input);
-                } else {
-                    transition = new Transition(t.getSrc(), t.getTar(), input, output);
-                }
-                addTransition(transition);
-            }
-        } catch (Exception e) {
-            System.out.println("Error when load a DFA from a InputStream.");
-            e.printStackTrace();
+            this.addTransition(transition);
         }
     }
 
-    /* (non-Javadoc)
-	 * @see FSM#getSimulator()
-     */
     @Override
     public ISimulator getSimulator() {
         return new DFASimulator(this);
     }
 
-    /* (non-Javadoc)
-	 * @see FSM#dispose()
-     */
     @Override
     public void dispose() {
         super.dispose();
