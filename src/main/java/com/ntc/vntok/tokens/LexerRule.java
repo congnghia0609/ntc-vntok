@@ -91,6 +91,7 @@ public class LexerRule {
 
     /**
      * Return a string representation of the rule
+     * @return String
      */
     @Override
     public String toString() {

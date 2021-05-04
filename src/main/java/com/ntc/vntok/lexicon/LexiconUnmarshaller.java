@@ -18,6 +18,7 @@ package com.ntc.vntok.lexicon;
 import com.ntc.vntok.lexicon.jaxb.Corpus;
 import com.ntc.vntok.lexicon.jaxb.ObjectFactory;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -79,7 +80,7 @@ public class LexiconUnmarshaller {
      */
     public Corpus unmarshal(String filename) {
         try {
-            InputStream stream = new FileInputStream(filename); //getClass().getResourceAsStream(filename);
+            InputStream stream = new FileInputStream(filename);
 
             if (stream != null) {
                 Object object = getUnmarshaller().unmarshal(stream);
@@ -88,7 +89,7 @@ public class LexiconUnmarshaller {
                     return corpus;
                 }
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException | JAXBException e) {
             e.printStackTrace();
         }
         return null;
@@ -96,7 +97,6 @@ public class LexiconUnmarshaller {
     
     public Corpus unmarshal(InputStream stream) {
         try {
-            //InputStream stream = new FileInputStream(filename); //getClass().getResourceAsStream(filename);
             if (stream != null) {
                 Object object = getUnmarshaller().unmarshal(stream);
                 if (object instanceof Corpus) {
@@ -104,7 +104,7 @@ public class LexiconUnmarshaller {
                     return corpus;
                 }
             }
-        } catch (Exception e) {
+        } catch (JAXBException e) {
             e.printStackTrace();
         }
         return null;

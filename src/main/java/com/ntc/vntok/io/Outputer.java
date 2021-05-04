@@ -17,7 +17,6 @@ package com.ntc.vntok.io;
 
 import com.ntc.vntok.tokens.TaggedWord;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -43,7 +42,7 @@ public class Outputer {
     public Outputer() {
         // use plain outputer by default
         this.formatter = new PlainFormatter();
-        listeners = new ArrayList<IOutputListener>();
+        listeners = new ArrayList<>();
     }
 
     /**
@@ -53,7 +52,7 @@ public class Outputer {
      */
     public Outputer(IOutputFormatter formatter) {
         this.formatter = formatter;
-        listeners = new ArrayList<IOutputListener>();
+        listeners = new ArrayList<>();
     }
 
     /**
@@ -64,10 +63,7 @@ public class Outputer {
      */
     public String output(List<TaggedWord> tokens) {
         String r = "";
-        Iterator<TaggedWord> it = tokens.iterator();
-
-        while (it.hasNext()) {
-            TaggedWord token = it.next();
+        for (TaggedWord token : tokens) {
             r += formatter.outputLexeme(token);
             // notifies the outputed token to all listeners
             notifyAllListeners(token);

@@ -16,16 +16,16 @@
 package com.ntc.vntok;
 
 import com.ntc.vntok.io.Outputer;
-import com.ntc.vntok.lexicon.LexiconUnmarshaller;
-import com.ntc.vntok.lexicon.jaxb.Corpus;
-import com.ntc.vntok.lexicon.jaxb.W;
 import com.ntc.vntok.segmenter.Segmenter;
 import com.ntc.vntok.tokens.LexerRule;
 import com.ntc.vntok.tokens.TaggedWord;
 import com.ntc.vntok.tokens.WordToken;
+import com.ntc.vntok.utils.JsonUtils;
 import com.ntc.vntok.utils.ResourceUtil;
 import com.ntc.vntok.utils.UTF8FileUtility;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,7 +55,7 @@ public class Tokenizer {
     /**
      * List of rules for this lexer
      */
-    private LexerRule rules[] = new LexerRule[0];
+    private List<LexerRule> rules = new ArrayList<>();
 
     /**
      * The current input stream
@@ -79,16 +80,17 @@ public class Tokenizer {
     /**
      * A list of tokens containing the result of tokenization
      */
-    private List<TaggedWord> result = null;
+    private List<TaggedWord> result = new ArrayList<>();
 
     /**
      * A lexical segmenter
      */
     private final Segmenter segmenter;
+    
     /**
      * A lexer token outputer
      */
-    private Outputer outputer = null;
+    private Outputer outputer = new Outputer();
 
     /**
      * A list of tokenizer listeners
@@ -100,9 +102,9 @@ public class Tokenizer {
      */
     private boolean isAmbiguitiesResolved = true;
 
-    private final ResultMerger resultMerger;
+    private final ResultMerger resultMerger = new ResultMerger();
 
-    private final ResultSplitter resultSplitter;
+    private final ResultSplitter resultSplitter = new ResultSplitter();
 
     /**
      * Creates a tokenizer from a lexers filename and a segmenter.
@@ -110,21 +112,11 @@ public class Tokenizer {
      * @param segmenter a lexical segmenter<ol></ol>
      */
     public Tokenizer(Segmenter segmenter) {
+        this.segmenter = segmenter;
         // load the lexer rules
         loadLexerRules();
-        this.segmenter = segmenter;
-        result = new ArrayList<>();
-        // use a plain (default) outputer
-        createOutputer();
-        // create result merger
-        resultMerger = new ResultMerger();
-        // create a result splitter
-        resultSplitter = new ResultSplitter();
-        // create logger
-        //createLogger();
-        // add a simple tokenizer listener for reporting 
-        // tokenization progress
-        addTokenizerListener(new SimpleProgressReporter());
+        // add a simple tokenizer listener for reporting tokenization progress
+        tokenizerListener.add(new SimpleProgressReporter());
     }
 
     /**
@@ -132,23 +124,14 @@ public class Tokenizer {
      *
      * @param lexersFilename the file that contains lexer rules
      * @param segmenter a lexical segmenter<ol></ol>
+     * @throws java.io.FileNotFoundException
      */
-    public Tokenizer(String lexersFilename, Segmenter segmenter) {
+    public Tokenizer(String lexersFilename, Segmenter segmenter) throws FileNotFoundException {
+        this.segmenter = segmenter;
         // load the lexer rules
         loadLexerRules(lexersFilename);
-        this.segmenter = segmenter;
-        result = new ArrayList<>();
-        // use a plain (default) outputer
-        createOutputer();
-        // create result merger
-        resultMerger = new ResultMerger();
-        // create a result splitter
-        resultSplitter = new ResultSplitter();
-        // create logger
-        //createLogger();
-        // add a simple tokenizer listener for reporting 
-        // tokenization progress
-        addTokenizerListener(new SimpleProgressReporter());
+        // add a simple tokenizer listener for reporting tokenization progress
+        tokenizerListener.add(new SimpleProgressReporter());
     }
 
     /**
@@ -156,29 +139,14 @@ public class Tokenizer {
      *
      * @param properties
      * @param segmenter
+     * @throws java.io.FileNotFoundException
      */
-    public Tokenizer(Properties properties, Segmenter segmenter) {
+    public Tokenizer(Properties properties, Segmenter segmenter) throws FileNotFoundException {
+        this.segmenter = segmenter;
         // load the lexer rules
         loadLexerRules(properties.getProperty("lexers"));
-        this.segmenter = segmenter;
-        result = new ArrayList<>();
-        // use a plain (default) outputer
-        createOutputer();
-        // create result merger
-        resultMerger = new ResultMerger();
-        // create a result splitter
-        resultSplitter = new ResultSplitter(properties);
-        // create logger
-        //createLogger();
-        // add a simple tokenizer listener for reporting 
-        // tokenization progress
-        addTokenizerListener(new SimpleProgressReporter());
-    }
-
-    private void createOutputer() {
-        if (outputer == null) {
-            outputer = new Outputer();
-        }
+        // add a simple tokenizer listener for reporting tokenization progress
+        tokenizerListener.add(new SimpleProgressReporter());
     }
 
     /**
@@ -216,19 +184,26 @@ public class Tokenizer {
      *
      * @param lexersFilename specification file
      */
+//    private void loadLexerRules() {
+//        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
+//        InputStream lexersStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXERS);
+//        Corpus corpus = unmarshaller.unmarshal(lexersStream);
+//        List<W> lexers = corpus.getBody().getW();
+//        for (W w : lexers) {
+//            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
+//			//System.out.println(w.getMsd() + ": " + w.getContent());
+//            rules.add(lr);
+//        }
+//    }
     private void loadLexerRules() {
-        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
-        InputStream lexersStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXERS);
-        Corpus corpus = unmarshaller.unmarshal(lexersStream);
-        List<LexerRule> ruleList = new ArrayList<>();
-        List<W> lexers = corpus.getBody().getW();
-        for (W w : lexers) {
-            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
-//			System.out.println(w.getMsd() + ": " + w.getContent());
-            ruleList.add(lr);
+        InputStream lexersStream = ResourceUtil.getResourceAsStream(TCommon.LEXERS);
+        Map<String, String> mapRules = JsonUtils.Instance.getMap(lexersStream);
+        for (String k : mapRules.keySet()) {
+            LexerRule lr = new LexerRule(k, mapRules.get(k));
+            rules.add(lr);
+            //System.out.println(k + ": " + mapRules.get(k));
         }
-        // convert the list of rules to an array and save it
-        rules = ruleList.toArray(rules);
+        System.out.println("Rule lexers loaded.");
     }
 
     /**
@@ -236,18 +211,24 @@ public class Tokenizer {
      *
      * @param lexersFilename specification file
      */
-    private void loadLexerRules(String lexersFilename) {
-        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
-        Corpus corpus = unmarshaller.unmarshal(lexersFilename);
-        List<LexerRule> ruleList = new ArrayList<>();
-        List<W> lexers = corpus.getBody().getW();
-        for (W w : lexers) {
-            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
-//			System.out.println(w.getMsd() + ": " + w.getContent());
-            ruleList.add(lr);
+//    private void loadLexerRules(String lexersFilename) {
+//        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
+//        Corpus corpus = unmarshaller.unmarshal(lexersFilename);
+//        List<W> lexers = corpus.getBody().getW();
+//        for (W w : lexers) {
+//            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
+//			//System.out.println(w.getMsd() + ": " + w.getContent());
+//            rules.add(lr);
+//        }
+//    }
+    private void loadLexerRules(String lexersFilename) throws FileNotFoundException {
+        InputStream lexersStream = new FileInputStream(lexersFilename);
+        Map<String, String> mapRules = JsonUtils.Instance.getMap(lexersStream);
+        for (String k : mapRules.keySet()) {
+            LexerRule lr = new LexerRule(k, mapRules.get(k));
+            rules.add(lr);
         }
-        // convert the list of rules to an array and save it
-        rules = ruleList.toArray(rules);
+        System.out.println("Rule lexers loaded.");
     }
 
     /**
@@ -405,8 +386,8 @@ public class Tokenizer {
         int longestMatchLen = -1;
         String text = "";
         // find the rule that matches the longest substring of the input
-        for (int i = 0; i < rules.length; i++) {
-            LexerRule rule = rules[i];
+        for (int i = 0; i < rules.size(); i++) {
+            LexerRule rule = rules.get(i);
             // get the precompiled pattern for this rule
             Pattern pattern = rule.getPattern();
             // create a matcher to perform match operations on the string 
@@ -482,8 +463,8 @@ public class Tokenizer {
         int lineNumber = lineReader.getLineNumber();
         LexerRule selectedRule = null;
         // find the rule that matches the longest substring of the input
-        for (int i = 0; i < rules.length; i++) {
-            LexerRule rule = rules[i];
+        for (int i = 0; i < rules.size(); i++) {
+            LexerRule rule = rules.get(i);
             // get the precompiled pattern for this rule
             Pattern pattern = rule.getPattern();
             // create a matcher to perform match operations on the string 

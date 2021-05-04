@@ -34,5 +34,8 @@ public class TCommon {
     // The file contains normalization rules for Vietnamese accents.
     public static String NORMALIZATION_RULES = "models/tok/rules/rules.txt";
     
+    // Rule lexers
+    static String LEXERS = "models/tok/lexers/lexers.json";
+    
     
 }

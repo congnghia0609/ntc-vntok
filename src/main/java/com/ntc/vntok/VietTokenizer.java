@@ -228,6 +228,7 @@ public class VietTokenizer {
      *
      * @param inputFile input file
      * @param outputFile output file
+     * @throws javax.xml.bind.JAXBException
      */
     public void tokenize(String inputFile, String outputFile) throws JAXBException {
         UTF8FileUtility.createWriter(outputFile);
@@ -265,6 +266,7 @@ public class VietTokenizer {
      *
      * @param inputDir an input dir
      * @param outputDir an output dir
+     * @throws javax.xml.bind.JAXBException
      */
     public void tokenizeDirectory(String inputDir, String outputDir) throws JAXBException {
         TextFileFilter fileFilter = new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION);
@@ -319,6 +321,8 @@ public class VietTokenizer {
      * The starting point of the programme.
      *
      * @param args
+     * @throws javax.xml.bind.JAXBException
+     * @throws java.io.IOException
      */
     public static void main(String[] args) throws JAXBException, IOException {
         // create Options object

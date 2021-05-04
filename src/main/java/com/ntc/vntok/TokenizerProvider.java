@@ -18,7 +18,6 @@ package com.ntc.vntok;
 import com.ntc.vntok.segmenter.AbstractResolver;
 import com.ntc.vntok.segmenter.Segmenter;
 import com.ntc.vntok.segmenter.UnigramModel;
-import com.ntc.vntok.segmenter.UnigramResolver;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -47,10 +46,8 @@ public class TokenizerProvider {
     private Tokenizer tokenizer;
     
     /**
-     * An instance flag
+     * An instance TokenizerProvider
      */
-    private static boolean instanceFlag = false;
-
     private static TokenizerProvider provider;
 
     /**
@@ -89,20 +86,14 @@ public class TokenizerProvider {
     private TokenizerProvider() {
         try {
             // create a unigram resolver. 
-            //
-            //resolver = new UnigramResolver(properties.getProperty("unigramModel"));
-            //resolver = new UnigramResolver();
             resolver = new UnigramModel();
             // create a lexical segmenter that use the unigram resolver
-            //
             System.out.println("Creating lexical segmenter...");
-            //segmenter = new Segmenter(properties, resolver);
             segmenter = new Segmenter(resolver);
             System.out.println("Lexical segmenter created.");
             // init the tokenizer
-            System.out.print("Initializing tokenizer...");
-            //tokenizer = new Tokenizer(properties, segmenter);
             tokenizer = new Tokenizer(segmenter);
+            System.out.print("Initializing tokenizer...");
             // Do not resolve the ambiguity.
 			//tokenizer.setAmbiguitiesResolved(false);
             System.out.println("OK");
@@ -117,10 +108,8 @@ public class TokenizerProvider {
             properties.load(new FileInputStream(propertiesFilename));
             System.out.println("properties: " + properties);
             // create a unigram resolver. 
-            //
-            resolver = new UnigramResolver(properties.getProperty("unigramModel"));
+            resolver = new UnigramModel(properties.getProperty("unigramModel"));
             // create a lexical segmenter that use the unigram resolver
-            //
             System.out.println("Creating lexical segmenter...");
             segmenter = new Segmenter(properties, resolver);
             System.out.println("Lexical segmenter created.");
@@ -128,7 +117,7 @@ public class TokenizerProvider {
             System.out.print("Initializing tokenizer...");
             tokenizer = new Tokenizer(properties, segmenter);
             // Do not resolve the ambiguity.
-//			tokenizer.setAmbiguitiesResolved(false);
+			//tokenizer.setAmbiguitiesResolved(false);
             System.out.println("OK");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -144,10 +133,8 @@ public class TokenizerProvider {
         System.out.println("bigramModel = " + properties.getProperty("bigramModel"));
 
         // create a unigram resolver. 
-        //
-        resolver = new UnigramResolver(properties.getProperty("unigramModel"));
+        resolver = new UnigramModel(properties.getProperty("unigramModel"));
         // create a lexical segmenter that use the unigram resolver
-        //
         System.out.println("Creating lexical segmenter...");
         segmenter = new Segmenter(properties, resolver);
         System.out.println("Lexical segmenter created.");
@@ -155,7 +142,7 @@ public class TokenizerProvider {
         System.out.print("Initializing tokenizer...");
         tokenizer = new Tokenizer(properties, segmenter);
         // Do not resolve the ambiguity.
-//		tokenizer.setAmbiguitiesResolved(false);
+		//tokenizer.setAmbiguitiesResolved(false);
         System.out.println("OK");
     }
 
@@ -165,8 +152,7 @@ public class TokenizerProvider {
      * @return a provider object
      */
     public static TokenizerProvider getInstance() {
-        if (!instanceFlag) {
-            instanceFlag = true;
+        if (provider == null) {
             provider = new TokenizerProvider();
         }
         return provider;
@@ -178,8 +164,7 @@ public class TokenizerProvider {
      * @return a provider object
      */
     public static TokenizerProvider getInstance(String propertiesFilename) {
-        if (!instanceFlag) {
-            instanceFlag = true;
+        if (provider == null) {
             provider = new TokenizerProvider(propertiesFilename);
         }
         return provider;
@@ -191,8 +176,7 @@ public class TokenizerProvider {
      * @return a provider object
      */
     public static TokenizerProvider getInstance(Properties properties) throws FileNotFoundException {
-        if (!instanceFlag) {
-            instanceFlag = true;
+        if (provider == null) {
             provider = new TokenizerProvider(properties);
         }
         return provider;

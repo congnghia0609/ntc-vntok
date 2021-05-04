@@ -94,6 +94,7 @@ public class Segmenter {
      *
      * @param properties
      * @param resolver
+     * @throws java.io.FileNotFoundException
      */
     public Segmenter(Properties properties, AbstractResolver resolver) throws FileNotFoundException {
         // create DFA lexicon recognizer
