@@ -28,4 +28,11 @@ public class TCommon {
     // The lexicon dfa.
     public static String LEXICON_DFA = "models/tok/dfa/dfaLexicon.json";
     
+    // The external lexicon
+    public static String EXTERNAL_LEXICON = "models/tok/dfa/externalLexicon.json";
+    
+    // The file contains normalization rules for Vietnamese accents.
+    public static String NORMALIZATION_RULES = "models/tok/rules/rules.txt";
+    
+    
 }

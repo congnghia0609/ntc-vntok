@@ -15,12 +15,12 @@
  */
 package com.ntc.vntok.segmenter;
 
+import com.ntc.vntok.TCommon;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -33,28 +33,22 @@ import org.apache.commons.io.IOUtils;
  */
 public class StringNormalizer {
 
-    private static Map<String, String> map;
+    private static Map<String, String> map = new HashMap<>();
 
     private StringNormalizer() {
-        map = new HashMap<String, String>();
         init();
     }
     
     private StringNormalizer(String mapFile) {
-        map = new HashMap<String, String>();
         init(mapFile);
     }
 
     private void init() {
         try {
-            //InputStream stream = new FileInputStream(mapFile); //getClass().getResourceAsStream(mapFile);
-            InputStream stream = ResourceUtil.getResourceAsStream(IConstants.NORMALIZATION_RULES);
-            List<String> rules;
-            rules = IOUtils.readLines(stream, "UTF-8");
-
+            InputStream stream = ResourceUtil.getResourceAsStream(TCommon.NORMALIZATION_RULES);
+            List<String> rules = IOUtils.readLines(stream, "UTF-8");
             for (int i = 0; i < rules.size(); i++) {
                 String rule = rules.get(i);
-
                 String[] s = rule.split("\\s+");
                 if (s.length == 2) {
                     map.put(s[0], s[1]);
@@ -66,18 +60,14 @@ public class StringNormalizer {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
     
     private void init(String mapFile) {
         try {
-            InputStream stream = new FileInputStream(mapFile); //getClass().getResourceAsStream(mapFile);
-            List<String> rules;
-            rules = IOUtils.readLines(stream, "UTF-8");
-
+            InputStream stream = new FileInputStream(mapFile);
+            List<String> rules = IOUtils.readLines(stream, "UTF-8");
             for (int i = 0; i < rules.size(); i++) {
                 String rule = rules.get(i);
-
                 String[] s = rule.split("\\s+");
                 if (s.length == 2) {
                     map.put(s[0], s[1]);
@@ -85,12 +75,10 @@ public class StringNormalizer {
                     System.err.println("Wrong syntax in the map file " + mapFile + " at line " + i);
                 }
             }
-
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
     
     /**
@@ -115,11 +103,10 @@ public class StringNormalizer {
      * @param s a string
      */
     public String normalize(String s) {
-        String result = new String(s);
-        for (Iterator<String> it = map.keySet().iterator(); it.hasNext();) {
-            String from = it.next();
+        String result = s;
+        for (String from : map.keySet()) {
             String to = map.get(from);
-            if (result.indexOf(from) >= 0) {
+            if (result.contains(from)) {
                 result = result.replace(from, to);
             }
         }

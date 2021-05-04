@@ -137,7 +137,7 @@ public class TokenizerProvider {
         }
     }
 
-    private TokenizerProvider(Properties properties) {
+    private TokenizerProvider(Properties properties) throws FileNotFoundException {
         // DEBUG 
         System.out.println("lexiconDFA = " + properties.getProperty("lexiconDFA"));
         System.out.println("unigramModel = " + properties.getProperty("unigramModel"));
@@ -190,7 +190,7 @@ public class TokenizerProvider {
      *
      * @return a provider object
      */
-    public static TokenizerProvider getInstance(Properties properties) {
+    public static TokenizerProvider getInstance(Properties properties) throws FileNotFoundException {
         if (!instanceFlag) {
             instanceFlag = true;
             provider = new TokenizerProvider(properties);

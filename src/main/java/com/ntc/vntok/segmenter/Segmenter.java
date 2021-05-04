@@ -56,7 +56,7 @@ public class Segmenter {
      * Result of the segmentation. A segmentation can have several results. Each result is represented by an array of
      * words.
      */
-    private final List<String[]> result;
+    private final List<String[]> result = new ArrayList<>();
 
     /**
      * An ambiguity resolver.
@@ -71,8 +71,6 @@ public class Segmenter {
      * Default constructor.
      */
     public Segmenter() {
-        result = new ArrayList<>();
-//        createLogger();
         // create DFA lexicon recognizer
         getDFALexiconRecognizer();
         // create external lexicon recognizer
@@ -98,8 +96,6 @@ public class Segmenter {
      * @param resolver
      */
     public Segmenter(Properties properties, AbstractResolver resolver) throws FileNotFoundException {
-        result = new ArrayList<>();
-//        createLogger();
         // create DFA lexicon recognizer
         getDFALexiconRecognizer(properties);
         // create external lexicon recognizer
@@ -127,7 +123,6 @@ public class Segmenter {
      */
     private static String normalize(String phrase) {
         // 1. change the case of the first character.
-        //
         StringBuffer s = new StringBuffer(phrase);
         char firstChar = s.charAt(0);
         char lowerChar = firstChar;
@@ -223,7 +218,7 @@ public class Segmenter {
      * @param properties
      * @return the external lexicon recognizer
      */
-    private AbstractLexiconRecognizer getExternalLexiconRecognizer(Properties properties) {
+    private AbstractLexiconRecognizer getExternalLexiconRecognizer(Properties properties) throws FileNotFoundException {
         if (externalLexiconRecognizer == null) {
             externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
         }
