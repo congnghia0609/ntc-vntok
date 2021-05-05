@@ -57,6 +57,7 @@ public class VietTokenizer {
 
     /**
      * Default constructor
+     * @throws java.io.IOException
      */
     public VietTokenizer() throws IOException {
         tokenizer = TokenizerProvider.getInstance().getTokenizer();
@@ -67,6 +68,7 @@ public class VietTokenizer {
      * Creates a tokenizer with parameters given in a properties file
      *
      * @param propertiesFilename
+     * @throws java.io.IOException
      */
     public VietTokenizer(String propertiesFilename) throws IOException {
         tokenizer = TokenizerProvider.getInstance(propertiesFilename).getTokenizer();
@@ -78,6 +80,7 @@ public class VietTokenizer {
      * Creates a tokenizer with parameters given in a properties object.
      *
      * @param properties
+     * @throws java.io.IOException
      */
     public VietTokenizer(Properties properties) throws IOException {
         tokenizer = TokenizerProvider.getInstance(properties).getTokenizer();
