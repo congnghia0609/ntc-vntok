@@ -160,7 +160,7 @@ public class VietTokenizer {
      * @see Tokenizer
      * @see SentenceDetector
      */
-    public String[] tokenize(String text) {
+    public String[] tokenize2(String text) {
         List<String> result = new ArrayList<>();
         if (TokenizerOptions.USE_SENTENCE_DETECTOR) {
             try {
@@ -180,10 +180,10 @@ public class VietTokenizer {
         return result.toArray(new String[result.size()]);
     }
 
-    public List<String> tokenize2(String text) {
+    public List<String> tokenize(String text) {
         List<String> result = new ArrayList<>();
         if (TokenizerOptions.USE_SENTENCE_DETECTOR) {
-            String[] sentences = sentenceDetector.visd(text);
+            List<String> sentences = sentenceDetector.visd2(text);
             for (String sentence : sentences) {
                 // segment the sentence
                 result.add(segment(sentence));
@@ -197,7 +197,7 @@ public class VietTokenizer {
     }
 
     public String tokenizeSentence(String input) {
-        List<String> sentences = tokenize2(input);
+        List<String> sentences = tokenize(input);
         return String.join(" ", sentences);
     }
 
@@ -239,7 +239,7 @@ public class VietTokenizer {
 
         if (!TokenizerOptions.XML_OUTPUT) {
             for (String p : paragraphs) {
-                String[] sentences = tokenize(p);
+                List<String> sentences = tokenize(p);
                 for (String s : sentences) {
                     UTF8FileUtility.write(s.trim());
                     UTF8FileUtility.write("\n");
