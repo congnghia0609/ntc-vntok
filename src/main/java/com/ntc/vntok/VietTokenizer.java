@@ -22,6 +22,7 @@ import com.ntc.vntok.utils.FileIterator;
 import com.ntc.vntok.utils.TextFileFilter;
 import com.ntc.vntok.utils.UTF8FileUtility;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class VietTokenizer {
 
     /**
      * Default constructor
+     *
      * @throws java.io.IOException
      */
     public VietTokenizer() throws IOException {
@@ -65,21 +67,9 @@ public class VietTokenizer {
     }
 
     /**
-     * Creates a tokenizer with parameters given in a properties file
-     *
-     * @param propertiesFilename
-     * @throws java.io.IOException
-     */
-//    public VietTokenizer(String propertiesFilename) throws IOException {
-//        tokenizer = TokenizerProvider.getInstance(propertiesFilename).getTokenizer();
-//        //createSentenceDetector(propertiesFilename);
-//        sentenceDetector = new ViSD();
-//    }
-
-    /**
      * Creates a tokenizer with parameters given in a properties object.
      *
-     * @param properties
+     * @param properties Properties
      * @throws java.io.IOException
      */
     public VietTokenizer(Properties properties) throws IOException {
@@ -89,30 +79,18 @@ public class VietTokenizer {
     }
 
     /**
-     * Creates a sentence detector.
+     * Creates a tokenizer with parameters given in a properties file
+     *
+     * @param propertiesFilename
+     * @throws java.io.IOException
      */
-//    private static void createSentenceDetector() throws IOException {
-//        if (sentenceDetector == null) {
-//            //sentenceDetector = SentenceDetectorFactory.create("vietnamese");
-//            sentenceDetector = new ViSD();
-//        }
-//    }
+    public VietTokenizer(String propertiesFilename) throws IOException {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(propertiesFilename));
+        tokenizer = TokenizerProvider.getInstance(properties).getTokenizer();
+        sentenceDetector = new ViSD(properties.getProperty("pathModelSD"));
+    }
 
-    /**
-     * Creates a sentence detector.
-     */
-//	private static void createSentenceDetector(String pathModelSD) throws IOException {
-//		if (sentenceDetector == null) {
-//            sentenceDetector = new ViSD(pathModelSD);
-//        }
-//	}
-    
-//	private static void createSentenceDetector(Properties properties) throws IOException {
-//		if (sentenceDetector == null) {
-//			sentenceDetector = new ViSD(properties.getProperty("pathModelSD"));
-//		}
-//	}
-    
     /**
      * A segment method, written for integration with other tools.
      *
@@ -374,7 +352,7 @@ public class VietTokenizer {
             }
 
             // tokenize
-	        VietTokenizer vietTokenizer = new VietTokenizer();
+            VietTokenizer vietTokenizer = new VietTokenizer();
 //            VietTokenizer vietTokenizer = new VietTokenizer("tokenizer.properties");
 //            File wdir = new File("");
 //            String conf = wdir.getAbsolutePath() + File.separator + "tokenizer.properties";
