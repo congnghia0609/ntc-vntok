@@ -61,7 +61,7 @@ public class VietTokenizer {
      */
     public VietTokenizer() throws IOException {
         tokenizer = TokenizerProvider.getInstance().getTokenizer();
-        createSentenceDetector();
+        sentenceDetector = new ViSD();
     }
 
     /**
@@ -70,11 +70,11 @@ public class VietTokenizer {
      * @param propertiesFilename
      * @throws java.io.IOException
      */
-    public VietTokenizer(String propertiesFilename) throws IOException {
-        tokenizer = TokenizerProvider.getInstance(propertiesFilename).getTokenizer();
-        //createSentenceDetector(propertiesFilename);
-        createSentenceDetector();
-    }
+//    public VietTokenizer(String propertiesFilename) throws IOException {
+//        tokenizer = TokenizerProvider.getInstance(propertiesFilename).getTokenizer();
+//        //createSentenceDetector(propertiesFilename);
+//        sentenceDetector = new ViSD();
+//    }
 
     /**
      * Creates a tokenizer with parameters given in a properties object.
@@ -85,39 +85,34 @@ public class VietTokenizer {
     public VietTokenizer(Properties properties) throws IOException {
         tokenizer = TokenizerProvider.getInstance(properties).getTokenizer();
         //createSentenceDetector(properties);
-        createSentenceDetector();
+        sentenceDetector = new ViSD(properties.getProperty("pathModelSD"));
     }
 
     /**
      * Creates a sentence detector.
      */
-    private static void createSentenceDetector() throws IOException {
-        if (sentenceDetector == null) {
-            //sentenceDetector = SentenceDetectorFactory.create("vietnamese");
-            sentenceDetector = new ViSD();
-        }
-    }
+//    private static void createSentenceDetector() throws IOException {
+//        if (sentenceDetector == null) {
+//            //sentenceDetector = SentenceDetectorFactory.create("vietnamese");
+//            sentenceDetector = new ViSD();
+//        }
+//    }
 
     /**
      * Creates a sentence detector.
      */
-//	private static void createSentenceDetector(String propertiesFilename) {
-//		Properties properties = new Properties();
-//		try {
-//			properties.load(new FileInputStream(propertiesFilename));
-//			createSentenceDetector(properties);
-//		} catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//    
-//	private static void createSentenceDetector(Properties properties) {
+//	private static void createSentenceDetector(String pathModelSD) throws IOException {
 //		if (sentenceDetector == null) {
-//			sentenceDetector = SentenceDetectorFactory.create(properties);
+//            sentenceDetector = new ViSD(pathModelSD);
+//        }
+//	}
+    
+//	private static void createSentenceDetector(Properties properties) throws IOException {
+//		if (sentenceDetector == null) {
+//			sentenceDetector = new ViSD(properties.getProperty("pathModelSD"));
 //		}
 //	}
+    
     /**
      * A segment method, written for integration with other tools.
      *
@@ -183,7 +178,7 @@ public class VietTokenizer {
     public List<String> tokenize(String text) {
         List<String> result = new ArrayList<>();
         if (TokenizerOptions.USE_SENTENCE_DETECTOR) {
-            List<String> sentences = sentenceDetector.visd2(text);
+            List<String> sentences = sentenceDetector.visd2List(text);
             for (String sentence : sentences) {
                 // segment the sentence
                 result.add(segment(sentence));
@@ -379,12 +374,12 @@ public class VietTokenizer {
             }
 
             // tokenize
-//	        VietTokenizer vietTokenizer = new VietTokenizer();
+	        VietTokenizer vietTokenizer = new VietTokenizer();
 //            VietTokenizer vietTokenizer = new VietTokenizer("tokenizer.properties");
-            File wdir = new File("");
-            String conf = wdir.getAbsolutePath() + File.separator + "tokenizer.properties";
-            System.out.println("conf: " + conf);
-            VietTokenizer vietTokenizer = new VietTokenizer(conf);
+//            File wdir = new File("");
+//            String conf = wdir.getAbsolutePath() + File.separator + "tokenizer.properties";
+//            System.out.println("conf: " + conf);
+//            VietTokenizer vietTokenizer = new VietTokenizer(conf);
             if (new File(inputFile).isDirectory()) {
                 if (line.hasOption("e")) {
                     String ext = line.getOptionValue("e");
