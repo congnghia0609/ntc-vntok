@@ -49,8 +49,6 @@ public class VietTokenizer {
     //private static SentenceDetector sentenceDetector = null;
     private static ViSD sentenceDetector = null;
 
-    private static boolean DEBUG = false;
-
     /**
      * Number of tokens procesed
      */
@@ -249,14 +247,8 @@ public class VietTokenizer {
         File inputDirFile = new File(inputDir);
         // get the current dir 
         String currentDir = new File(".").getAbsolutePath();
-        String inputDirPath = currentDir + File.separator + inputDir;
+        //String inputDirPath = currentDir + File.separator + inputDir;
         String outputDirPath = currentDir + File.separator + outputDir;
-
-        if (DEBUG) {
-            System.out.println("currentDir = " + currentDir);
-            System.out.println("inputDirPath = " + inputDirPath);
-            System.out.println("outputDirPath = " + outputDirPath);
-        }
 
         // get all input files
         File[] inputFiles = FileIterator.listFiles(inputDirFile, fileFilter);

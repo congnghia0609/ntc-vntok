@@ -102,28 +102,22 @@ public class TokenizerProvider {
         }
     }
 
-    private TokenizerProvider(String propertiesFilename) {
+    private TokenizerProvider(String propertiesFilename) throws FileNotFoundException, IOException {
         Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream(propertiesFilename));
-            System.out.println("properties: " + properties);
-            // create a unigram resolver. 
-            resolver = new UnigramModel(properties.getProperty("unigramModel"));
-            // create a lexical segmenter that use the unigram resolver
-            System.out.println("Creating lexical segmenter...");
-            segmenter = new Segmenter(properties, resolver);
-            System.out.println("Lexical segmenter created.");
-            // init the tokenizer
-            System.out.print("Initializing tokenizer...");
-            tokenizer = new Tokenizer(properties, segmenter);
-            // Do not resolve the ambiguity.
-			//tokenizer.setAmbiguitiesResolved(false);
-            System.out.println("OK");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        properties.load(new FileInputStream(propertiesFilename));
+        System.out.println("properties: " + properties);
+        // create a unigram resolver. 
+        resolver = new UnigramModel(properties.getProperty("unigramModel"));
+        // create a lexical segmenter that use the unigram resolver
+        System.out.println("Creating lexical segmenter...");
+        segmenter = new Segmenter(properties, resolver);
+        System.out.println("Lexical segmenter created.");
+        // init the tokenizer
+        System.out.print("Initializing tokenizer...");
+        tokenizer = new Tokenizer(properties, segmenter);
+        // Do not resolve the ambiguity.
+        //tokenizer.setAmbiguitiesResolved(false);
+        System.out.println("OK");
     }
 
     private TokenizerProvider(Properties properties) throws FileNotFoundException {
@@ -161,9 +155,11 @@ public class TokenizerProvider {
     /**
      * Instantiate a tokenizer provider object, parameters are read from a properties file.
      *
+     * @param propertiesFilename
      * @return a provider object
+     * @throws java.io.IOException
      */
-    public static TokenizerProvider getInstance(String propertiesFilename) {
+    public static TokenizerProvider getInstance(String propertiesFilename) throws IOException {
         if (provider == null) {
             provider = new TokenizerProvider(propertiesFilename);
         }
@@ -173,7 +169,9 @@ public class TokenizerProvider {
     /**
      * Instantiate a tokenizer provider object, parameters are read from a properties object.
      *
+     * @param properties
      * @return a provider object
+     * @throws java.io.FileNotFoundException
      */
     public static TokenizerProvider getInstance(Properties properties) throws FileNotFoundException {
         if (provider == null) {

@@ -25,6 +25,9 @@ public class TCommon {
     // Unigram model
     public static final String UNIGRAM_MODEL = "models/tok/ngram/unigram.json";
     
+    // Bigram model
+    public static final String BIGRAM_MODEL = "models/tok/ngram/bigram.json";
+    
     // The lexicon dfa.
     public static String LEXICON_DFA = "models/tok/dfa/dfaLexicon.json";
     
@@ -35,7 +38,8 @@ public class TCommon {
     public static String NORMALIZATION_RULES = "models/tok/rules/rules.txt";
     
     // Rule lexers
-    static String LEXERS = "models/tok/lexers/lexers.json";
+    public static String LEXERS = "models/tok/lexers/lexers.json";
     
-    
+    // The named entity prefix.
+    public static final String NAME_PREFIX = "models/tok/prefix/namePrefix.json";
 }

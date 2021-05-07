@@ -15,15 +15,15 @@
  */
 package com.ntc.vntok;
 
-import com.ntc.vntok.lexicon.LexiconUnmarshaller;
-import com.ntc.vntok.lexicon.jaxb.Corpus;
-import com.ntc.vntok.lexicon.jaxb.W;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.ntc.vntok.tokens.LexerRule;
 import com.ntc.vntok.tokens.TaggedWord;
+import com.ntc.vntok.utils.JsonUtils;
 import com.ntc.vntok.utils.ResourceUtil;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -37,41 +37,50 @@ public class ResultSplitter {
     /**
      * Set of predefined prefixes.
      */
-    private Set<String> prefix;
+    private Set<String> prefix = new HashSet<>();
 
     /**
      * Default constructor.
      */
+//    public ResultSplitter() {
+//        // load the prefix lexicon
+//        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
+//        InputStream namedEntityPrefixStream = ResourceUtil.getResourceAsStream(IConstants.NAMED_ENTITY_PREFIX);
+//        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixStream);
+//        List<W> ws = lexicon.getBody().getW();
+//        // add all prefixes to the set after converting them to lowercase
+//        for (W w : ws) {
+//            prefix.add(w.getContent().toLowerCase());
+//        }
+//    }
     public ResultSplitter() {
         // load the prefix lexicon
-        // 
-        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
-        InputStream namedEntityPrefixStream = ResourceUtil.getResourceAsStream(IConstants.NAMED_ENTITY_PREFIX);
-        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixStream);
-        List<W> ws = lexicon.getBody().getW();
-        prefix = new HashSet<String>();
-        // add all prefixes to the set after converting them to lowercase
-        for (W w : ws) {
-            prefix.add(w.getContent().toLowerCase());
-        }
+        InputStream namePrefixStream = ResourceUtil.getResourceAsStream(TCommon.NAME_PREFIX);
+        prefix = JsonUtils.Instance.getObject(namePrefixStream, new TypeReference<Set<String>>() {});
+        System.out.println("Name prefix loaded.");
     }
 
     /**
      * Creates a result splitter from a named entity prefix filename.
      *
-     * @param namedEntityPrefixFilename
+     * @param namePrefixFilename
+     * @throws java.io.FileNotFoundException
      */
-    public ResultSplitter(String namedEntityPrefixFilename) {
+//    public ResultSplitter(String namedEntityPrefixFilename) {
+//        // load the prefix lexicon
+//        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
+//        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixFilename);
+//        List<W> ws = lexicon.getBody().getW();
+//        // add all prefixes to the set after converting them to lowercase
+//        for (W w : ws) {
+//            prefix.add(w.getContent().toLowerCase());
+//        }
+//    }
+    public ResultSplitter(String namePrefixFilename) throws FileNotFoundException {
         // load the prefix lexicon
-        // 
-        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
-        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixFilename);
-        List<W> ws = lexicon.getBody().getW();
-        prefix = new HashSet<String>();
-        // add all prefixes to the set after converting them to lowercase
-        for (W w : ws) {
-            prefix.add(w.getContent().toLowerCase());
-        }
+        InputStream namePrefixStream = new FileInputStream(namePrefixFilename);
+        prefix = JsonUtils.Instance.getObject(namePrefixStream, new TypeReference<Set<String>>() {});
+        System.out.println("Name prefix loaded.");
     }
 
     /**
@@ -79,8 +88,8 @@ public class ResultSplitter {
      *
      * @param properties a properties file.
      */
-    public ResultSplitter(Properties properties) {
-        this(properties.getProperty("namedEntityPrefix"));
+    public ResultSplitter(Properties properties) throws FileNotFoundException {
+        this(properties.getProperty("namePrefix"));
     }
 
     private boolean isPrefix(String syllable) {
