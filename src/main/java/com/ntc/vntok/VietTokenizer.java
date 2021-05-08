@@ -168,8 +168,8 @@ public class VietTokenizer {
     }
 
     public String tokenizeSentence(String input) {
-        List<String> sentences = tokenize(input);
-        return String.join(" ", sentences);
+        //List<String> sentences = tokenize(input);
+        return String.join(" ", tokenize(input));
     }
 
     /**
