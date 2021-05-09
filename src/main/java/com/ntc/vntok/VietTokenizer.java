@@ -96,7 +96,7 @@ public class VietTokenizer {
      * @return a segmented sentence
      */
     public String segment(String sentence) {
-        StringBuffer result = new StringBuffer();
+        StringBuilder result = new StringBuilder();
         StringReader reader = new StringReader(sentence);
         // tokenize the sentence
         try {
