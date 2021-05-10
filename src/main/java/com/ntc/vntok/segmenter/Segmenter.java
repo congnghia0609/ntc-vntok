@@ -124,7 +124,7 @@ public class Segmenter {
      */
     private static String normalize(String phrase) {
         // 1. change the case of the first character.
-        StringBuffer s = new StringBuffer(phrase);
+        StringBuilder s = new StringBuilder(phrase);
         char firstChar = s.charAt(0);
         char lowerChar = firstChar;
         // convert first character

@@ -62,6 +62,7 @@ public class WordToken extends TaggedWord {
 
     /**
      * Return a string representation of a word token
+     * @return String
      */
     @Override
     public String toString() {

@@ -216,8 +216,8 @@ public class Tokenizer {
             if (taggedWord == null) {
                 break;
             }
-//			// DEBUG 
-//			System.out.println("taggedWord = " + taggedWord);
+			// DEBUG 
+			System.out.println("taggedWord = " + taggedWord);
             // if this token is a phrase, we need to use a segmenter
             // object to segment it.
             if (taggedWord.isPhrase()) {
@@ -478,7 +478,7 @@ public class Tokenizer {
      *
      * @param filename a file to export the result to
      * @param outputer an outputer
-     * @see vn.hus.nlp.tokenizer.io.IOutputFormatter
+     * @see IOutputFormatter
      */
     public void exportResult(String filename, Outputer outputer) {
         System.out.print("Exporting result of tokenization...");
@@ -503,8 +503,7 @@ public class Tokenizer {
     public void exportResult(String filename) {
         System.out.print("Exporting result of tokenization...");
         UTF8FileUtility.createWriter(filename);
-        for (Iterator<TaggedWord> iter = result.iterator(); iter.hasNext();) {
-            TaggedWord token = iter.next();
+        for (TaggedWord token : result) {
             UTF8FileUtility.write(token.toString() + "\n");
         }
         UTF8FileUtility.closeWriter();
