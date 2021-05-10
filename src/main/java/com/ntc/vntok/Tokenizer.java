@@ -162,39 +162,12 @@ public class Tokenizer {
     public void setOutputer(Outputer outputer) {
         this.outputer = outputer;
     }
-
-//    private void createLogger() {
-//        if (logger == null) {
-//            logger = Logger.getLogger(Segmenter.class.getName());
-//            // use a console handler to trace the log
-////			logger.addHandler(new ConsoleHandler());
-//            try {
-//                logger.addHandler(new FileHandler("tokenizer.log"));
-//            } catch (SecurityException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            logger.setLevel(Level.FINEST);
-//        }
-//    }
     
     /**
      * Load lexer specification file. This text file contains lexical rules to tokenize a text
      *
      * @param lexersFilename specification file
      */
-//    private void loadLexerRules() {
-//        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
-//        InputStream lexersStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXERS);
-//        Corpus corpus = unmarshaller.unmarshal(lexersStream);
-//        List<W> lexers = corpus.getBody().getW();
-//        for (W w : lexers) {
-//            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
-//			//System.out.println(w.getMsd() + ": " + w.getContent());
-//            rules.add(lr);
-//        }
-//    }
     private void loadLexerRules() {
         InputStream lexersStream = ResourceUtil.getResourceAsStream(TCommon.LEXERS);
         Map<String, String> mapRules = JsonUtils.Instance.getMap(lexersStream);
@@ -211,16 +184,6 @@ public class Tokenizer {
      *
      * @param lexersFilename specification file
      */
-//    private void loadLexerRules(String lexersFilename) {
-//        LexiconUnmarshaller unmarshaller = new LexiconUnmarshaller();
-//        Corpus corpus = unmarshaller.unmarshal(lexersFilename);
-//        List<W> lexers = corpus.getBody().getW();
-//        for (W w : lexers) {
-//            LexerRule lr = new LexerRule(w.getMsd(), w.getContent());
-//			//System.out.println(w.getMsd() + ": " + w.getContent());
-//            rules.add(lr);
-//        }
-//    }
     private void loadLexerRules(String lexersFilename) throws FileNotFoundException {
         InputStream lexersStream = new FileInputStream(lexersFilename);
         Map<String, String> mapRules = JsonUtils.Instance.getMap(lexersStream);

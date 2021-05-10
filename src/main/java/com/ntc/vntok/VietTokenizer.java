@@ -46,7 +46,6 @@ public class VietTokenizer {
 
     private static Tokenizer tokenizer = null;
 
-    //private static SentenceDetector sentenceDetector = null;
     private static ViSD sentenceDetector = null;
 
     /**
@@ -72,7 +71,6 @@ public class VietTokenizer {
      */
     public VietTokenizer(Properties properties) throws IOException {
         tokenizer = TokenizerProvider.getInstance(properties).getTokenizer();
-        //createSentenceDetector(properties);
         sentenceDetector = new ViSD(properties.getProperty("pathModelSD"));
     }
 

@@ -42,17 +42,6 @@ public class ResultSplitter {
     /**
      * Default constructor.
      */
-//    public ResultSplitter() {
-//        // load the prefix lexicon
-//        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
-//        InputStream namedEntityPrefixStream = ResourceUtil.getResourceAsStream(IConstants.NAMED_ENTITY_PREFIX);
-//        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixStream);
-//        List<W> ws = lexicon.getBody().getW();
-//        // add all prefixes to the set after converting them to lowercase
-//        for (W w : ws) {
-//            prefix.add(w.getContent().toLowerCase());
-//        }
-//    }
     public ResultSplitter() {
         // load the prefix lexicon
         InputStream namePrefixStream = ResourceUtil.getResourceAsStream(TCommon.NAME_PREFIX);
@@ -66,16 +55,6 @@ public class ResultSplitter {
      * @param namePrefixFilename
      * @throws java.io.FileNotFoundException
      */
-//    public ResultSplitter(String namedEntityPrefixFilename) {
-//        // load the prefix lexicon
-//        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
-//        Corpus lexicon = lexiconUnmarshaller.unmarshal(namedEntityPrefixFilename);
-//        List<W> ws = lexicon.getBody().getW();
-//        // add all prefixes to the set after converting them to lowercase
-//        for (W w : ws) {
-//            prefix.add(w.getContent().toLowerCase());
-//        }
-//    }
     public ResultSplitter(String namePrefixFilename) throws FileNotFoundException {
         // load the prefix lexicon
         InputStream namePrefixStream = new FileInputStream(namePrefixFilename);
@@ -108,7 +87,7 @@ public class ResultSplitter {
         if (syllables.length > 1) {
             // extract the first syllable of token
             if (isPrefix(syllables[0])) {
-//				System.err.println("Split " + token.getText());
+				//System.err.println("Split " + token.getText());
                 int position = syllables[0].length() + 1;
                 // it is sure that postion > 0
                 String suffix = token.getText().substring(position);
