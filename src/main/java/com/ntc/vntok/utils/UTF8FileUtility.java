@@ -205,7 +205,7 @@ public class UTF8FileUtility {
 	 * @return an array of strings
 	 */
 	public static String[] getLinesWithPOS(String fileName) {
-		List<String> lines = new ArrayList<String>();
+		List<String> lines = new ArrayList<>();
 		if (reader == null)
 			createReader(fileName);
 		String line = null;
@@ -235,7 +235,7 @@ public class UTF8FileUtility {
 	 * @return a list of strings
 	 */
 	public static List<String> getLineList(String fileName) {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		String[] lines = getLines(fileName);
 		for (String line : lines) {
 			list.add(line);
@@ -249,7 +249,7 @@ public class UTF8FileUtility {
 	 * @return
 	 */
 	public static String[] getLines(String fileName) {
-		List<String> lines = new ArrayList<String>();
+		List<String> lines = new ArrayList<>();
 		if (reader == null)
 			createReader(fileName);
 		String line = null;

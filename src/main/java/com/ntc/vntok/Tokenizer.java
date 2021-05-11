@@ -217,11 +217,11 @@ public class Tokenizer {
                 break;
             }
 			// DEBUG 
-			System.out.println("taggedWord = " + taggedWord);
+			//System.out.println("taggedWord = " + taggedWord);
             // if this token is a phrase, we need to use a segmenter
             // object to segment it.
             if (taggedWord.isPhrase()) {
-//				System.out.println("taggedWord phrase = " + taggedWord);
+				//System.out.println("taggedWord phrase = " + taggedWord);
                 String phrase = taggedWord.getText().trim();
                 if (!isSimplePhrase(phrase)) {
                     String[] tokens = null;
@@ -299,8 +299,9 @@ public class Tokenizer {
             tokenize(UTF8FileUtility.reader);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            UTF8FileUtility.closeReader();
         }
-        UTF8FileUtility.closeReader();
     }
 
     /**
