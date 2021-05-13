@@ -38,19 +38,6 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
     /**
      * Default constructor.
      */
-//    public ExternalLexiconRecognizer() {
-//        // load the prefix lexicon
-//        // 
-//        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
-//        InputStream externalLexiconStream = ResourceUtil.getResourceAsStream(IConstants.EXTERNAL_LEXICON);
-//        Corpus lexicon = lexiconUnmarshaller.unmarshal(externalLexiconStream);
-//        List<W> ws = lexicon.getBody().getW();
-//        // add all prefixes to the set after converting them to lowercase
-//        for (W w : ws) {
-//            externalLexicon.add(w.getContent().toLowerCase());
-//        }
-//        System.out.println("External lexicon loaded.");
-//    }
     public ExternalLexiconRecognizer() {
         // load the prefix lexicon
         InputStream externalLexiconStream = ResourceUtil.getResourceAsStream(TCommon.EXTERNAL_LEXICON);
@@ -62,19 +49,8 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
      * Creates an external lexicon recognizer given a lexicon.
      *
      * @param externalLexiconFilename a lexicon filename
+     * @throws java.io.FileNotFoundException
      */
-//    public ExternalLexiconRecognizer(String externalLexiconFilename) {
-//        // load the prefix lexicon
-//        // 
-//        LexiconUnmarshaller lexiconUnmarshaller = new LexiconUnmarshaller();
-//        Corpus lexicon = lexiconUnmarshaller.unmarshal(externalLexiconFilename);
-//        List<W> ws = lexicon.getBody().getW();
-//        // add all prefixes to the set after converting them to lowercase
-//        for (W w : ws) {
-//            externalLexicon.add(w.getContent().toLowerCase());
-//        }
-//        System.out.println("External lexicon loaded.");
-//    }
     public ExternalLexiconRecognizer(String externalLexiconFilename) throws FileNotFoundException {
         // load the prefix lexicon
         InputStream externalLexiconStream = new FileInputStream(externalLexiconFilename);
