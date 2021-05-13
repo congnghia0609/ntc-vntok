@@ -39,15 +39,6 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
      *
      * @param dfaLexiconFilename
      */
-//    private DFALexiconRecognizer() {
-//        if (lexiconDFA == null) {
-//            // build the lexicon DFA
-//            System.out.print("Load the lexicon automaton...");
-//            InputStream dfaLexiconStream = ResourceUtil.getResourceAsStream(com.ntc.vntok.segmenter.IConstants.LEXICON_DFA);
-//            lexiconDFA = (DFA) new FSMUnmarshaller().unmarshal(dfaLexiconStream, IConstants.FSM_DFA);
-//            System.out.println("OK.");
-//        }
-//    }
     private DFALexiconRecognizer() {
         if (lexiconDFA == null) {
             // build the lexicon DFA
@@ -64,14 +55,6 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
      *
      * @param dfaLexiconFilename
      */
-//    private DFALexiconRecognizer(String dfaLexiconFilename) {
-//        if (lexiconDFA == null) {
-//            // build the lexicon DFA
-//            System.out.print("Load the lexicon automaton... ");
-//            lexiconDFA = (DFA) new FSMUnmarshaller().unmarshal(dfaLexiconFilename, IConstants.FSM_DFA);
-//            System.out.println("OK.");
-//        }
-//    }
     private DFALexiconRecognizer(String dfaLexiconFilename) throws FileNotFoundException {
         if (lexiconDFA == null) {
             // build the lexicon DFA
@@ -96,6 +79,7 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
     /**
      * @param dfaLexiconFilename the DFA lexicon file
      * @return The singleton instance of the lexicon DFA.
+     * @throws java.io.FileNotFoundException
      */
     public static DFALexiconRecognizer getInstance(String dfaLexiconFilename) throws FileNotFoundException {
         if (recognizer == null) {
