@@ -36,9 +36,6 @@ public class AdjacencyMatrixGraph extends Graph {
         adj = new boolean[n][n];
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#insert(vn.hus.graph.Edge)
-     */
     @Override
     public void insert(Edge edge) {
         int u = edge.getU();
@@ -52,17 +49,11 @@ public class AdjacencyMatrixGraph extends Graph {
         }
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#iterator(int)
-     */
     @Override
     public VertexIterator vertexIterator(int u) {
         return new AdjacencyMatrixVertexIterator(this, u);
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#remove(vn.hus.graph.Edge)
-     */
     @Override
     public void remove(Edge edge) {
         int u = edge.getU();
@@ -90,9 +81,6 @@ public class AdjacencyMatrixGraph extends Graph {
         return adj;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#dispose()
-     */
     @Override
     protected void dispose() {
     }

@@ -40,11 +40,6 @@ public class AdjacencyListWeightedGraph extends WeightedGraph {
         adj = new EdgeNode[n];
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.Graph#edge(int, int)
-     */
     @Override
     public boolean edge(int u, int v) {
         EdgeIterator iterator = edgeIterator(u);
@@ -57,21 +52,11 @@ public class AdjacencyListWeightedGraph extends WeightedGraph {
         return false;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.WeightedGraph#edgeIterator(int)
-     */
     @Override
     public EdgeIterator edgeIterator(int u) {
         return new AdjacencyListEdgeIterator(this, u);
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.Graph#insert(vn.hus.graph.Edge)
-     */
     @Override
     public void insert(Edge edge) {
         int u = edge.getU();
@@ -87,11 +72,6 @@ public class AdjacencyListWeightedGraph extends WeightedGraph {
         cE++;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#remove(vn.hus.graph.Edge)
-     */
     @Override
     public void remove(Edge edge) {
         // TODO
@@ -106,10 +86,6 @@ public class AdjacencyListWeightedGraph extends WeightedGraph {
         return adj;
     }
 
-    /**
-     * @see vn.hus.nlp.graph.WeightedGraph#getEdge(int, int)
-     * @see #edge(int, int)
-     */
     @Override
     public Edge getEdge(int u, int v) {
         EdgeIterator iterator = edgeIterator(u);
@@ -122,11 +98,6 @@ public class AdjacencyListWeightedGraph extends WeightedGraph {
         return null;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.Graph#vertexIterator(int)
-     */
     @Override
     public VertexIterator vertexIterator(int u) {
         // build the graph2 from graph
@@ -144,11 +115,6 @@ public class AdjacencyListWeightedGraph extends WeightedGraph {
         return new AdjacencyListVertexIterator(graph2, u);
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.Graph#dispose()
-     */
     @Override
     protected void dispose() {
         // delete the array of linked-list.

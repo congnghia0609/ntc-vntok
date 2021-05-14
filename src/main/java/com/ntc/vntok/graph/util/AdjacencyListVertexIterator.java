@@ -48,9 +48,6 @@ public class AdjacencyListVertexIterator implements VertexIterator {
         next = graph.getAdj()[u];
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.util.VertexIterator#next()
-     */
     @Override
     public int next() {
         // get the next vertex
@@ -60,9 +57,6 @@ public class AdjacencyListVertexIterator implements VertexIterator {
         return v;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.util.VertexIterator#hasNext()
-     */
     @Override
     public boolean hasNext() {
         return (next != null);

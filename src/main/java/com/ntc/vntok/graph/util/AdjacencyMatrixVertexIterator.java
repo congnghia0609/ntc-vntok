@@ -50,9 +50,6 @@ public class AdjacencyMatrixVertexIterator implements VertexIterator {
         adj = graph.getAdj();
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.util.VertexIterator#hasNext()
-     */
     @Override
     public boolean hasNext() {
         // increase the current vertex v.
@@ -65,9 +62,6 @@ public class AdjacencyMatrixVertexIterator implements VertexIterator {
         return false;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.util.VertexIterator#next()
-     */
     @Override
     public int next() {
         while (v < n) {

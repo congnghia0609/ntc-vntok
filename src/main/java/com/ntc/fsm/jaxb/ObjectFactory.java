@@ -26,9 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 public class ObjectFactory {
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package:
-     * vn.hus.fsm.jaxb
-     *
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package
      */
     public ObjectFactory() {
     }
@@ -36,6 +34,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link States }
      *
+     * @return States
      */
     public States createStates() {
         return new States();
@@ -44,6 +43,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Transitions }
      *
+     * @return Transitions
      */
     public Transitions createTransitions() {
         return new Transitions();
@@ -52,6 +52,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Fsm }
      *
+     * @return Fsm
      */
     public Fsm createFsm() {
         return new Fsm();
@@ -60,6 +61,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link T }
      *
+     * @return T
      */
     public T createT() {
         return new T();
@@ -68,6 +70,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link S }
      *
+     * @return S
      */
     public S createS() {
         return new S();

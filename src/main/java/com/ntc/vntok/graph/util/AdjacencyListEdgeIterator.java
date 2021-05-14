@@ -49,11 +49,6 @@ public class AdjacencyListEdgeIterator implements EdgeIterator {
         next = graph.getAdj()[u];
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.util.EdgeIterator#next()
-     */
     @Override
     public Edge next() {
         // get the next edge
@@ -63,11 +58,6 @@ public class AdjacencyListEdgeIterator implements EdgeIterator {
         return e;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.util.VertexIterator#hasNext()
-     */
     @Override
     public boolean hasNext() {
         return (next != null);

@@ -34,15 +34,9 @@ public abstract class WeightedGraph extends Graph implements IWeightedGraph {
         super(n, directed);
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.IWeightedGraph#edgeIterator(int)
-     */
     @Override
     public abstract EdgeIterator edgeIterator(int u);
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.IWeightedGraph#getEdge(int, int)
-     */
     @Override
     public abstract Edge getEdge(int u, int v);
 }

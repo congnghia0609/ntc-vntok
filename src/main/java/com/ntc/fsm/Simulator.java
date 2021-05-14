@@ -75,7 +75,6 @@ public abstract class Simulator implements ISimulator {
         listeners = null;
     }
 
-
     @Override
     public boolean accept(String input) {
         return false;

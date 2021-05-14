@@ -42,9 +42,6 @@ public class XMLCorpusExporter implements IExporter {
         corpusMarshaller = new CorpusMarshaller();
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.nlp.tokenizer.nio.IExporter#export(java.util.List)
-     */
     @Override
     public String export(List<List<TaggedWord>> list) {
         ObjectFactory factory = CorpusMarshaller.getFactory();

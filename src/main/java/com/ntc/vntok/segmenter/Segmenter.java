@@ -153,7 +153,7 @@ public class Segmenter {
                 if (word.length() == 0) {
                     word = syllables[i];
                 } else {
-                    //word = word + vn.hus.nlp.fsm.IConstants.BLANK_CHARACTER + syllables[i + j];
+                    //word = word + IConstants.BLANK_CHARACTER + syllables[i + j];
                     word = word + ' ' + syllables[i + j];
                 }
                 // check to see if the word is accepted or not
@@ -167,7 +167,6 @@ public class Segmenter {
                     graph.insert(new Edge(i, i + j + 1, weight));
                 }
                 j++;
-
             }
         }
         return graph;
@@ -321,7 +320,7 @@ public class Segmenter {
             int nextVertex = path[k];
             String word = "";
             for (int j = vertex; j < nextVertex; j++) {
-                //word += (syllables[j] + vn.hus.nlp.fsm.IConstants.BLANK_CHARACTER);
+                //word += (syllables[j] + IConstants.BLANK_CHARACTER);
                 word += (syllables[j] + ' ');
             }
             word = word.trim();

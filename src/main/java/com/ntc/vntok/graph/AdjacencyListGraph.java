@@ -38,9 +38,6 @@ public class AdjacencyListGraph extends Graph {
         adj = new Node[n];
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#edge(int, int)
-     */
     @Override
     public boolean edge(int u, int v) {
         VertexIterator iterator = vertexIterator(u);
@@ -53,17 +50,11 @@ public class AdjacencyListGraph extends Graph {
         return false;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#iterator(int)
-     */
     @Override
     public VertexIterator vertexIterator(int u) {
         return new AdjacencyListVertexIterator(this, u);
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#insert(vn.hus.graph.Edge)
-     */
     @Override
     public void insert(Edge edge) {
         int u = edge.getU();
@@ -79,9 +70,6 @@ public class AdjacencyListGraph extends Graph {
         cE++;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.IGraph#remove(vn.hus.graph.Edge)
-     */
     @Override
     public void remove(Edge edge) {
         //TODO
@@ -96,9 +84,6 @@ public class AdjacencyListGraph extends Graph {
         return adj;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.graph.Graph#dispose()
-     */
     @Override
     protected void dispose() {
         // delete the array of linked-list.

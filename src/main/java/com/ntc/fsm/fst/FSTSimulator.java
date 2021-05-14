@@ -51,10 +51,6 @@ public class FSTSimulator extends Simulator {
     private final boolean DEBUG = false;
 
     /**
-     * @author LE HONG Phuong, phuonglh@gmail.com
-     * <p>
-     * Jan 25, 2008, 9:45:28 PM
-     * <p>
      * A simple logger for the {@link FSTSimulator} to log its processing.
      */
     class SimulatorLogger implements ISimulatorListener {
@@ -170,9 +166,6 @@ public class FSTSimulator extends Simulator {
                 && (config.getUnprocessedInput().length() == 0));
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.fsm.fsa.DFASimulator#run(java.lang.String)
-     */
     @Override
     public String run(String input) {
         // track the input

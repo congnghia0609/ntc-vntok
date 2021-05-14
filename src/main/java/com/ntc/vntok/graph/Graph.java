@@ -50,66 +50,30 @@ public abstract class Graph implements IGraph {
         cE = 0;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#edge(int, int)
-     */
     @Override
     public abstract boolean edge(int u, int v);
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#getNumberOfEdges()
-     */
     @Override
     public int getNumberOfEdges() {
         return cE;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#getNumberOfVertices()
-     */
     @Override
     public int getNumberOfVertices() {
         return cV;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#insert(vn.hus.graph.Edge)
-     */
     @Override
     public abstract void insert(Edge edge);
 
-
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#isDirected()
-     */
     @Override
     public boolean isDirected() {
         return directed;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#iterator(int)
-     */
     @Override
     public abstract VertexIterator vertexIterator(int u);
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see vn.hus.graph.IGraph#remove(vn.hus.graph.Edge)
-     */
     @Override
     public abstract void remove(Edge edge);
 

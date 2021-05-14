@@ -43,6 +43,7 @@ public class UTF8FileUtility {
 	 * A buffered writer
 	 */
 	public static BufferedWriter writer = null;
+    
 	/**
 	 * A buffered reader
 	 */
@@ -52,13 +53,8 @@ public class UTF8FileUtility {
 	 * All registered file listeners
 	 */
 	static List<FileListener> fileListeners = new ArrayList<FileListener>();
+    
 	/**
-	 * @author Le Hong Phuong, phuonglh@gmail.com
-	 * <p>
-	 * vn.hus.utils
-	 * <p>
-	 * Oct 2, 2007, 9:02:02 PM
-	 * <p>
 	 * A lexical entry (item/pos)
 	 */
 	class Item {
@@ -180,11 +176,9 @@ public class UTF8FileUtility {
 	}
 
 	/**
-	 * Process a line (remove the substring after the tab character if
-	 * neccesary)
+	 * Process a line (remove the substring after the tab character if neccesary)
 	 * 
-	 * @param line
-	 *            a line
+	 * @param line a line
 	 * @return the first part (before the tab character) of the line
 	 */
 	private static String processTab(String line) {
@@ -246,7 +240,7 @@ public class UTF8FileUtility {
 	/**
 	 * Get all lines of the file (including POS information).
 	 * @param fileName
-	 * @return
+	 * @return String[]
 	 */
 	public static String[] getLines(String fileName) {
 		List<String> lines = new ArrayList<>();

@@ -26,9 +26,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 public class ObjectFactory {
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package:
-     * vn.hus.lexicon.jaxb
-     *
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package
      */
     public ObjectFactory() {
     }
@@ -36,6 +34,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Corpus }
      *
+     * @return Corpus
      */
     public Corpus createCorpus() {
         return new Corpus();
@@ -44,6 +43,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link Body }
      *
+     * @return Body
      */
     public Body createBody() {
         return new Body();
@@ -52,6 +52,7 @@ public class ObjectFactory {
     /**
      * Create an instance of {@link W }
      *
+     * @return W
      */
     public W createW() {
         return new W();
