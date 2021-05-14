@@ -470,7 +470,7 @@ public class Tokenizer {
         // for the next match, and return the token
         column += endIndex;
         line = line.substring(endIndex).trim();
-//		System.out.println(line);
+		//System.out.println(line);
         return token;
     }
 

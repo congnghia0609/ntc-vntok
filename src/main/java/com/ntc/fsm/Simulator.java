@@ -35,7 +35,7 @@ public abstract class Simulator implements ISimulator {
      * Default constructor
      */
     public Simulator() {
-        listeners = new ArrayList<ISimulatorListener>();
+        listeners = new ArrayList<>();
     }
 
     /**
@@ -62,8 +62,7 @@ public abstract class Simulator implements ISimulator {
      * @param configEvent
      */
     public void notify(ConfigurationEvent configEvent) {
-        for (Iterator<ISimulatorListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            ISimulatorListener simulatorListener = iterator.next();
+        for (ISimulatorListener simulatorListener : listeners) {
             simulatorListener.update(configEvent);
         }
     }
@@ -77,25 +76,16 @@ public abstract class Simulator implements ISimulator {
     }
 
 
-    /* (non-Javadoc)
-	 * @see vn.hus.fsm.ISimulator#accept(java.lang.String)
-     */
     @Override
     public boolean accept(String input) {
         return false;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.fsm.ISimulator#run(java.lang.String)
-     */
     @Override
     public String run(String input) {
         return null;
     }
 
-    /* (non-Javadoc)
-	 * @see vn.hus.fsm.ISimulator#track(java.lang.String)
-     */
     @Override
     public Configuration track(String input) {
         return null;
