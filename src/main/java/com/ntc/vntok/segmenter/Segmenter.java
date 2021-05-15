@@ -65,7 +65,7 @@ public class Segmenter {
 
     private static double MAX_EDGE_WEIGHT = 100;
 
-    private static boolean DEBUG = false;
+    private static boolean DEBUG = true;
 
     /**
      * Default constructor.

@@ -367,9 +367,9 @@ public class VietTokenizer {
                 System.out.println("Tokenized " + nTokens + " words" + " in " + duration + " (s).\n");
             }
             System.out.println("Done.");
-        } catch (ParseException exp) {
+        } catch (ParseException e) {
             // oops, something went wrong
-            System.err.println("Parsing failed.  Reason: " + exp.getMessage());
+            System.err.println("Parsing failed.  Reason: " + e.getMessage());
             formatter.printHelp("vnTokenizer", options);
             System.exit(1);
         }
