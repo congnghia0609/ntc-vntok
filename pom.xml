@@ -156,7 +156,8 @@
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                         <manifest>
-                            <mainClass>com.ntc.app.MainApp</mainClass>
+                            <!--<mainClass>com.ntc.app.MainApp</mainClass>-->
+                            <mainClass>com.ntc.vntok.VnTok</mainClass>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
