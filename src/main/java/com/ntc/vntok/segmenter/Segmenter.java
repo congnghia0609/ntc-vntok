@@ -72,9 +72,11 @@ public class Segmenter {
      */
     public Segmenter() {
         // create DFA lexicon recognizer
-        getDFALexiconRecognizer();
+        //getDFALexiconRecognizer();
+        lexiconRecognizer = DFALexiconRecognizer.getInstance();
         // create external lexicon recognizer
-        getExternalLexiconRecognizer();
+        //getExternalLexiconRecognizer();
+        externalLexiconRecognizer = new ExternalLexiconRecognizer();
         // create a string normalizer
         normalizer = StringNormalizer.getInstance();
     }
@@ -98,11 +100,13 @@ public class Segmenter {
      */
     public Segmenter(Properties properties, AbstractResolver resolver) throws FileNotFoundException {
         // create DFA lexicon recognizer
-        getDFALexiconRecognizer(properties);
+        //getDFALexiconRecognizer(properties);
+        lexiconRecognizer = DFALexiconRecognizer.getInstance(properties.getProperty("lexiconDFA"));
         // create external lexicon recognizer
-        getExternalLexiconRecognizer(properties);
+        //getExternalLexiconRecognizer(properties);
+        externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
         // create a string normalizer
-        normalizer = StringNormalizer.getInstance(properties);
+        normalizer = StringNormalizer.getInstance(properties.getProperty("normalizationRules"));
         this.resolver = resolver;
     }
 
@@ -156,9 +160,8 @@ public class Segmenter {
                     //word = word + IConstants.BLANK_CHARACTER + syllables[i + j];
                     word = word + ' ' + syllables[i + j];
                 }
-                // check to see if the word is accepted or not
-                // and create corresponding edges
-                if (getDFALexiconRecognizer().accept(word) || getExternalLexiconRecognizer().accept(word)) {
+                // check to see if the word is accepted or not and create corresponding edges
+                if (lexiconRecognizer.accept(word) || externalLexiconRecognizer.accept(word)) {
                     // calculate the weight of the edge (i,i+j+1)
                     double weight = (double) 1 / (j + 1);
                     // keep only two decimal digits of weight 
@@ -177,40 +180,40 @@ public class Segmenter {
      *
      * @return the DFA lexicon recognizer in use
      */
-    private AbstractLexiconRecognizer getDFALexiconRecognizer() {
-        if (lexiconRecognizer == null) {
-            // use the DFA lexicon recognizer
-            // user can use any lexicon recognizer here.
-            lexiconRecognizer = DFALexiconRecognizer.getInstance();
-        }
-        return lexiconRecognizer;
-    }
+//    private AbstractLexiconRecognizer getDFALexiconRecognizer() {
+//        if (lexiconRecognizer == null) {
+//            // use the DFA lexicon recognizer
+//            // user can use any lexicon recognizer here.
+//            lexiconRecognizer = DFALexiconRecognizer.getInstance();
+//        }
+//        return lexiconRecognizer;
+//    }
 
     /**
      * Creates an internal lexicon recognizer.
      *
      * @return the DFA lexicon recognizer in use
      */
-    private AbstractLexiconRecognizer getDFALexiconRecognizer(Properties properties) throws FileNotFoundException {
-        if (lexiconRecognizer == null) {
-            // use the DFA lexicon recognizer
-            // user can use any lexicon recognizer here.
-            lexiconRecognizer = DFALexiconRecognizer.getInstance(properties.getProperty("lexiconDFA"));
-        }
-        return lexiconRecognizer;
-    }
+//    private AbstractLexiconRecognizer getDFALexiconRecognizer(Properties properties) throws FileNotFoundException {
+//        if (lexiconRecognizer == null) {
+//            // use the DFA lexicon recognizer
+//            // user can use any lexicon recognizer here.
+//            lexiconRecognizer = DFALexiconRecognizer.getInstance(properties.getProperty("lexiconDFA"));
+//        }
+//        return lexiconRecognizer;
+//    }
 
     /**
      * Creates an external lexicon recognizer.
      *
      * @return the external lexicon recognizer
      */
-    private AbstractLexiconRecognizer getExternalLexiconRecognizer() {
-        if (externalLexiconRecognizer == null) {
-            externalLexiconRecognizer = new ExternalLexiconRecognizer();
-        }
-        return externalLexiconRecognizer;
-    }
+//    private AbstractLexiconRecognizer getExternalLexiconRecognizer() {
+//        if (externalLexiconRecognizer == null) {
+//            externalLexiconRecognizer = new ExternalLexiconRecognizer();
+//        }
+//        return externalLexiconRecognizer;
+//    }
 
     /**
      * Creates an external lexicon recognizer.
@@ -218,12 +221,12 @@ public class Segmenter {
      * @param properties
      * @return the external lexicon recognizer
      */
-    private AbstractLexiconRecognizer getExternalLexiconRecognizer(Properties properties) throws FileNotFoundException {
-        if (externalLexiconRecognizer == null) {
-            externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
-        }
-        return externalLexiconRecognizer;
-    }
+//    private AbstractLexiconRecognizer getExternalLexiconRecognizer(Properties properties) throws FileNotFoundException {
+//        if (externalLexiconRecognizer == null) {
+//            externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
+//        }
+//        return externalLexiconRecognizer;
+//    }
 
     /**
      * Try to connect an unconnected graph. If a graph is unconnected, we find all of its isolated vertices and add a

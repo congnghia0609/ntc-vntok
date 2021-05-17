@@ -89,6 +89,14 @@ public class StringNormalizer {
     }
 
     /**
+     * @param filename
+     * @return an instance of the class.
+     */
+    public static StringNormalizer getInstance(String filename) {
+        return new StringNormalizer(filename);
+    }
+    
+    /**
      * @param properties
      * @return an instance of the class.
      */
