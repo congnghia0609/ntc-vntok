@@ -17,6 +17,7 @@
 package com.ntc.app;
 
 import com.ntc.vntok.VietTokenizer;
+import com.ntc.vntok.VnTok;
 
 /**
  *
@@ -30,7 +31,7 @@ public class MainApp {
      */
     public static void main(String[] args) {
         try {
-            VietTokenizer vntok = new VietTokenizer();
+            VnTok vntok = new VnTok();
             
             //String s = "Học sinh học sinh học.";
             // Học_sinh học_sinh học .

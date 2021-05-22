@@ -17,6 +17,9 @@ package com.ntc.vntok;
 
 import com.ntc.visd.ViSD;
 import com.ntc.vntok.nio.XMLCorpusExporter;
+import com.ntc.vntok.segmenter.AbstractResolver;
+import com.ntc.vntok.segmenter.Segmenter;
+import com.ntc.vntok.segmenter.UnigramModel;
 import com.ntc.vntok.tokens.TaggedWord;
 import com.ntc.vntok.utils.FileIterator;
 import com.ntc.vntok.utils.TextFileFilter;
@@ -32,10 +35,10 @@ import javax.xml.bind.JAXBException;
 import opennlp.tools.sentdetect.SentenceDetector;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
 
 /**
  *
@@ -44,9 +47,10 @@ import org.apache.commons.cli.PosixParser;
  */
 public class VnTok {
 
-    private static Tokenizer tokenizer = null;
-
-    private static ViSD sentenceDetector = null;
+    private Segmenter segmenter;
+    private AbstractResolver resolver;
+    private Tokenizer tokenizer;
+    private ViSD sentenceDetector;
 
     /**
      * Number of tokens procesed
@@ -59,8 +63,21 @@ public class VnTok {
      * @throws java.io.IOException
      */
     public VnTok() throws IOException {
-        tokenizer = TokenizerProvider.getInstance().getTokenizer();
+        //tokenizer = TokenizerProvider.getInstance().getTokenizer();
+        // create a unigram resolver. 
+        resolver = new UnigramModel();
+        // create a lexical segmenter that use the unigram resolver
+        System.out.println("Creating lexical segmenter...");
+        segmenter = new Segmenter(resolver);
+        System.out.println("Lexical segmenter created.");
+        // init the tokenizer
+        tokenizer = new Tokenizer(segmenter);
+        System.out.print("Initializing tokenizer...");
+        // Do not resolve the ambiguity.
+        //tokenizer.setAmbiguitiesResolved(false);
+        System.out.println("OK");
         sentenceDetector = new ViSD();
+        System.out.println("Init sentenceDetector...OK");
     }
 
     /**
@@ -270,7 +287,7 @@ public class VnTok {
      *
      * @return the tokenizer
      */
-    public static Tokenizer getTokenizer() {
+    public Tokenizer getTokenizer() {
         return tokenizer;
     }
 
@@ -279,7 +296,7 @@ public class VnTok {
      *
      * @return the sentence detector.
      */
-    public static ViSD getSentenceDetector() {
+    public ViSD getSentenceDetector() {
         return sentenceDetector;
     }
 
@@ -303,7 +320,7 @@ public class VnTok {
         options.addOption("e", true, "File extension");
 
         // create a parser for parsing command line
-        CommandLineParser parser = new PosixParser();
+        CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
 
         try {
@@ -342,26 +359,21 @@ public class VnTok {
             }
 
             // tokenize
-            VietTokenizer vietTokenizer = new VietTokenizer();
-//            VietTokenizer vietTokenizer = new VietTokenizer("tokenizer.properties");
-//            File wdir = new File("");
-//            String conf = wdir.getAbsolutePath() + File.separator + "tokenizer.properties";
-//            System.out.println("conf: " + conf);
-//            VietTokenizer vietTokenizer = new VietTokenizer(conf);
+            VnTok vntok = new VnTok();
             if (new File(inputFile).isDirectory()) {
                 if (line.hasOption("e")) {
                     String ext = line.getOptionValue("e");
                     TokenizerOptions.TEXT_FILE_EXTENSION = ext;
                 }
                 // tokenize the whole directory
-                vietTokenizer.tokenizeDirectory(inputFile, outputFile);
+                vntok.tokenizeDirectory(inputFile, outputFile);
             } else {
                 // clear the old result
                 nTokens = 0;
                 // tokenize the file
                 System.out.println("Tokenizing, please wait...");
                 long startTime = System.currentTimeMillis();
-                vietTokenizer.tokenize(inputFile, outputFile);
+                vntok.tokenize(inputFile, outputFile);
                 long endTime = System.currentTimeMillis();
                 float duration = (float) (endTime - startTime) / 1000;
                 System.out.println("Tokenized " + nTokens + " words" + " in " + duration + " (s).\n");
@@ -370,7 +382,7 @@ public class VnTok {
         } catch (ParseException e) {
             // oops, something went wrong
             System.err.println("Parsing failed.  Reason: " + e.getMessage());
-            formatter.printHelp("vnTokenizer", options);
+            formatter.printHelp("VnTok", options);
             System.exit(1);
         }
     }
