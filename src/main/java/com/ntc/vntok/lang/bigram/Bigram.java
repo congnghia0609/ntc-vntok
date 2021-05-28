@@ -15,8 +15,11 @@
  */
 package com.ntc.vntok.lang.bigram;
 
-import com.ntc.vntok.lang.IConstants;
-import com.ntc.vntok.lexicon.LexiconMarshaller;
+//import com.ntc.vntok.lang.IConstants;
+import com.ntc.vntok.TCommon;
+import com.ntc.vntok.utils.FileUtil;
+import com.ntc.vntok.utils.JsonUtils;
+//import com.ntc.vntok.lexicon.LexiconMarshaller;
 import com.ntc.vntok.utils.UTF8FileUtility;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -58,7 +61,7 @@ public class Bigram {
      */
     private void loadCorpora() {
         // get the corpora directory
-        File corporaDir = new File(IConstants.CORPORA_DIRECTORY);
+        File corporaDir = new File(TCommon.CORPORA_DIRECTORY);
         // list its files
         File[] corpora = corporaDir.listFiles();
         for (int i = 0; i < corpora.length; i++) {
@@ -105,7 +108,7 @@ public class Bigram {
     }
 
     private void init() {
-        bigram = new HashMap<Couple, Couple>();
+        bigram = new HashMap<>();
     }
 
     /**
@@ -153,7 +156,10 @@ public class Bigram {
             int value = c.getFreq();
             map.put(key, value);
         }
-        new LexiconMarshaller().marshal(map, filename);
+        //new LexiconMarshaller().marshal(map, filename);
+        // Write map file json.
+        String smap = JsonUtils.Instance.toJson(map);
+        FileUtil.writeFileJson(filename, smap);
     }
 
     /**
@@ -161,7 +167,7 @@ public class Bigram {
      */
     public static void main(String[] args) {
         Bigram counter = new Bigram(false);
-        counter.marshal(IConstants.BIGRAM_MODEL);
+        counter.marshal(TCommon.BIGRAM_MODEL);
         System.out.println("Done!");
     }
 }

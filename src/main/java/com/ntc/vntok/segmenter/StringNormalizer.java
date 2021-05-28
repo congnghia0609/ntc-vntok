@@ -53,7 +53,7 @@ public class StringNormalizer {
                 if (s.length == 2) {
                     map.put(s[0], s[1]);
                 } else {
-                    System.err.println("Wrong syntax in the map file " + IConstants.NORMALIZATION_RULES + " at line " + i);
+                    System.err.println("Wrong syntax in the map file " + TCommon.NORMALIZATION_RULES + " at line " + i);
                 }
             }
         } catch (IOException e) {

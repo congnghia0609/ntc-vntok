@@ -27,6 +27,12 @@ public class TCommon {
     
     // Bigram model
     public static final String BIGRAM_MODEL = "models/tok/ngram/bigram.json";
+
+    // The reference corpora directory that contains text files to train the model.
+    public static final String CORPORA_DIRECTORY = "corpora/ref";
+
+    // The conditional probabilities.
+    public static final String CONDITIONAL_PROBABILITIES = "resources/prob.json";
     
     // The lexicon dfa.
     public static String LEXICON_DFA = "models/tok/dfa/dfaLexicon.json";

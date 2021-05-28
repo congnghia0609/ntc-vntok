@@ -15,15 +15,21 @@
  */
 package com.ntc.vntok.lang.bigram;
 
-import com.ntc.vntok.lang.IConstants;
-import com.ntc.vntok.lexicon.LexiconMarshaller;
-import com.ntc.vntok.lexicon.LexiconUnmarshaller;
-import com.ntc.vntok.lexicon.jaxb.Corpus;
-import com.ntc.vntok.lexicon.jaxb.W;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.ntc.vntok.TCommon;
+//import com.ntc.vntok.lang.IConstants;
+import com.ntc.vntok.utils.FileUtil;
+import com.ntc.vntok.utils.JsonUtils;
+import com.ntc.vntok.utils.ResourceUtil;
+//import com.ntc.vntok.lexicon.LexiconMarshaller;
+//import com.ntc.vntok.lexicon.LexiconUnmarshaller;
+//import com.ntc.vntok.lexicon.jaxb.Corpus;
+//import com.ntc.vntok.lexicon.jaxb.W;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.text.DecimalFormat;
@@ -65,9 +71,9 @@ public class Estimator {
      */
     private List<Couple> probabilities;
 
-    private LexiconUnmarshaller unmarshaller;
+    //private LexiconUnmarshaller unmarshaller;
 
-    private LexiconMarshaller marshaller;
+    //private LexiconMarshaller marshaller;
 
     private Map<String, List<Couple>> tokenMap;
 
@@ -92,9 +98,9 @@ public class Estimator {
         bigram = new HashMap<>();
         probabilities = new ArrayList<>();
         // create the unmarshaller
-        unmarshaller = new LexiconUnmarshaller();
+        //unmarshaller = new LexiconUnmarshaller();
         // create the marshaller
-        marshaller = new LexiconMarshaller();
+        //marshaller = new LexiconMarshaller();
 
         //
         tokenMap = new HashMap<>();
@@ -285,46 +291,75 @@ public class Estimator {
      * @param unigramDataFile
      * @param bigramDataFile
      */
+//    private void loadModels(String unigramDataFile, String bigramDataFile) {
+//        System.out.println("Loading models...");
+//        // load unigram model
+//        Corpus unigramCorpus = unmarshaller.unmarshal(unigramDataFile);
+//        List<W> ws = unigramCorpus.getBody().getW();
+//        for (W w : ws) {
+//            String freq = w.getMsd();
+//            String word = w.getContent();
+//            unigram.put(word, Integer.parseInt(freq));
+//        }
+//        // load bigram model
+//        // and initialize the token map 
+//        Corpus bigramCorpus = unmarshaller.unmarshal(bigramDataFile);
+//        ws = bigramCorpus.getBody().getW();
+//        for (W w : ws) {
+//            String freq = w.getMsd();
+//            String words = w.getContent();
+//            // split the word using a comma. 
+//            // In general, there are only 2 words, but if a word itself is a
+//            // comma, we simply do not consider this case :-)
+//            String[] two = words.split(",");
+//
+//            if (two.length == 2) {
+//                // update the bigram model
+//                String first = two[0];
+//                String second = two[1];
+//                // create a couple
+//                Couple couple = new Couple(first, second);
+//                // put the couple to the bigram
+//                bigram.put(couple, Integer.parseInt(freq));
+//                // update the token map
+//                //
+//                List<Couple> secondTokens = tokenMap.get(first);
+//                if (secondTokens == null) {
+//                    secondTokens = new ArrayList<>();
+//                    secondTokens.add(couple);
+//                    tokenMap.put(first, secondTokens);
+//                } else {
+//                    secondTokens.add(couple);
+//                }
+//            }
+//        }
+//        System.out.println("tokenMap's size = " + tokenMap.size());
+//    }
+    
     private void loadModels(String unigramDataFile, String bigramDataFile) {
         System.out.println("Loading models...");
         // load unigram model
-        Corpus unigramCorpus = unmarshaller.unmarshal(unigramDataFile);
-        List<W> ws = unigramCorpus.getBody().getW();
-        for (W w : ws) {
-            String freq = w.getMsd();
-            String word = w.getContent();
-            unigram.put(word, Integer.parseInt(freq));
-        }
-        // load bigram model
-        // and initialize the token map 
-        Corpus bigramCorpus = unmarshaller.unmarshal(bigramDataFile);
-        ws = bigramCorpus.getBody().getW();
-        for (W w : ws) {
-            String freq = w.getMsd();
-            String words = w.getContent();
-            // split the word using a comma. 
-            // In general, there are only 2 words, but if a word itself is a
-            // comma, we simply do not consider this case :-)
-            String[] two = words.split(",");
-
-            if (two.length == 2) {
-                // update the bigram model
-                String first = two[0];
-                String second = two[1];
-                // create a couple
-                Couple couple = new Couple(first, second);
-                // put the couple to the bigram
-                bigram.put(couple, Integer.parseInt(freq));
-                // update the token map
-                //
-                List<Couple> secondTokens = tokenMap.get(first);
-                if (secondTokens == null) {
-                    secondTokens = new ArrayList<>();
-                    secondTokens.add(couple);
-                    tokenMap.put(first, secondTokens);
-                } else {
-                    secondTokens.add(couple);
-                }
+        InputStream unistream = ResourceUtil.getResourceAsStream(TCommon.UNIGRAM_MODEL);
+        unigram = JsonUtils.Instance.getObject(unistream, new TypeReference<Map<String, Integer>>(){});
+        // load bigram model and initialize the token map
+        InputStream bistream = ResourceUtil.getResourceAsStream(TCommon.BIGRAM_MODEL);
+        List<BigramJson> listbigrams = JsonUtils.Instance.getObject(bistream, new TypeReference<List<BigramJson>>(){});
+        for (BigramJson bj : listbigrams) {
+            String first = bj.getF();
+            String second = bj.getS();
+            int freq = bj.getC();
+            // create a couple
+            Couple couple = new Couple(first, second);
+            // put the couple to the bigram
+            bigram.put(couple, freq);
+            // update the token map
+            List<Couple> secondTokens = tokenMap.get(first);
+            if (secondTokens == null) {
+                secondTokens = new ArrayList<>();
+                secondTokens.add(couple);
+                tokenMap.put(first, secondTokens);
+            } else {
+                secondTokens.add(couple);
             }
         }
         System.out.println("tokenMap's size = " + tokenMap.size());
@@ -366,7 +401,10 @@ public class Estimator {
             map.put(key, value);
         }
         // marshal the map
-        marshaller.marshal(map, filename);
+        //marshaller.marshal(map, filename);
+        // Write the map
+        String smap = JsonUtils.Instance.toJson(map);
+        FileUtil.writeFileJson(filename, smap);
     }
 
     /**
@@ -407,15 +445,14 @@ public class Estimator {
     void buildConditionalProbabilities() {
         estimateConditionalProb();
 //		estimator.outputConditionalProbabilities(IConstants.CONDITIONAL_PROBABILITIES);
-        marshalConditionalProbabilities(IConstants.CONDITIONAL_PROBABILITIES);
+        marshalConditionalProbabilities(TCommon.CONDITIONAL_PROBABILITIES);
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        Estimator estimator = new Estimator(IConstants.UNIGRAM_MODEL,
-                IConstants.BIGRAM_MODEL);
+        Estimator estimator = new Estimator(TCommon.UNIGRAM_MODEL, TCommon.BIGRAM_MODEL);
 //		estimator.buildConditionalProbabilities();
         estimator.estimate();
         System.out.println("Done");
