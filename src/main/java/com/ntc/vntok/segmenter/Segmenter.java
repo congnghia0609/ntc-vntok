@@ -28,6 +28,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +42,23 @@ public class Segmenter {
 
     private Logger logger = LoggerFactory.getLogger(Segmenter.class);
 
+    private static Lock lock = new ReentrantLock();
+	private static Segmenter instance;
+
+	public static Segmenter getInstance(AbstractResolver resolver) {
+		if(instance == null) {
+			lock.lock();
+			try {
+				if(instance == null) {
+					instance = new Segmenter(resolver);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+		return instance;
+	}
+    
     private static StringNormalizer normalizer;
 
     /**
@@ -71,14 +90,15 @@ public class Segmenter {
      * Default constructor.
      */
     public Segmenter() {
+        System.out.println("Creating lexical segmenter...");
         // create DFA lexicon recognizer
-        //getDFALexiconRecognizer();
         lexiconRecognizer = DFALexiconRecognizer.getInstance();
         // create external lexicon recognizer
-        //getExternalLexiconRecognizer();
-        externalLexiconRecognizer = new ExternalLexiconRecognizer();
+        //externalLexiconRecognizer = new ExternalLexiconRecognizer();
+        externalLexiconRecognizer = ExternalLexiconRecognizer.getInstance();
         // create a string normalizer
         normalizer = StringNormalizer.getInstance();
+        System.out.println("Lexical segmenter created.");
     }
 
     /**
@@ -87,8 +107,15 @@ public class Segmenter {
      * @param resolver
      */
     public Segmenter(AbstractResolver resolver) {
-        this();
+        System.out.println("Creating lexical segmenter...");
         this.resolver = resolver;
+        // create DFA lexicon recognizer
+        lexiconRecognizer = DFALexiconRecognizer.getInstance();
+        // create external lexicon recognizer
+        externalLexiconRecognizer = new ExternalLexiconRecognizer();
+        // create a string normalizer
+        normalizer = StringNormalizer.getInstance();
+        System.out.println("Lexical segmenter created.");
     }
 
     /**

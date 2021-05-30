@@ -33,6 +33,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class StringNormalizer {
 
+    private static StringNormalizer instance;
     private static Map<String, String> map = new HashMap<>();
 
     private StringNormalizer() {
@@ -85,7 +86,10 @@ public class StringNormalizer {
      * @return an instance of the class.
      */
     public static StringNormalizer getInstance() {
-        return new StringNormalizer();
+        if (instance == null) {
+            instance = new StringNormalizer();
+        }
+        return instance;
     }
 
     /**
@@ -93,7 +97,10 @@ public class StringNormalizer {
      * @return an instance of the class.
      */
     public static StringNormalizer getInstance(String filename) {
-        return new StringNormalizer(filename);
+        if (instance == null) {
+            instance = new StringNormalizer(filename);
+        }
+        return instance;
     }
     
     /**
@@ -101,7 +108,10 @@ public class StringNormalizer {
      * @return an instance of the class.
      */
     public static StringNormalizer getInstance(Properties properties) {
-        return new StringNormalizer(properties.getProperty("normalizationRules"));
+        if (instance == null) {
+            instance = new StringNormalizer(properties.getProperty("normalizationRules"));
+        }
+        return instance;
     }
 
     /**

@@ -25,6 +25,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -35,6 +37,23 @@ public class UnigramModel extends AbstractResolver {
 
     private Map<String, Integer> unigram = new HashMap<>();
 
+    private static Lock lock = new ReentrantLock();
+	private static UnigramModel instance;
+
+	public static UnigramModel getInstance() {
+		if(instance == null) {
+			lock.lock();
+			try {
+				if(instance == null) {
+					instance = new UnigramModel();
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+		return instance;
+	}
+    
     public UnigramModel() {
         loadUnigram();
     }

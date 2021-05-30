@@ -33,8 +33,16 @@ import java.util.Set;
  */
 public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
 
+    private static ExternalLexiconRecognizer instance;
     private Set<String> externalLexicon = new HashSet<>();
 
+    public static ExternalLexiconRecognizer getInstance() {
+        if (instance == null) {
+            instance = new ExternalLexiconRecognizer();
+        }
+        return instance;
+    }
+    
     /**
      * Default constructor.
      */
