@@ -18,8 +18,6 @@ package com.ntc.vntok.utils;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,7 +31,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class JsonUtils {
 
     private final ObjectMapper objMapper = new ObjectMapper();
-    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
     public JsonUtils() {
     }
@@ -53,7 +50,7 @@ public class JsonUtils {
             return objMapper.readValue(json, new TypeReference<List<T>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -63,7 +60,7 @@ public class JsonUtils {
             return objMapper.readValue(inputStream, new TypeReference<List<T>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -73,7 +70,7 @@ public class JsonUtils {
             return objMapper.readValue(json, new TypeReference<Map<String, String>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -83,7 +80,7 @@ public class JsonUtils {
             return objMapper.readValue(inpuStream, new TypeReference<Map<String, String>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -93,7 +90,7 @@ public class JsonUtils {
             return objMapper.readValue(data, new TypeReference<Map<String, String>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -103,7 +100,7 @@ public class JsonUtils {
             return objMapper.readValue(json, new TypeReference<Map<String, Integer>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -113,7 +110,7 @@ public class JsonUtils {
             return objMapper.readValue(json, new TypeReference<Map<String, Object>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -123,7 +120,7 @@ public class JsonUtils {
             return objMapper.readValue(inpuStream, new TypeReference<Map<String, Object>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -133,7 +130,7 @@ public class JsonUtils {
             return objMapper.readValue(data, new TypeReference<Map<String, Object>>() {
             });
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -142,7 +139,6 @@ public class JsonUtils {
         try {
             return objMapper.readValue(json, type);
         } catch (Exception e) {
-            logger.error(e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -152,7 +148,6 @@ public class JsonUtils {
         try {
             return objMapper.readValue(data, type);
         } catch (Exception e) {
-            logger.error(e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -162,7 +157,7 @@ public class JsonUtils {
         try {
             return objMapper.readValue(json, type);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -171,7 +166,7 @@ public class JsonUtils {
         try {
             return objMapper.readValue(data, type);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -180,7 +175,7 @@ public class JsonUtils {
         try {
             return objMapper.readValue(inpuStream, type);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }
@@ -189,7 +184,6 @@ public class JsonUtils {
         try {
             return objMapper.writeValueAsString(obj);
         } catch (Exception e) {
-            logger.error(e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -199,7 +193,6 @@ public class JsonUtils {
         try {
             return objMapper.writeValueAsBytes(obj);
         } catch (Exception e) {
-            logger.error(e.getMessage());
             e.printStackTrace();
             return null;
         }

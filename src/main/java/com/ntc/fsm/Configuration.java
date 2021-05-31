@@ -91,6 +91,7 @@ public class Configuration {
      * rather than the <code>.equals()</code> operation, since the latter would lead to rather lengthly traversions.
      *
      * @param configuration the configuration to test for equality
+     * @return boolean
      */
     @Override
     public boolean equals(Object configuration) {

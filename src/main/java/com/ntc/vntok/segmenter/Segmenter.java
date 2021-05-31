@@ -30,8 +30,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -39,8 +37,6 @@ import org.slf4j.LoggerFactory;
  * @since Mar 25, 2021
  */
 public class Segmenter {
-
-    private Logger logger = LoggerFactory.getLogger(Segmenter.class);
 
     private static Lock lock = new ReentrantLock();
 	private static Segmenter instance;
@@ -313,7 +309,7 @@ public class Segmenter {
         }
         // make sure that the graph is now connected:
         if (GraphConnectivity.countComponents(graph) != 1) {
-            logger.info("Hmm, fail to connect the graph!");
+            System.err.println("Hmm, fail to connect the graph!");
         }
     }
 

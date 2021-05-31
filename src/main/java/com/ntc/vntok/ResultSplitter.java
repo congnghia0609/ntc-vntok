@@ -66,6 +66,7 @@ public class ResultSplitter {
      * Creates a result splitter from a properties filename.
      *
      * @param properties a properties file.
+     * @throws java.io.FileNotFoundException
      */
     public ResultSplitter(Properties properties) throws FileNotFoundException {
         this(properties.getProperty("namePrefix"));

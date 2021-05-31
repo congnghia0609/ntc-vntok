@@ -94,7 +94,7 @@ public class ResultMerger {
      * @return a list of lexer tokens
      */
     public List<TaggedWord> mergeList(List<TaggedWord> tokens) {
-        List<TaggedWord> result = new ArrayList<TaggedWord>();
+        List<TaggedWord> result = new ArrayList<>();
         TaggedWord token = new TaggedWord(""); // a fake start token
         Iterator<TaggedWord> it = tokens.iterator();
         while (it.hasNext()) {

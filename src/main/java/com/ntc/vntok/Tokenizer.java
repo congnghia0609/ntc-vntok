@@ -40,8 +40,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -49,8 +47,6 @@ import org.slf4j.LoggerFactory;
  * @since Mar 25, 2021
  */
 public class Tokenizer {
-
-    private Logger logger = LoggerFactory.getLogger(Tokenizer.class);
 
     /**
      * List of rules for this lexer
@@ -240,7 +236,7 @@ public class Tokenizer {
                     // segment the phrase
                     List<String[]> segmentations = segmenter.segment(phrase);
                     if (segmentations.isEmpty()) {
-                        logger.warn("The segmenter cannot segment the phrase \"" + phrase + "\"");
+                        System.err.println("The segmenter cannot segment the phrase \"" + phrase + "\"");
                     }
                     // resolved the result if there is such option
                     // and the there are many segmentations.
@@ -254,7 +250,7 @@ public class Tokenizer {
                         }
                     }
                     if (tokens == null) {
-                        logger.warn("Problem: " + phrase);
+                        System.err.println("Problem: " + phrase);
                     }
 
                     // build tokens of the segmentation
@@ -392,7 +388,7 @@ public class Tokenizer {
         }
         // if we didn't match anything, we exit...
         if (token == null) {
-            logger.warn("Error! line = " + lineReader.getLineNumber() + ", col = " + column);
+            System.err.println("Error! line = " + lineReader.getLineNumber() + ", col = " + column);
             System.out.println(line);
             System.exit(1);
             return null;

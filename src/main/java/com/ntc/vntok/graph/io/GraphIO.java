@@ -263,11 +263,11 @@ public class GraphIO {
      * Scan a weighted graph from an input stream reader. This method is usually invoked by the method
      * {@link #scanAdjacencyListWeighted(String)}.
      *
+     * @param inputStreamReader
      * @see #scanAdjacencyListWeighted(String)
      * @return an adjacency list weighted graph.
      */
-    public static IWeightedGraph scanAdjacencyListWeighted(
-            InputStreamReader inputStreamReader) {
+    public static IWeightedGraph scanAdjacencyListWeighted(InputStreamReader inputStreamReader) {
         IWeightedGraph graph = null;
         BufferedReader br = new BufferedReader(inputStreamReader);
         try {

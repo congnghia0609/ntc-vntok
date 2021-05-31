@@ -50,8 +50,8 @@ public class DFA extends FSM {
     public void load(InputStream stream) {
         Fsm fsm = JsonUtils.Instance.getObject(stream, new TypeReference<Fsm>() {});
         // fill the states 
-        States states = fsm.getStates();
-        for (S s : states.getS()) {
+        States ss = fsm.getStates();
+        for (S s : ss.getS()) {
             State state = new State(s.getId());
             state.setType(s.getType());
             this.addState(state);
