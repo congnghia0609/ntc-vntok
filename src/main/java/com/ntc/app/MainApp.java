@@ -32,6 +32,7 @@ public class MainApp {
     public static void main(String[] args) {
         try {
             VnTok vntok = new VnTok();
+            VnTok vntok2 = new VnTok();
             
             //String s = "Học sinh học sinh học.";
             // Học_sinh học_sinh học .

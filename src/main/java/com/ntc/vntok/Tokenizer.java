@@ -55,7 +55,8 @@ public class Tokenizer {
     /**
      * List of rules for this lexer
      */
-    private List<LexerRule> rules = new ArrayList<>();
+    //private List<LexerRule> rules = new ArrayList<>();
+    private static List<LexerRule> rules;
 
     /**
      * The current input stream
@@ -104,7 +105,7 @@ public class Tokenizer {
 
     private final ResultMerger resultMerger = new ResultMerger();
 
-    private final ResultSplitter resultSplitter = new ResultSplitter();
+    private static ResultSplitter resultSplitter = new ResultSplitter();
 
     /**
      * Creates a tokenizer from a lexers filename and a segmenter.
@@ -114,9 +115,12 @@ public class Tokenizer {
     public Tokenizer(Segmenter segmenter) {
         this.segmenter = segmenter;
         // load the lexer rules
-        loadLexerRules();
+        if (rules == null) {
+            loadLexerRules();
+        }
         // add a simple tokenizer listener for reporting tokenization progress
         tokenizerListener.add(new SimpleProgressReporter());
+        System.out.println("Initializing tokenizer...OK");
     }
 
     /**
@@ -129,9 +133,12 @@ public class Tokenizer {
     public Tokenizer(String lexersFilename, Segmenter segmenter) throws FileNotFoundException {
         this.segmenter = segmenter;
         // load the lexer rules
-        loadLexerRules(lexersFilename);
+        if (rules == null) {
+            loadLexerRules(lexersFilename);
+        }
         // add a simple tokenizer listener for reporting tokenization progress
         tokenizerListener.add(new SimpleProgressReporter());
+        System.out.println("Initializing tokenizer...OK");
     }
 
     /**
@@ -144,9 +151,12 @@ public class Tokenizer {
     public Tokenizer(Properties properties, Segmenter segmenter) throws FileNotFoundException {
         this.segmenter = segmenter;
         // load the lexer rules
-        loadLexerRules(properties.getProperty("lexers"));
+        if (rules == null) {
+            loadLexerRules(properties.getProperty("lexers"));
+        }
         // add a simple tokenizer listener for reporting tokenization progress
         tokenizerListener.add(new SimpleProgressReporter());
+        System.out.println("Initializing tokenizer...OK");
     }
 
     /**
@@ -169,6 +179,7 @@ public class Tokenizer {
      * @param lexersFilename specification file
      */
     private void loadLexerRules() {
+        rules = new ArrayList<>();
         InputStream lexersStream = ResourceUtil.getResourceAsStream(TCommon.LEXERS);
         Map<String, String> mapRules = JsonUtils.Instance.getMap(lexersStream);
         for (String k : mapRules.keySet()) {
@@ -185,6 +196,7 @@ public class Tokenizer {
      * @param lexersFilename specification file
      */
     private void loadLexerRules(String lexersFilename) throws FileNotFoundException {
+        rules = new ArrayList<>();
         InputStream lexersStream = new FileInputStream(lexersFilename);
         Map<String, String> mapRules = JsonUtils.Instance.getMap(lexersStream);
         for (String k : mapRules.keySet()) {

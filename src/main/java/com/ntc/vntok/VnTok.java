@@ -49,7 +49,7 @@ public class VnTok {
     private Segmenter segmenter;
     private AbstractResolver resolver;
     private Tokenizer tokenizer;
-    private ViSD sentenceDetector;
+    private static ViSD sentenceDetector;
 
     /**
      * Number of tokens procesed
@@ -88,14 +88,14 @@ public class VnTok {
         //System.out.println("Lexical segmenter created.");
         // init the tokenizer
         tokenizer = new Tokenizer(segmenter);
-        System.out.print("Initializing tokenizer...");
         // Do not resolve the ambiguity.
         //tokenizer.setAmbiguitiesResolved(false);
-        System.out.println("OK");
+        //System.out.println("Initializing tokenizer...OK");
         if (sentenceDetector == null) {
             sentenceDetector = new ViSD();
+            System.out.println("Init sentenceDetector...OK");
         }
-        System.out.println("Init sentenceDetector...OK");
+        System.out.println("Init VnTok...OK");
     }
 
     /**
