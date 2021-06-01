@@ -93,18 +93,36 @@ public class ResultMerger {
      * @param tokens
      * @return a list of lexer tokens
      */
+//    public List<TaggedWord> mergeList(List<TaggedWord> tokens) {
+//        List<TaggedWord> result = new ArrayList<>();
+//        TaggedWord token = new TaggedWord(""); // a fake start token
+//        Iterator<TaggedWord> it = tokens.iterator();
+//        while (it.hasNext()) {
+//            // get a token
+//            TaggedWord nextToken = it.next();
+//            // try to merge the two tokens
+//            TaggedWord mergedToken = mergeDate(token, nextToken);
+//            // if they are merged
+//            if (mergedToken != null) {
+////				System.out.println(mergedToken.getText()); // DEBUG
+//                result.remove(result.size() - 1);
+//                result.add(mergedToken);
+//            } else { // if they aren't merge
+//                result.add(nextToken);
+//            }
+//            token = nextToken;
+//        }
+//        return result;
+//    }
     public List<TaggedWord> mergeList(List<TaggedWord> tokens) {
         List<TaggedWord> result = new ArrayList<>();
         TaggedWord token = new TaggedWord(""); // a fake start token
-        Iterator<TaggedWord> it = tokens.iterator();
-        while (it.hasNext()) {
-            // get a token
-            TaggedWord nextToken = it.next();
+        for (TaggedWord nextToken : tokens) {
             // try to merge the two tokens
             TaggedWord mergedToken = mergeDate(token, nextToken);
             // if they are merged
             if (mergedToken != null) {
-//				System.out.println(mergedToken.getText()); // DEBUG
+				//System.out.println(mergedToken.getText()); // DEBUG
                 result.remove(result.size() - 1);
                 result.add(mergedToken);
             } else { // if they aren't merge

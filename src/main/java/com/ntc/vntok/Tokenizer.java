@@ -324,84 +324,6 @@ public class Tokenizer {
     }
 
     /**
-     * Return the next token from the input. This old version is deprecated.
-     *
-     * @return next token from the input
-     * @throws IOException
-     * @see {@link #getNextToken()}
-     */
-    @SuppressWarnings("unused")
-    @Deprecated
-    private TaggedWord getNextTokenOld() throws IOException {
-        // scan the file line by line and quit when no more lines are left
-        if (line == null || line.length() == 0) {
-            line = lineReader.readLine();
-            if (line == null) {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-                lineReader = null;
-                return null;
-            }
-            // an empty line:
-            if (line.length() == 0) {
-                return new TaggedWord("\n");
-            }
-            column = 1;
-        }
-        // match the next token
-        TaggedWord token = null;
-        // the end of the next token, within the line
-        int tokenEnd = -1;
-        // the length of the rule that matches the most characters from the
-        // input
-        int longestMatchLen = -1;
-        String text = "";
-        // find the rule that matches the longest substring of the input
-        for (int i = 0; i < rules.size(); i++) {
-            LexerRule rule = rules.get(i);
-            // get the precompiled pattern for this rule
-            Pattern pattern = rule.getPattern();
-            // create a matcher to perform match operations on the string 
-            // by interpreting the pattern
-            Matcher matcher = pattern.matcher(line);
-            // if there is a match, calculate its length
-            // and compare it with the longest match len
-            // Here, we attempts to match the input string, starting at the beginning, against the pattern.
-            // The method lookingAt() always starts at the beginning of the region; 
-            // unlike that method, it does not require that the entire region be matched. 
-            // This method returns true if, and only if, a prefix of the input sequence matches 
-            // this matcher's pattern
-            // Problem: if the string is "abc xyz@gmail.com", the next word will be "abc xyz", 
-            // which is a wrong segmentation! Need a less greedy method to overcome this shortcomming.
-            if (matcher.lookingAt()) {
-                int matchLen = matcher.end();
-                if (matchLen > longestMatchLen) {
-                    longestMatchLen = matchLen;
-                    text = matcher.group(0);
-                    System.err.println(rule.getName() + ": " + text);
-                    int lineNumber = lineReader.getLineNumber();
-                    token = new TaggedWord(rule, text, lineNumber, column);
-                    tokenEnd = matchLen;
-                }
-            }
-        }
-        // if we didn't match anything, we exit...
-        if (token == null) {
-            System.err.println("Error! line = " + lineReader.getLineNumber() + ", col = " + column);
-            System.out.println(line);
-            System.exit(1);
-            return null;
-        } else {
-            // we match something, skip past the token, get ready
-            // for the next match, and return the token
-            column += tokenEnd;
-            line = line.substring(tokenEnd);
-            return token;
-        }
-    }
-
-    /**
      * Return the next token from the input. Version 2, less greedy method than version 1.
      *
      * @return next token from the input
@@ -480,6 +402,84 @@ public class Tokenizer {
         line = line.substring(endIndex).trim();
 		//System.out.println(line);
         return token;
+    }
+    
+    /**
+     * Return the next token from the input. This old version is deprecated.
+     *
+     * @return next token from the input
+     * @throws IOException
+     * @see {@link #getNextToken()}
+     */
+    @SuppressWarnings("unused")
+    @Deprecated
+    private TaggedWord getNextTokenOld() throws IOException {
+        // scan the file line by line and quit when no more lines are left
+        if (line == null || line.length() == 0) {
+            line = lineReader.readLine();
+            if (line == null) {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                lineReader = null;
+                return null;
+            }
+            // an empty line:
+            if (line.length() == 0) {
+                return new TaggedWord("\n");
+            }
+            column = 1;
+        }
+        // match the next token
+        TaggedWord token = null;
+        // the end of the next token, within the line
+        int tokenEnd = -1;
+        // the length of the rule that matches the most characters from the
+        // input
+        int longestMatchLen = -1;
+        String text = "";
+        // find the rule that matches the longest substring of the input
+        for (int i = 0; i < rules.size(); i++) {
+            LexerRule rule = rules.get(i);
+            // get the precompiled pattern for this rule
+            Pattern pattern = rule.getPattern();
+            // create a matcher to perform match operations on the string 
+            // by interpreting the pattern
+            Matcher matcher = pattern.matcher(line);
+            // if there is a match, calculate its length
+            // and compare it with the longest match len
+            // Here, we attempts to match the input string, starting at the beginning, against the pattern.
+            // The method lookingAt() always starts at the beginning of the region; 
+            // unlike that method, it does not require that the entire region be matched. 
+            // This method returns true if, and only if, a prefix of the input sequence matches 
+            // this matcher's pattern
+            // Problem: if the string is "abc xyz@gmail.com", the next word will be "abc xyz", 
+            // which is a wrong segmentation! Need a less greedy method to overcome this shortcomming.
+            if (matcher.lookingAt()) {
+                int matchLen = matcher.end();
+                if (matchLen > longestMatchLen) {
+                    longestMatchLen = matchLen;
+                    text = matcher.group(0);
+                    System.err.println(rule.getName() + ": " + text);
+                    int lineNumber = lineReader.getLineNumber();
+                    token = new TaggedWord(rule, text, lineNumber, column);
+                    tokenEnd = matchLen;
+                }
+            }
+        }
+        // if we didn't match anything, we exit...
+        if (token == null) {
+            System.err.println("Error! line = " + lineReader.getLineNumber() + ", col = " + column);
+            System.out.println(line);
+            System.exit(1);
+            return null;
+        } else {
+            // we match something, skip past the token, get ready
+            // for the next match, and return the token
+            column += tokenEnd;
+            line = line.substring(tokenEnd);
+            return token;
+        }
     }
 
     /**

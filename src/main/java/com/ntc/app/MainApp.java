@@ -34,6 +34,7 @@ public class MainApp {
             VnTok vntok = new VnTok();
             VnTok vntok2 = new VnTok();
             
+            //String s = "   ";
             //String s = "Học sinh học sinh học.";
             // Học_sinh học_sinh học .
             //String s = "VNTok là công cụ tách từ Tiếng Việt.";

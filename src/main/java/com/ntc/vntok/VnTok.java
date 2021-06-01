@@ -137,11 +137,12 @@ public class VnTok {
             List<TaggedWord> list = tokenizer.getResult();
             for (TaggedWord taggedWord : list) {
                 String word = taggedWord.toString();
-                if (TokenizerOptions.USE_UNDERSCORE) {
-                    word = word.replaceAll("\\s+", "_");
-                } else {
-                    word = "[" + word + "]";
-                }
+                word = word.replaceAll("\\s+", "_");
+//                if (TokenizerOptions.USE_UNDERSCORE) {
+//                    word = word.replaceAll("\\s+", "_");
+//                } else {
+//                    word = "[" + word + "]";
+//                }
                 result.append(word);
                 result.append(' ');
             }
