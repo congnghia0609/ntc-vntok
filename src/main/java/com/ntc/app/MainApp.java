@@ -16,6 +16,7 @@
 
 package com.ntc.app;
 
+import com.ntc.vntok.VTConfig;
 import com.ntc.vntok.VietTokenizer;
 import com.ntc.vntok.VnTok;
 
@@ -31,7 +32,8 @@ public class MainApp {
      */
     public static void main(String[] args) {
         try {
-            VnTok vntok = new VnTok();
+            VTConfig vtc = new VTConfig();
+            VnTok vntok = new VnTok(vtc);
             VnTok vntok2 = new VnTok();
             
             //String s = "   ";

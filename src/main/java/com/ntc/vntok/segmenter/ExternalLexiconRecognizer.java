@@ -17,6 +17,7 @@ package com.ntc.vntok.segmenter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.ntc.vntok.TCommon;
+import com.ntc.vntok.VTConfig;
 import com.ntc.vntok.utils.JsonUtils;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
@@ -39,6 +40,17 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
     public static ExternalLexiconRecognizer getInstance() {
         if (instance == null) {
             instance = new ExternalLexiconRecognizer();
+        }
+        return instance;
+    }
+    
+    public static ExternalLexiconRecognizer getInstance(VTConfig cfg) throws FileNotFoundException {
+        if (instance == null) {
+            if (cfg.getLexiconEx() == null || cfg.getLexiconEx().isEmpty()) {
+                instance = new ExternalLexiconRecognizer();
+            } else {
+                instance = new ExternalLexiconRecognizer(cfg.getLexiconEx());
+            }
         }
         return instance;
     }

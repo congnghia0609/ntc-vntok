@@ -16,6 +16,7 @@
 package com.ntc.vntok.segmenter;
 
 import com.ntc.vntok.TCommon;
+import com.ntc.vntok.VTConfig;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -88,6 +89,17 @@ public class StringNormalizer {
     public static StringNormalizer getInstance() {
         if (instance == null) {
             instance = new StringNormalizer();
+        }
+        return instance;
+    }
+    
+    public static StringNormalizer getInstance(VTConfig cfg) {
+        if (instance == null) {
+            if (cfg.getNormalRules() == null || cfg.getNormalRules().isEmpty()) {
+                instance = new StringNormalizer();
+            } else {
+                instance = new StringNormalizer(cfg.getNormalRules());
+            }
         }
         return instance;
     }

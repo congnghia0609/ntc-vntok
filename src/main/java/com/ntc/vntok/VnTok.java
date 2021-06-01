@@ -82,17 +82,33 @@ public class VnTok {
         // create a unigram resolver. 
         resolver = UnigramModel.getInstance();
         // create a lexical segmenter that use the unigram resolver
-        //System.out.println("Creating lexical segmenter...");
-        //segmenter = new Segmenter(resolver);
         segmenter = Segmenter.getInstance(resolver);
-        //System.out.println("Lexical segmenter created.");
         // init the tokenizer
         tokenizer = new Tokenizer(segmenter);
         // Do not resolve the ambiguity.
         //tokenizer.setAmbiguitiesResolved(false);
-        //System.out.println("Initializing tokenizer...OK");
         if (sentenceDetector == null) {
             sentenceDetector = new ViSD();
+            System.out.println("Init sentenceDetector...OK");
+        }
+        System.out.println("Init VnTok...OK");
+    }
+    
+    public VnTok(VTConfig cfg) throws IOException {
+        // create a unigram resolver.
+        resolver = UnigramModel.getInstance(cfg);
+        // create a lexical segmenter that use the unigram resolver
+        segmenter = Segmenter.getInstance(resolver, cfg);
+        // init the tokenizer
+        tokenizer = new Tokenizer(segmenter, cfg);
+        // Is resolve the ambiguity.
+        tokenizer.setAmbiguitiesResolved(cfg.isIsAmbiguity());
+        if (sentenceDetector == null) {
+            if (cfg.getSdModel() == null || cfg.getSdModel().isEmpty()) {
+                sentenceDetector = new ViSD();
+            } else {
+                sentenceDetector = new ViSD(cfg.getSdModel());
+            }
             System.out.println("Init sentenceDetector...OK");
         }
         System.out.println("Init VnTok...OK");

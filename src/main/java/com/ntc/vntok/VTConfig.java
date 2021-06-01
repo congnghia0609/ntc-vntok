@@ -22,18 +22,40 @@ package com.ntc.vntok;
  * @since Jun 1, 2021
  */
 public class VTConfig {
+    // Unigram model
     private String unigramModel;
+    // Bigram model
     private String bigramModel;
+    // The lexicon dfa.
     private String lexiconDFA;
+    // The external lexicon
     private String lexiconEx;
+    // The file contains normalization rules for Vietnamese accents.
     private String normalRules;
+    // Rule lexers
     private String lexers;
+    // The named entity prefix.
     private String namePrefix;
+    // Is resolve the ambiguity.
     private boolean isAmbiguity = true;
+    // Sentence detector model
+    private String sdModel;
 
     public VTConfig() {
     }
 
+    public VTConfig(String unigramModel, String bigramModel, String lexiconDFA, String lexiconEx, String normalRules, String lexers, String namePrefix, boolean isAmbiguity, String sdModel) {
+        this.unigramModel = unigramModel;
+        this.bigramModel = bigramModel;
+        this.lexiconDFA = lexiconDFA;
+        this.lexiconEx = lexiconEx;
+        this.normalRules = normalRules;
+        this.lexers = lexers;
+        this.namePrefix = namePrefix;
+        this.isAmbiguity = isAmbiguity;
+        this.sdModel = sdModel;
+    }
+    
     public String getUnigramModel() {
         return unigramModel;
     }
@@ -98,8 +120,16 @@ public class VTConfig {
         this.isAmbiguity = isAmbiguity;
     }
 
+    public String getSdModel() {
+        return sdModel;
+    }
+
+    public void setSdModel(String sdModel) {
+        this.sdModel = sdModel;
+    }
+
     @Override
     public String toString() {
-        return "VTConfig{" + "unigramModel=" + unigramModel + ", bigramModel=" + bigramModel + ", lexiconDFA=" + lexiconDFA + ", lexiconEx=" + lexiconEx + ", normalRules=" + normalRules + ", lexers=" + lexers + ", namePrefix=" + namePrefix + ", isAmbiguity=" + isAmbiguity + '}';
+        return "VTConfig{" + "unigramModel=" + unigramModel + ", bigramModel=" + bigramModel + ", lexiconDFA=" + lexiconDFA + ", lexiconEx=" + lexiconEx + ", normalRules=" + normalRules + ", lexers=" + lexers + ", namePrefix=" + namePrefix + ", isAmbiguity=" + isAmbiguity + ", sdModel=" + sdModel + '}';
     }
 }

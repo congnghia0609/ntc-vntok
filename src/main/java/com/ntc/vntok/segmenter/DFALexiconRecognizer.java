@@ -18,6 +18,7 @@ package com.ntc.vntok.segmenter;
 import com.ntc.fsm.fsa.DFA;
 import com.ntc.fsm.fsa.DFASimulator;
 import com.ntc.vntok.TCommon;
+import com.ntc.vntok.VTConfig;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -72,6 +73,17 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
     public static DFALexiconRecognizer getInstance() {
         if (recognizer == null) {
             recognizer = new DFALexiconRecognizer();
+        }
+        return recognizer;
+    }
+    
+    public static DFALexiconRecognizer getInstance(VTConfig cfg) throws FileNotFoundException {
+        if (recognizer == null) {
+            if (cfg.getLexiconDFA() == null || cfg.getLexiconDFA().isEmpty()) {
+                recognizer = new DFALexiconRecognizer();
+            } else {
+                recognizer = new DFALexiconRecognizer(cfg.getLexiconDFA());
+            }
         }
         return recognizer;
     }

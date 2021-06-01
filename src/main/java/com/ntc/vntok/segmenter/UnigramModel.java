@@ -17,6 +17,7 @@ package com.ntc.vntok.segmenter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.ntc.vntok.TCommon;
+import com.ntc.vntok.VTConfig;
 import com.ntc.vntok.utils.JsonUtils;
 import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
@@ -54,8 +55,30 @@ public class UnigramModel extends AbstractResolver {
 		return instance;
 	}
     
+    public static UnigramModel getInstance(VTConfig cfg) throws FileNotFoundException {
+		if(instance == null) {
+			lock.lock();
+			try {
+				if(instance == null) {
+					instance = new UnigramModel(cfg);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+		return instance;
+	}
+    
     public UnigramModel() {
         loadUnigram();
+    }
+    
+    public UnigramModel(VTConfig cfg) throws FileNotFoundException {
+        if (cfg.getUnigramModel() == null || cfg.getUnigramModel().isEmpty()) {
+            loadUnigram();
+        } else {
+            loadUnigram(cfg.getUnigramModel());
+        }
     }
     
     public UnigramModel(String unigramFilename) throws FileNotFoundException {

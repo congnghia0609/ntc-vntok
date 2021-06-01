@@ -15,6 +15,7 @@
  */
 package com.ntc.vntok.segmenter;
 
+import com.ntc.vntok.VTConfig;
 import com.ntc.vntok.graph.AdjacencyListWeightedGraph;
 import com.ntc.vntok.graph.Edge;
 import com.ntc.vntok.graph.IGraph;
@@ -42,6 +43,20 @@ public class Segmenter {
 	private static Segmenter instance;
 
 	public static Segmenter getInstance(AbstractResolver resolver) {
+		if(instance == null) {
+			lock.lock();
+			try {
+				if(instance == null) {
+					instance = new Segmenter(resolver);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+		return instance;
+	}
+    
+    public static Segmenter getInstance(AbstractResolver resolver, VTConfig cfg) {
 		if(instance == null) {
 			lock.lock();
 			try {
@@ -108,9 +123,22 @@ public class Segmenter {
         // create DFA lexicon recognizer
         lexiconRecognizer = DFALexiconRecognizer.getInstance();
         // create external lexicon recognizer
-        externalLexiconRecognizer = new ExternalLexiconRecognizer();
+        //externalLexiconRecognizer = new ExternalLexiconRecognizer();
+        externalLexiconRecognizer = ExternalLexiconRecognizer.getInstance();
         // create a string normalizer
         normalizer = StringNormalizer.getInstance();
+        System.out.println("Lexical segmenter created.");
+    }
+    
+    public Segmenter(AbstractResolver resolver, VTConfig cfg) throws FileNotFoundException {
+        System.out.println("Creating lexical segmenter...");
+        this.resolver = resolver;
+        // create DFA lexicon recognizer
+        lexiconRecognizer = DFALexiconRecognizer.getInstance(cfg);
+        // create external lexicon recognizer
+        externalLexiconRecognizer = ExternalLexiconRecognizer.getInstance(cfg);
+        // create a string normalizer
+        normalizer = StringNormalizer.getInstance(cfg);
         System.out.println("Lexical segmenter created.");
     }
 

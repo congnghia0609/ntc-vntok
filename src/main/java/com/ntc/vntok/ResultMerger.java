@@ -17,7 +17,6 @@ package com.ntc.vntok;
 
 import com.ntc.vntok.tokens.TaggedWord;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

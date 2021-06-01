@@ -101,7 +101,8 @@ public class Tokenizer {
 
     private final ResultMerger resultMerger = new ResultMerger();
 
-    private static ResultSplitter resultSplitter = new ResultSplitter();
+    //private static ResultSplitter resultSplitter = new ResultSplitter();
+    private static ResultSplitter resultSplitter;
 
     /**
      * Creates a tokenizer from a lexers filename and a segmenter.
@@ -113,6 +114,31 @@ public class Tokenizer {
         // load the lexer rules
         if (rules == null) {
             loadLexerRules();
+        }
+        if (resultSplitter == null) {
+            resultSplitter = new ResultSplitter();
+        }
+        // add a simple tokenizer listener for reporting tokenization progress
+        tokenizerListener.add(new SimpleProgressReporter());
+        System.out.println("Initializing tokenizer...OK");
+    }
+    
+    public Tokenizer(Segmenter segmenter, VTConfig cfg) throws FileNotFoundException {
+        this.segmenter = segmenter;
+        // load the lexer rules
+        if (rules == null) {
+            if (cfg.getLexers() == null || cfg.getLexers().isEmpty()) {
+                loadLexerRules();
+            } else {
+                loadLexerRules(cfg.getLexers());
+            }
+        }
+        if (resultSplitter == null) {
+            if (cfg.getNamePrefix() == null || cfg.getNamePrefix().isEmpty()) {
+                resultSplitter = new ResultSplitter();
+            } else {
+                resultSplitter = new ResultSplitter(cfg.getNamePrefix());
+            }
         }
         // add a simple tokenizer listener for reporting tokenization progress
         tokenizerListener.add(new SimpleProgressReporter());
@@ -132,6 +158,9 @@ public class Tokenizer {
         if (rules == null) {
             loadLexerRules(lexersFilename);
         }
+        if (resultSplitter == null) {
+            resultSplitter = new ResultSplitter();
+        }
         // add a simple tokenizer listener for reporting tokenization progress
         tokenizerListener.add(new SimpleProgressReporter());
         System.out.println("Initializing tokenizer...OK");
@@ -149,6 +178,9 @@ public class Tokenizer {
         // load the lexer rules
         if (rules == null) {
             loadLexerRules(properties.getProperty("lexers"));
+        }
+        if (resultSplitter == null) {
+            resultSplitter = new ResultSplitter();
         }
         // add a simple tokenizer listener for reporting tokenization progress
         tokenizerListener.add(new SimpleProgressReporter());
