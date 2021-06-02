@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ntc.vntok.lang.bigram;
+package com.ntc.vntok.bigram;
 
 import java.util.Comparator;
 

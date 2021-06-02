@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ntc.vntok.lang.bigram;
+package com.ntc.vntok.bigram;
 
-//import com.ntc.vntok.lang.IConstants;
 import com.ntc.vntok.TCommon;
 import com.ntc.vntok.utils.FileUtil;
 import com.ntc.vntok.utils.JsonUtils;
-//import com.ntc.vntok.lexicon.LexiconMarshaller;
 import com.ntc.vntok.utils.UTF8FileUtility;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,7 +34,7 @@ import java.util.Map;
  * @author nghiatc
  * @since Mar 24, 2021
  */
-public class Bigram {
+public class GenBigram {
 
     /**
      * A map of couples. We use a map to speed up the search of a couple.
@@ -44,12 +42,12 @@ public class Bigram {
      */
     private Map<Couple, Couple> bigram;
 
-    public Bigram() {
+    public GenBigram() {
         init();
         loadCorpora();
     }
 
-    public Bigram(boolean isCoded) {
+    public GenBigram(boolean isCoded) {
         init();
         // load corpora, do statistics
         loadCorpora();
@@ -144,7 +142,7 @@ public class Bigram {
     }
 
     /**
-     * Marshal the map to an xml file using the lexicon format.
+     * Marshal the map to an JSON file using the lexicon format.
      *
      * @param filename
      */
@@ -156,7 +154,6 @@ public class Bigram {
             int value = c.getFreq();
             map.put(key, value);
         }
-        //new LexiconMarshaller().marshal(map, filename);
         // Write map file json.
         String smap = JsonUtils.Instance.toJson(map);
         FileUtil.writeFileJson(filename, smap);
@@ -166,8 +163,8 @@ public class Bigram {
      * @param args
      */
     public static void main(String[] args) {
-        Bigram counter = new Bigram(false);
-        counter.marshal(TCommon.BIGRAM_MODEL);
+        GenBigram bimodel = new GenBigram(false);
+        bimodel.marshal(TCommon.BIGRAM_MODEL);
         System.out.println("Done!");
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ntc.vntok.lang.bigram;
+package com.ntc.vntok.bigram;
 
 /**
  *
