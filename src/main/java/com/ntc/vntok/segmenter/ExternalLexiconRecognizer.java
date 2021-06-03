@@ -55,6 +55,17 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
         return instance;
     }
     
+    public static ExternalLexiconRecognizer getInstance(String filename) throws FileNotFoundException {
+        if (instance == null) {
+            if (filename == null || filename.isEmpty()) {
+                instance = new ExternalLexiconRecognizer();
+            } else {
+                instance = new ExternalLexiconRecognizer(filename);
+            }
+        }
+        return instance;
+    }
+    
     /**
      * Default constructor.
      */

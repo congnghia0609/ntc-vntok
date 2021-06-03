@@ -61,23 +61,6 @@ public class VnTok {
      *
      * @throws java.io.IOException
      */
-//    public VnTok() throws IOException {
-//        //tokenizer = TokenizerProvider.getInstance().getTokenizer();
-//        // create a unigram resolver. 
-//        resolver = new UnigramModel();
-//        // create a lexical segmenter that use the unigram resolver
-//        System.out.println("Creating lexical segmenter...");
-//        segmenter = new Segmenter(resolver);
-//        System.out.println("Lexical segmenter created.");
-//        // init the tokenizer
-//        tokenizer = new Tokenizer(segmenter);
-//        System.out.print("Initializing tokenizer...");
-//        // Do not resolve the ambiguity.
-//        //tokenizer.setAmbiguitiesResolved(false);
-//        System.out.println("OK");
-//        sentenceDetector = new ViSD();
-//        System.out.println("Init sentenceDetector...OK");
-//    }
     public VnTok() throws IOException {
         // create a unigram resolver. 
         resolver = UnigramModel.getInstance();

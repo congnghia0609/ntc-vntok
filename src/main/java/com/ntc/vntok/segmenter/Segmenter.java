@@ -155,7 +155,7 @@ public class Segmenter {
         lexiconRecognizer = DFALexiconRecognizer.getInstance(properties.getProperty("lexiconDFA"));
         // create external lexicon recognizer
         //getExternalLexiconRecognizer(properties);
-        externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
+        externalLexiconRecognizer = ExternalLexiconRecognizer.getInstance(properties.getProperty("externalLexicon"));
         // create a string normalizer
         normalizer = StringNormalizer.getInstance(properties.getProperty("normalizationRules"));
         this.resolver = resolver;
@@ -225,59 +225,6 @@ public class Segmenter {
         }
         return graph;
     }
-
-    /**
-     * Creates an internal lexicon recognizer.
-     *
-     * @return the DFA lexicon recognizer in use
-     */
-//    private AbstractLexiconRecognizer getDFALexiconRecognizer() {
-//        if (lexiconRecognizer == null) {
-//            // use the DFA lexicon recognizer
-//            // user can use any lexicon recognizer here.
-//            lexiconRecognizer = DFALexiconRecognizer.getInstance();
-//        }
-//        return lexiconRecognizer;
-//    }
-
-    /**
-     * Creates an internal lexicon recognizer.
-     *
-     * @return the DFA lexicon recognizer in use
-     */
-//    private AbstractLexiconRecognizer getDFALexiconRecognizer(Properties properties) throws FileNotFoundException {
-//        if (lexiconRecognizer == null) {
-//            // use the DFA lexicon recognizer
-//            // user can use any lexicon recognizer here.
-//            lexiconRecognizer = DFALexiconRecognizer.getInstance(properties.getProperty("lexiconDFA"));
-//        }
-//        return lexiconRecognizer;
-//    }
-
-    /**
-     * Creates an external lexicon recognizer.
-     *
-     * @return the external lexicon recognizer
-     */
-//    private AbstractLexiconRecognizer getExternalLexiconRecognizer() {
-//        if (externalLexiconRecognizer == null) {
-//            externalLexiconRecognizer = new ExternalLexiconRecognizer();
-//        }
-//        return externalLexiconRecognizer;
-//    }
-
-    /**
-     * Creates an external lexicon recognizer.
-     *
-     * @param properties
-     * @return the external lexicon recognizer
-     */
-//    private AbstractLexiconRecognizer getExternalLexiconRecognizer(Properties properties) throws FileNotFoundException {
-//        if (externalLexiconRecognizer == null) {
-//            externalLexiconRecognizer = new ExternalLexiconRecognizer(properties.getProperty("externalLexicon"));
-//        }
-//        return externalLexiconRecognizer;
-//    }
 
     /**
      * Try to connect an unconnected graph. If a graph is unconnected, we find all of its isolated vertices and add a
