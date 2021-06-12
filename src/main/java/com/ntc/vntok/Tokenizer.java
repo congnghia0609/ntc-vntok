@@ -90,11 +90,6 @@ public class Tokenizer {
     private Outputer outputer = new Outputer();
 
     /**
-     * A list of tokenizer listeners
-     */
-    private final List<ITokenizerListener> tokenizerListener = new ArrayList<>();
-
-    /**
      * Are ambiguities resolved? True by default.
      */
     private boolean isAmbiguitiesResolved = true;
@@ -118,8 +113,6 @@ public class Tokenizer {
         if (resultSplitter == null) {
             resultSplitter = new ResultSplitter();
         }
-        // add a simple tokenizer listener for reporting tokenization progress
-        tokenizerListener.add(new SimpleProgressReporter());
         System.out.println("Initializing tokenizer...OK");
     }
     
@@ -140,8 +133,6 @@ public class Tokenizer {
                 resultSplitter = new ResultSplitter(cfg.getNamePrefix());
             }
         }
-        // add a simple tokenizer listener for reporting tokenization progress
-        tokenizerListener.add(new SimpleProgressReporter());
         System.out.println("Initializing tokenizer...OK");
     }
 
@@ -161,8 +152,6 @@ public class Tokenizer {
         if (resultSplitter == null) {
             resultSplitter = new ResultSplitter();
         }
-        // add a simple tokenizer listener for reporting tokenization progress
-        tokenizerListener.add(new SimpleProgressReporter());
         System.out.println("Initializing tokenizer...OK");
     }
 
@@ -182,8 +171,6 @@ public class Tokenizer {
         if (resultSplitter == null) {
             resultSplitter = new ResultSplitter();
         }
-        // add a simple tokenizer listener for reporting tokenization progress
-        tokenizerListener.add(new SimpleProgressReporter());
         System.out.println("Initializing tokenizer...OK");
     }
 
@@ -315,9 +302,6 @@ public class Tokenizer {
                     }
                 }
             }
-            // ok, the token has been processed,
-            // it is now reported to all registered listeners
-            fireProcess(taggedWord);
         }
         // close the line reader
         if (lineReader != null) {
@@ -566,44 +550,6 @@ public class Tokenizer {
     }
 
     /**
-     * Adds a listener
-     *
-     * @param listener a listener to add
-     */
-    public void addTokenizerListener(ITokenizerListener listener) {
-        tokenizerListener.add(listener);
-    }
-
-    /**
-     * Removes a tokenier listener
-     *
-     * @param listener a listener to remove
-     */
-    public void removeTokenizerListener(ITokenizerListener listener) {
-        tokenizerListener.remove(listener);
-    }
-
-    /**
-     * Get all the tokenizer listener
-     *
-     * @return a list of listeners
-     */
-    public List<ITokenizerListener> getTokenizerListener() {
-        return tokenizerListener;
-    }
-
-    /**
-     * Reports process of the tokenization to all listener
-     *
-     * @param token the processed token
-     */
-    private void fireProcess(TaggedWord token) {
-        for (ITokenizerListener listener : tokenizerListener) {
-            listener.processToken(token);
-        }
-    }
-
-    /**
      * Dispose the tokenizer
      *
      */
@@ -612,8 +558,6 @@ public class Tokenizer {
         segmenter.dispose();
         // clear all lexer tokens
         result.clear();
-        // remove all tokenizer listeners
-        tokenizerListener.clear();
     }
 
     /**
@@ -641,19 +585,5 @@ public class Tokenizer {
      */
     public Segmenter getSegmenter() {
         return segmenter;
-    }
-
-    /**
-     * A simple listener for reporting tokenization progress.
-     */
-    private class SimpleProgressReporter implements ITokenizerListener {
-
-        @Override
-        public void processToken(TaggedWord token) {
-            // report some simple progress
-            if (result.size() % 1000 == 0) {
-                System.out.print(".");
-            }
-        }
     }
 }
