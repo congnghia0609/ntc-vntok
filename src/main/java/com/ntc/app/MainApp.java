@@ -47,6 +47,10 @@ public class MainApp {
             System.out.println(s);
             String ls = vntok.tokenizeSentence(s);
             System.out.println(ls);
+            
+            System.out.println(s);
+            String ls2 = vntok2.tokenizeSentence(s);
+            System.out.println(ls2);
         } catch (Exception e) {
             e.printStackTrace();
         }
