@@ -85,8 +85,7 @@ public class Transition {
             return false;
         }
         Transition t = (Transition) obj;
-        return (source == t.getSource()) && (target == t.getTarget())
-                && (input == t.getInput());
+        return (source == t.getSource()) && (target == t.getTarget()) && (input == t.getInput());
     }
 
     /**

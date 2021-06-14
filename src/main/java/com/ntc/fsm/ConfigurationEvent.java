@@ -93,7 +93,6 @@ public class ConfigurationEvent {
 
     @Override
     public String toString() {
-        return "[" + parentConf.getCurrentState().getId() + ","
-                + input + ":" + output + "," + conf.getCurrentState().getId() + "]";
+        return "[" + parentConf.getCurrentState().getId() + "," + input + ":" + output + "," + conf.getCurrentState().getId() + "]";
     }
 }

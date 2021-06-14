@@ -16,7 +16,6 @@
 package com.ntc.fsm;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -49,8 +48,8 @@ public class State implements Comparable<State> {
      */
     public State(int id) {
         this.id = id;
-        type = 1; // normal state
-        outTransitions = new ArrayList<Transition>();
+        this.type = 1; // normal state
+        this.outTransitions = new ArrayList<>();
     }
 
     /**
@@ -60,7 +59,7 @@ public class State implements Comparable<State> {
      */
     public State(State s) {
         this.id = s.getId();
-        this.setType(s.getType());
+        this.type = s.getType();
         this.outTransitions = s.getOutTransitions();
     }
 
@@ -129,20 +128,16 @@ public class State implements Comparable<State> {
      */
     public char[] getOutTransitionInputs() {
         char[] inputs = new char[outTransitions.size()];
-        Iterator<Transition> it = outTransitions.iterator();
         int i = 0;
-        while (it.hasNext()) {
-            inputs[i++] = it.next().getInput();
+        for (Transition t : outTransitions) {
+            inputs[i++] = t.getInput();
         }
         return inputs;
     }
 
     @Override
     public String toString() {
-        String s = "";
-        s += "(" + getId() + "," + getType() + ")";
-        s += outTransitions.toString();
-        return s;
+        return "(" + getId() + "," + getType() + ")" + outTransitions.toString();
     }
 
     /**
@@ -177,12 +172,8 @@ public class State implements Comparable<State> {
         return (type == 2);
     }
 
-
-    /* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
     @Override
     public int compareTo(State s) {
-        return getId() - s.getId();
+        return this.id - s.getId();
     }
 }

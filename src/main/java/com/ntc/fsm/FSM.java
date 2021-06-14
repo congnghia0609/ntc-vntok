@@ -242,8 +242,7 @@ public abstract class FSM {
     }
 
     /**
-     * Get the simulator of the machine. The simulator defines the type of the machine (deterministic,
-     * non-deterministic).
+     * Get the simulator of the machine. The simulator defines the type of the machine (deterministic, non-deterministic).
      *
      * @return the simulator of the machine.
      */
