@@ -15,51 +15,16 @@
  */
 package com.ntc.fsm.jaxb;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  *
  * @author nghiatc
  * @since Apr 21, 2021
  */
-/**
- * <p>
- * Java class for anonymous complex type.
- *
- * <p>
- * The following schema fragment specifies the expected content contained within this class.
- *
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="src" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="tar" use="required" type="{http://www.w3.org/2001/XMLSchema}int" />
- *       &lt;attribute name="inp" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="out" type="{http://www.w3.org/2001/XMLSchema}string" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- *
- *
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "t")
 public class T {
 
-    @XmlAttribute(required = true)
     protected int src;
-    @XmlAttribute(required = true)
     protected int tar;
-    @XmlAttribute(required = true)
     protected String inp;
-    @XmlAttribute
     protected String out;
 
     /**

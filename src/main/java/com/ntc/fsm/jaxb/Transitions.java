@@ -17,46 +17,14 @@ package com.ntc.fsm.jaxb;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  *
  * @author nghiatc
  * @since Apr 21, 2021
  */
-/**
- * <p>
- * Java class for anonymous complex type.
- *
- * <p>
- * The following schema fragment specifies the expected content contained within this class.
- *
- * <pre>
- * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element ref="{}t" maxOccurs="unbounded"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
- * </pre>
- *
- *
- */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "t"
-})
-@XmlRootElement(name = "transitions")
 public class Transitions {
 
-    @XmlElement(required = true)
     protected List<T> t;
 
     public Transitions() {
@@ -75,16 +43,13 @@ public class Transitions {
      * <pre>
      *    getT().add(newItem);
      * </pre>
-     *
-     *
      * <p>
      * Objects of the following type(s) are allowed in the list {@link T }
-     *
-     *
+     * @return List T
      */
     public List<T> getT() {
         if (t == null) {
-            t = new ArrayList<T>();
+            t = new ArrayList<>();
         }
         return this.t;
     }
