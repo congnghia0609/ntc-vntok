@@ -15,13 +15,8 @@
  */
 package com.ntc.fsm.fst;
 
-import com.ntc.fsm.ConfigurationEvent;
-import com.ntc.fsm.ISimulatorListener;
 import com.ntc.fsm.Simulator;
 import com.ntc.fsm.State;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -41,46 +36,11 @@ public class FSTSimulator extends Simulator {
     protected FSTConfiguration configuration = null;
 
     /**
-     * A simple logger for the simulator.
-     */
-    protected SimulatorLogger logger = null;
-
-    /**
-     * Print out the trace of the simulator or not (DEBUG mode).
-     */
-    private final boolean DEBUG = false;
-
-    /**
-     * A simple logger for the {@link FSTSimulator} to log its processing.
-     */
-    class SimulatorLogger implements ISimulatorListener {
-
-        private final Logger logger;
-
-        public SimulatorLogger() {
-            logger = Logger.getLogger(FSTSimulator.class.getName());
-            // use a console handler to trace the log
-            logger.addHandler(new ConsoleHandler());
-            logger.setLevel(Level.INFO);
-        }
-
-        @Override
-        public void update(ConfigurationEvent configurationEvent) {
-            // log the configuration event
-            logger.log(Level.INFO, configurationEvent.toString());
-        }
-    }
-
-    /**
      * @param fst the fst that this simulator operates on.
      */
     public FSTSimulator(FST fst) {
         super();
         this.fst = fst;
-        if (DEBUG) {
-            logger = new SimulatorLogger();
-            addSimulatorListener(logger);
-        }
     }
 
     /**
@@ -114,13 +74,7 @@ public class FSTSimulator extends Simulator {
                             unprocessedInput = unprocessedInput.substring(1);
                             currentOutput += nextOutput;
                         }
-                        nextConfiguration = new FSTConfiguration(nextState, configuration,
-                                configuration.getTotalInput(), unprocessedInput, currentOutput);
-                        // create a configuration event and notify all registered listeners
-                        if (DEBUG) {
-                            notify(new ConfigurationEvent(configuration,
-                                    nextConfiguration, nextInput, nextOutput)); // DEBUG
-                        }
+                        nextConfiguration = new FSTConfiguration(nextState, configuration, configuration.getTotalInput(), unprocessedInput, currentOutput);
                     }
                 }
             }
@@ -162,8 +116,7 @@ public class FSTSimulator extends Simulator {
         FSTConfiguration config = track(input);
         // the input is accepted if the current state is final
         // and there is no unprocessed input
-        return (config.getCurrentState().isFinalState()
-                && (config.getUnprocessedInput().length() == 0));
+        return config.getCurrentState().isFinalState() && config.getUnprocessedInput().length() == 0;
     }
 
     @Override

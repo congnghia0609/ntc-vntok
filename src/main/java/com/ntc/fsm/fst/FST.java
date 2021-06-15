@@ -33,17 +33,11 @@ public class FST extends FSM {
         super();
     }
 
-    /* (non-Javadoc)
-	 * @see FSM#getSimulator()
-     */
     @Override
     public ISimulator getSimulator() {
         return new FSTSimulator(this);
     }
 
-    /* (non-Javadoc)
-	 * @see FSM#dispose()
-     */
     @Override
     public void dispose() {
         super.dispose();

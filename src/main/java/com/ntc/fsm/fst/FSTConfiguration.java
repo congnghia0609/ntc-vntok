@@ -36,8 +36,7 @@ public class FSTConfiguration extends DFAConfiguration {
      * @param totalInput the total input
      * @param unprocessedInput the unprocessed input
      */
-    public FSTConfiguration(State state, FSTConfiguration parent,
-            String totalInput, String unprocessedInput) {
+    public FSTConfiguration(State state, FSTConfiguration parent, String totalInput, String unprocessedInput) {
         super(state, parent, totalInput, unprocessedInput);
         currentOutput = "";
     }
@@ -49,8 +48,7 @@ public class FSTConfiguration extends DFAConfiguration {
      * @param unprocessedInput the unprocessed input
      * @param currentOutput the current output
      */
-    public FSTConfiguration(State state, FSTConfiguration parent,
-            String totalInput, String unprocessedInput, String currentOutput) {
+    public FSTConfiguration(State state, FSTConfiguration parent, String totalInput, String unprocessedInput, String currentOutput) {
         this(state, parent, totalInput, unprocessedInput);
         this.currentOutput = currentOutput;
     }
