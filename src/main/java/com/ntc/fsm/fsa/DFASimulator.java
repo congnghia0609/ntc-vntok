@@ -15,13 +15,8 @@
  */
 package com.ntc.fsm.fsa;
 
-import com.ntc.fsm.ConfigurationEvent;
-import com.ntc.fsm.ISimulatorListener;
 import com.ntc.fsm.Simulator;
 import com.ntc.fsm.State;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,38 +35,6 @@ public class DFASimulator extends Simulator {
     protected DFAConfiguration configuration = null;
 
     /**
-     * A simple logger for the simulator.
-     */
-    protected SimulatorLogger logger = null;
-
-    /**
-     * Print out the trace of the simulator or not (DEBUG mode).
-     */
-    private final boolean DEBUG = false;
-
-    /**
-     * A simple logger for the {@link DFASimulator} to log its processing.
-     */
-    class SimulatorLogger implements ISimulatorListener {
-
-        private final Logger logger;
-
-        public SimulatorLogger() {
-            logger = Logger.getLogger(DFASimulator.class.getName());
-            // use a console handler to trace the log
-            logger.addHandler(new ConsoleHandler());
-            logger.setLevel(Level.FINEST);
-        }
-
-        @Override
-        public void update(ConfigurationEvent configurationEvent) {
-            // log the configuration event
-            logger.log(Level.INFO, configurationEvent.toString());
-        }
-
-    }
-
-    /**
      * Default constructor.
      *
      * @param dfa an dfa.
@@ -81,10 +44,6 @@ public class DFASimulator extends Simulator {
         // init listeners
         super();
         this.dfa = dfa;
-        if (DEBUG) {
-            logger = new SimulatorLogger();
-            addSimulatorListener(logger);
-        }
     }
 
     /**
@@ -114,12 +73,7 @@ public class DFASimulator extends Simulator {
                         if (unprocessedInput.length() > 0) {
                             unprocessedInput = unprocessedInput.substring(1);
                         }
-                        nextConfiguration = new DFAConfiguration(nextState, configuration,
-                                configuration.getTotalInput(), unprocessedInput);
-                        // create a configuration event and notify all registered listeners
-                        if (DEBUG) {
-                            notify(new ConfigurationEvent(configuration, nextConfiguration, nextInput)); // DEBUG
-                        }
+                        nextConfiguration = new DFAConfiguration(nextState, configuration, configuration.getTotalInput(), unprocessedInput);
                     }
                 }
             }
@@ -161,13 +115,14 @@ public class DFASimulator extends Simulator {
         DFAConfiguration config = track(input);
         // the input is accepted if the current state is final
         // and there is no unprocessed input
-        return (config.getCurrentState().isFinalState()
-                && (config.getUnprocessedInput().length() == 0));
+        return config.getCurrentState().isFinalState() && config.getUnprocessedInput().length() == 0;
     }
 
     /**
      * A run of the dfa on an input does not return any result.
      *
+     * @param input String
+     * @return String
      */
     @Override
     public String run(String input) {

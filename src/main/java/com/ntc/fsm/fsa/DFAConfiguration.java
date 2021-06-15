@@ -44,8 +44,7 @@ public class DFAConfiguration extends Configuration {
      * @param unprocessedInput the unprocessed input
      *
      */
-    public DFAConfiguration(State state, DFAConfiguration parent,
-            String totalInput, String unprocessedInput) {
+    public DFAConfiguration(State state, DFAConfiguration parent, String totalInput, String unprocessedInput) {
         super(state, parent);
         this.totalInput = totalInput;
         this.unprocessedInput = unprocessedInput;
@@ -53,6 +52,7 @@ public class DFAConfiguration extends Configuration {
 
     /**
      * Returns the total input.
+     * @return String
      */
     public String getTotalInput() {
         return totalInput;
@@ -99,8 +99,7 @@ public class DFAConfiguration extends Configuration {
             return true;
         }
         try {
-            return super.equals(configuration)
-                    && unprocessedInput.equals(((DFAConfiguration) configuration).unprocessedInput);
+            return super.equals(configuration) && unprocessedInput.equals(((DFAConfiguration) configuration).unprocessedInput);
         } catch (ClassCastException e) {
             return false;
         }

@@ -17,7 +17,6 @@ package com.ntc.fsm.fsa;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.ntc.fsm.FSM;
-//import com.ntc.fsm.IConstants;
 import com.ntc.fsm.ISimulator;
 import com.ntc.fsm.Simulator;
 import com.ntc.fsm.State;
@@ -62,7 +61,6 @@ public class DFA extends FSM {
             char input = t.getInp().charAt(0);
             String output = t.getOut();
             Transition transition;
-            //if (output != null && output.equals(IConstants.EMPTY_STRING)) {
             if (output != null && output.isEmpty()) {
                 transition = new Transition(t.getSrc(), t.getTar(), input);
             } else {
