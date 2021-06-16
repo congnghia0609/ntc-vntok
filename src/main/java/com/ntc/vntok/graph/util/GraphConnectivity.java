@@ -77,9 +77,7 @@ public class GraphConnectivity {
             }
         }
         int[] isolatedVertices = new int[n];
-        for (int i = 0; i < n; i++) {
-            isolatedVertices[i] = vertices[i];
-        }
+        System.arraycopy(vertices, 0, isolatedVertices, 0, n);
         return isolatedVertices;
     }
 }

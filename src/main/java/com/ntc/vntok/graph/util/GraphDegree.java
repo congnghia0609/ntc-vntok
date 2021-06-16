@@ -66,6 +66,5 @@ public class GraphDegree {
             // for testing only:
             System.out.println("deg(" + u + ") = " + d);
         }
-
     }
 }
