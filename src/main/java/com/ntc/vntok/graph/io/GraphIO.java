@@ -110,6 +110,7 @@ public class GraphIO {
     /**
      * Scans a graph from a reader.
      *
+     * @param reader
      * @see #scanAdjacencyMatrix(String)
      * @return an adjacency matrix graph.
      */
@@ -245,17 +246,14 @@ public class GraphIO {
     public static void print(IGraph graph) {
         int vC = graph.getNumberOfVertices();
         int eC = graph.getNumberOfEdges();
-        System.out.println("There are " + vC + " vertices and " + eC
-                + " edges.\n");
-        if (graph instanceof AdjacencyListGraph
-                || graph instanceof AdjacencyListWeightedGraph) {
+        System.out.println("There are " + vC + " vertices and " + eC + " edges.\n");
+        if (graph instanceof AdjacencyListGraph || graph instanceof AdjacencyListWeightedGraph) {
             printSparseGraph(graph);
         } else {
             if (graph instanceof AdjacencyMatrixGraph) {
                 printDenseGraph(graph);
             }
         }
-
         System.out.println();
     }
 
@@ -279,8 +277,7 @@ public class GraphIO {
                 // create a graph with n vertices
                 graph = new AdjacencyListWeightedGraph(n, DIRECTED);
             } else {
-                System.err
-                        .println("The number of vertices of the graph must > 0.");
+                System.err.println("The number of vertices of the graph must > 0.");
                 System.exit(1);
             }
             // read edges of the graph
