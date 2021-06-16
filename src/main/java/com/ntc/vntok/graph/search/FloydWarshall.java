@@ -49,7 +49,6 @@ public class FloydWarshall {
      */
     public FloydWarshall(IWeightedGraph graph) {
         // initialize the graph
-        //
         this.graph = graph;
     }
 
@@ -67,7 +66,6 @@ public class FloydWarshall {
      */
     public void initialize() {
         // initialize the cost matrix 
-        //
         // get the number of vertices of the graph
         n = graph.getNumberOfVertices();
         // create the cost matrix
@@ -80,11 +78,9 @@ public class FloydWarshall {
             }
         }
         // initialize elements on the diagonal of the matrix 
-        //
         for (i = 0; i < n; i++) {
             cost[i][i] = 0;
         }
-
         // for each vertex i, we iterate through all the edges (i,j) that go out from i
         // and update the element (i,j) of the cost matrix 
         for (i = 0; i < n; i++) {
@@ -112,9 +108,7 @@ public class FloydWarshall {
      */
     public double[][] algorithmFloydWarshall() {
         // first, initialize the cost matrix:
-        //
         initialize();
-        // 
         int i, j, k;
         // then implement the FW algorithm.
         for (k = 0; k < n; k++) {

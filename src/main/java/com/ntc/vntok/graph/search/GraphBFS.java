@@ -69,8 +69,8 @@ public class GraphBFS {
         // the number of vertices of the graph since
         // the queue hold only vertices that have not been
         // visited (those marked with order -1)
-        int n = graph.getNumberOfVertices();
-        Queue<Edge> queue = new ConcurrentLinkedQueue<Edge>(); //ArrayBlockingQueue<Edge>(n);
+        //int n = graph.getNumberOfVertices();
+        Queue<Edge> queue = new ConcurrentLinkedQueue<>();
         queue.add(edge);
         order[edge.getV()] = count++;
         while (!queue.isEmpty()) {
@@ -156,7 +156,6 @@ public class GraphBFS {
     public void shortestPath(int u, int v) {
         // backtracking up to the spanning tree from
         // the path from v to u
-        //
         for (int t = v; t != u; t = spanningTree(t)) {
             System.out.print(t + "-");
         }

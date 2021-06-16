@@ -67,10 +67,8 @@ public class ShortestPathFinder {
      */
     public ShortestPathFinder(IWeightedGraph graph) {
         // Init the graph
-        //
         this.graph = graph;
         // init the weights of vertices
-        // 
         int n = graph.getNumberOfVertices();
         weights = new double[n];
         double max = maxWeight();
@@ -78,20 +76,16 @@ public class ShortestPathFinder {
             weights[i] = max;
         }
         // init the spanning tree
-        //
         spanningTree = new Edge[n];
         // Do the job
-        //
         dijkstra();
     }
 
     public ShortestPathFinder(IWeightedGraph graph, int startVertex) {
         this.startVertex = startVertex;
         // Init the graph
-        //
         this.graph = graph;
         // init the weights of vertices
-        // 
         int n = graph.getNumberOfVertices();
         weights = new double[n];
         double max = maxWeight();
@@ -99,10 +93,8 @@ public class ShortestPathFinder {
             weights[i] = max;
         }
         // init the spanning tree
-        //
         spanningTree = new Edge[n];
         // Do the job
-        //
         dijkstra();
     }
 
@@ -125,12 +117,12 @@ public class ShortestPathFinder {
      * @param u the source vertex.
      */
     public void dijkstra(int u) {
-        int cE = graph.getNumberOfEdges();
+        //int cE = graph.getNumberOfEdges();
         weights[u] = 0;
         // create a queue with a fixed size to hold edges of the graph.
         // The size of the queue is not larger than number of edges of
         // the graph.
-        Queue<Edge> queue = new ConcurrentLinkedQueue<Edge>(); //ArrayBlockingQueue<Edge>(cE);
+        Queue<Edge> queue = new ConcurrentLinkedQueue<>();
         // add a fake edge to start the loop.
         queue.add(new Edge(u, u));
         while (!queue.isEmpty()) {
@@ -234,7 +226,6 @@ public class ShortestPathFinder {
             k--;
         }
         // ok, return the result.
-        //
         return shortestPath;
     }
 
@@ -253,7 +244,7 @@ public class ShortestPathFinder {
             path[i] = -1;
         }
         k = 0;
-        shortestPaths = new HashSet<Node>();
+        shortestPaths = new HashSet<>();
         // find all shortest path to v
         backtrack(v, weights[v]);
         return shortestPaths.toArray(new Node[shortestPaths.size()]);
@@ -306,7 +297,7 @@ public class ShortestPathFinder {
      * @return an array of edges
      */
     private Edge[] getIncomingEdges(int v) {
-        List<Edge> edgeList = new ArrayList<Edge>();
+        List<Edge> edgeList = new ArrayList<>();
         for (int u = 0; u < graph.getNumberOfVertices(); u++) {
             EdgeIterator iterator = graph.edgeIterator(u);
             while (iterator.hasNext()) {

@@ -38,13 +38,10 @@ public class FloydWarshallTest {
      */
     public FloydWarshallTest(String inputFilename) {
         // scan the graph from a text file
-        //
         IGraph graph = GraphIO.scanAdjacencyListWeighted(inputFilename);
         // print out the graph
-        //
         GraphIO.print(graph);
         // cast to a weighted graph if it is and do the trick
-        // 
         if (graph instanceof IWeightedGraph) {
             IWeightedGraph weightedGraph = (IWeightedGraph) graph;
             // create a FW object
