@@ -65,9 +65,6 @@ public class Node {
         return v;
     }
 
-    /* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         String s = "";
@@ -88,7 +85,7 @@ public class Node {
      * @return an array of integers
      */
     public int[] toArray() {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
 
         Node node = this;
         while (node.getV() != -1) {
@@ -97,7 +94,7 @@ public class Node {
         }
         int[] a = new int[list.size()];
         for (int i = 0; i < a.length; i++) {
-            a[i] = list.get(i).intValue();
+            a[i] = list.get(i);
         }
         return a;
     }

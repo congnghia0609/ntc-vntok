@@ -32,7 +32,6 @@ public abstract class Graph implements IGraph {
      * Number of vertices.
      */
     protected int cV;
-
     /**
      * Number of edges.
      */

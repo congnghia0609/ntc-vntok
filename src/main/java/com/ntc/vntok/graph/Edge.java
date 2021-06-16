@@ -77,11 +77,6 @@ public class Edge {
         return weight;
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Edge) {
@@ -96,11 +91,6 @@ public class Edge {
         return getU() + " - " + getV() + ": " + getWeight();
     }
 
-    /*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
     public int compareTo(Edge o) {
         double diff = getWeight() - o.getWeight();
         if (diff == 0) {
