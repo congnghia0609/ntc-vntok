@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
@@ -153,13 +152,11 @@ public class GenUnigram {
     public static void print(String filename) {
         // create a file writer
         UTF8FileUtility.createWriter(filename);
-        Iterator<String> keys = UNIGRAM.keySet().iterator();
         // create a string buffer for storing the text
         StringBuilder sBuffer = new StringBuilder();
         int numTokens = 0;
         int freq = 0;
-        while (keys.hasNext()) {
-            String token = keys.next();
+        for (String token : UNIGRAM.keySet()) {
             freq = UNIGRAM.get(token);
             numTokens += freq;
             sBuffer.append(token).append('\t').append(freq).append("\n");
