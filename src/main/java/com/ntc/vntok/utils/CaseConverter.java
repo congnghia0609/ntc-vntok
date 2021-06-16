@@ -103,7 +103,7 @@ public class CaseConverter {
      * @return a lower case string
      */
     public static String toLower(String st) {
-        StringBuffer lowerSt = new StringBuffer(st);
+        StringBuilder lowerSt = new StringBuilder(st);
         // convert all char of st to lower case
         for (int i = 0; i < st.length(); i++) {
             char c = st.charAt(i);
@@ -116,7 +116,6 @@ public class CaseConverter {
             lowerSt.setCharAt(i, lowerC);
         }
         return lowerSt.toString();
-
     }
 
     /**
@@ -187,7 +186,6 @@ public class CaseConverter {
         "1ebf", "1edf", "1eb5", "1ef5", "1eab", "f2", "1ed1", "1ec7",
         "1ee3", "ec", "ed", "1ea1", "1ef3", "1ed3", "1eb1", "1ebb", "1ec1",
         "1ee1"
-
     };
 
     /**

@@ -52,7 +52,7 @@ public class UTF8FileUtility {
 	/**
 	 * All registered file listeners
 	 */
-	static List<FileListener> fileListeners = new ArrayList<FileListener>();
+	private static List<FileListener> fileListeners = new ArrayList<>();
     
 	/**
 	 * A lexical entry (item/pos)
@@ -213,7 +213,6 @@ public class UTF8FileUtility {
 						lines.add(item);
 				}
 				// notify listeners about the current line
-				//
 				notify(line, lineNumber);
 			}
 		} catch (IOException e) {
@@ -255,7 +254,6 @@ public class UTF8FileUtility {
 					lines.add(line.trim());
 				}
 				// notify listeners about the current line
-				//
 				notify(line, lineNumber);
 			}
 		} catch (IOException e) {
