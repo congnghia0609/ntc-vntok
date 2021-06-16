@@ -169,8 +169,7 @@ public class TokenizerProvider {
      *
      */
     public void dispose() {
-        // dispose the tokenizer
-        // this will dispose the lexical tokenizer and the automata
+        // dispose the tokenizer this will dispose the lexical tokenizer and the automata
         tokenizer.dispose();
     }
 }

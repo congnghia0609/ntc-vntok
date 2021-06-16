@@ -36,7 +36,6 @@ public class ResultMerger {
     private static String YEAR_STRING_2 = "Năm";
 
     public ResultMerger() {
-
     }
 
     private TaggedWord mergeDateDay(TaggedWord day, TaggedWord nextToken) {
@@ -74,7 +73,6 @@ public class ResultMerger {
      */
     private TaggedWord mergeDate(TaggedWord token, TaggedWord nextToken) {
         if (token.getText().equals(DAY_STRING_1) || token.getText().equals(DAY_STRING_2)) {
-
             return mergeDateDay(token, nextToken);
         }
         if (token.getText().equals(MONTH_STRING_1) || token.getText().equals(MONTH_STRING_2)) {

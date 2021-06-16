@@ -51,7 +51,6 @@ public class Tokenizer {
     /**
      * List of rules for this lexer
      */
-    //private List<LexerRule> rules = new ArrayList<>();
     private static List<LexerRule> rules;
 
     /**
@@ -96,13 +95,12 @@ public class Tokenizer {
 
     private final ResultMerger resultMerger = new ResultMerger();
 
-    //private static ResultSplitter resultSplitter = new ResultSplitter();
     private static ResultSplitter resultSplitter;
 
     /**
      * Creates a tokenizer from a lexers filename and a segmenter.
      *
-     * @param segmenter a lexical segmenter<ol></ol>
+     * @param segmenter a lexical segmenter
      */
     public Tokenizer(Segmenter segmenter) {
         this.segmenter = segmenter;

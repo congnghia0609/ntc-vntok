@@ -16,7 +16,6 @@
 package com.ntc.vntok;
 
 import com.ntc.visd.ViSD;
-//import com.ntc.vntok.nio.XMLCorpusExporter;
 import com.ntc.vntok.tokens.TaggedWord;
 import com.ntc.vntok.utils.FileIterator;
 import com.ntc.vntok.utils.TextFileFilter;
@@ -166,7 +165,6 @@ public class VietTokenizer {
     }
 
     public String tokenizeSentence(String input) {
-        //List<String> sentences = tokenize(input);
         return String.join(" ", tokenize(input));
     }
 
@@ -213,32 +211,6 @@ public class VietTokenizer {
                 UTF8FileUtility.write("\n");
             }
         }
-
-//        if (!TokenizerOptions.XML_OUTPUT) {
-//            for (String p : paragraphs) {
-//                List<String> sentences = tokenize(p);
-//                for (String s : sentences) {
-//                    UTF8FileUtility.write(s.trim());
-//                    UTF8FileUtility.write("\n");
-//                }
-//            }
-//        } else { // XML outputer
-//            List<List<TaggedWord>> list = new ArrayList<>();
-//            for (String p : paragraphs) {
-//                try {
-//                    tokenizer.tokenize(new StringReader(p));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                // make a copy of the result of tokenization
-//                List<TaggedWord> result = new ArrayList<>(tokenizer.getResult());
-//                list.add(result);
-//                nTokens += result.size();
-//            }
-//            String output = new XMLCorpusExporter().export(list);
-//            UTF8FileUtility.write(output);
-//        }
-        
         UTF8FileUtility.closeWriter();
     }
 
