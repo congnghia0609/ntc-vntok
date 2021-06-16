@@ -59,7 +59,6 @@ public class StringNormalizer {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -78,7 +77,6 @@ public class StringNormalizer {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -93,6 +91,10 @@ public class StringNormalizer {
         return instance;
     }
     
+    /**
+     * @param cfg VTConfig
+     * @return an instance of the class.
+     */
     public static StringNormalizer getInstance(VTConfig cfg) {
         if (instance == null) {
             if (cfg.getNormalRules() == null || cfg.getNormalRules().isEmpty()) {

@@ -129,5 +129,4 @@ public class UnigramModel extends AbstractResolver {
         }
         return choice;
     }
-
 }

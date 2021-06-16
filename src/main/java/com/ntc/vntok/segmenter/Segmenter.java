@@ -130,6 +130,13 @@ public class Segmenter {
         System.out.println("Lexical segmenter created.");
     }
     
+    /**
+     * Build a segmenter with an ambiguity resolver and VTConfig.
+     *
+     * @param resolver
+     * @param cfg VTConfig
+     * @throws java.io.FileNotFoundException
+     */
     public Segmenter(AbstractResolver resolver, VTConfig cfg) throws FileNotFoundException {
         System.out.println("Creating lexical segmenter...");
         this.resolver = resolver;
@@ -353,14 +360,14 @@ public class Segmenter {
         // the graph.
         // try to connect it if it is not connected and log the abnormal phrase out 
         if (!GraphConnectivity.isConnected(graph, 0, nV - 1)) {
-//			logger.log(Level.INFO, phrase);
-//			logger.log(Level.INFO, "The graph of this phrase is not connected. Try to connect it.");
+            //System.out.println(phrase);
+            //System.out.println("The graph of this phrase is not connected. Try to connect it.");
             connect(graph);
         }
         // get all shortest paths from vertex 0 to the end vertex
         ShortestPathFinder pathFinder = new ShortestPathFinder(graph);
         Node[] allShortestPaths = pathFinder.getAllShortestPaths(nV - 1);
-//		System.out.println("There are " + allShortestPaths.length + " segmentation(s) for the phrase."); // DEBUG
+		//System.out.println("There are " + allShortestPaths.length + " segmentation(s) for the phrase."); // DEBUG
         // build segmentations corresponding to the shortest paths
         for (int i = 0; i < allShortestPaths.length; i++) {
             Node path = allShortestPaths[i];
