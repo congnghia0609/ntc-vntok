@@ -111,7 +111,7 @@ public class Couple implements Comparable<Couple> {
             return false;
         }
         Couple c = (Couple) o;
-        return ((first.equalsIgnoreCase(c.first)) && (second.equalsIgnoreCase(c.second)));
+        return first.equalsIgnoreCase(c.first) && second.equalsIgnoreCase(c.second);
     }
 
     /**

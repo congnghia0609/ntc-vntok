@@ -15,9 +15,6 @@
  */
 package com.ntc.vntok.bigram;
 
-//import com.ntc.vntok.lexicon.LexiconUnmarshaller;
-//import com.ntc.vntok.lexicon.jaxb.Corpus;
-//import com.ntc.vntok.lexicon.jaxb.W;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.ntc.vntok.TCommon;
 import com.ntc.vntok.utils.JsonUtils;
@@ -25,7 +22,6 @@ import com.ntc.vntok.utils.ResourceUtil;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -66,12 +62,19 @@ public class Resolver {
      */
     private Set<Ambiguity> ambiguities;
 
-    //private LexiconUnmarshaller unmarshaller;
-
+    public Resolver() {
+        init();
+        // load conditional probabitilies
+        loadProbabilities();
+        // load unigram probabilities
+        loadUnigram();
+    }
+    
     /**
      *
      * @param probFilename a conditional probability filename
      * @param unigramFilename unigram filename
+     * @throws java.io.FileNotFoundException
      */
     public Resolver(String probFilename, String unigramFilename) throws FileNotFoundException {
         init();
@@ -81,81 +84,59 @@ public class Resolver {
         loadUnigram(unigramFilename);
     }
 
+    private void init() {
+        probabilities = new HashMap<>();
+        unigram = new HashMap<>();
+        ambiguities = new HashSet<>();
+    }
+    
+    /**
+     * Load unigram model and calculate probabilities.
+     */
+    private void loadUnigram() {
+        System.out.println("Loading unigram model...");
+        InputStream unistream = ResourceUtil.getResourceAsStream(TCommon.UNIGRAM_MODEL);
+        unigram = JsonUtils.Instance.getObject(unistream, new TypeReference<Map<String, Integer>>(){});
+    }
+    
     /**
      * Load unigram model and calculate probabilities.
      *
      * @param unigramFilename
      */
-//    private void loadUnigram(String unigramFilename) {
-//        System.out.println("Loading unigram model...");
-//        // load unigram model
-//        Corpus unigramCorpus = unmarshaller.unmarshal(unigramFilename);
-//        List<W> ws = unigramCorpus.getBody().getW();
-//        for (W w : ws) {
-//            String freq = w.getMsd();
-//            String word = w.getContent();
-//            unigram.put(word, Double.parseDouble(freq));
-//        }
-//    }
-    
-    private void loadUnigram(String unigramFilename) {
+    private void loadUnigram(String unigramFilename) throws FileNotFoundException {
         System.out.println("Loading unigram model...");
-        InputStream unistream = ResourceUtil.getResourceAsStream(TCommon.UNIGRAM_MODEL);
+        InputStream unistream = new FileInputStream(unigramFilename);
         unigram = JsonUtils.Instance.getObject(unistream, new TypeReference<Map<String, Integer>>(){});
-        // load unigram model
-//        Corpus unigramCorpus = unmarshaller.unmarshal(unigramFilename);
-//        List<W> ws = unigramCorpus.getBody().getW();
-//        for (W w : ws) {
-//            String freq = w.getMsd();
-//            String word = w.getContent();
-//            unigram.put(word, Double.parseDouble(freq));
-//        }
     }
 
-    private void init() {
-        probabilities = new HashMap<>();
-        unigram = new HashMap<>();
-        ambiguities = new HashSet<>();
-
-        // create the unmarshaller
-        //unmarshaller = new LexiconUnmarshaller();
-
+    /**
+     * Load a probability file and initialize the <code>probabilities</code> map.
+     */
+    private void loadProbabilities() {
+        System.out.println("Load conditional probabilities model...");
+        InputStream bistream =ResourceUtil.getResourceAsStream(TCommon.BIGRAM_MODEL);
+        List<BigramJson> listbigrams = JsonUtils.Instance.getObject(bistream, new TypeReference<List<BigramJson>>(){});
+        for (BigramJson bj : listbigrams) {
+            String first = bj.getF();
+            String second = bj.getS();
+            int freq = bj.getC();
+            // create a couple
+            Couple couple = new Couple(first, second);
+            couple.setProb(freq);
+            // add a couple to the map with a "fake" integer value 0
+            probabilities.put(couple, 0);
+        }
     }
-
+    
     /**
      * Load a probability file and initialize the <code>probabilities</code> map.
      *
      * @param probFilename
      */
-//    private void loadProbabilities(String probFilename) {
-//        System.out.println("Load conditional probabilities model...");
-//        // load conditional prob model
-//        Corpus probCorpus = unmarshaller.unmarshal(probFilename);
-//        List<W> ws = probCorpus.getBody().getW();
-//        for (Iterator<W> iterator = ws.iterator(); iterator.hasNext();) {
-//            W w = iterator.next();
-//            String prob = w.getMsd();
-//            String words = w.getContent();
-//            // split the word using |. 
-//            // In general, there are only 2 words, but if a word itself is a
-//            // comma, we simply do not consider this case :-)
-//            String[] two = words.split("|");
-//
-//            if (two.length == 2) {
-//                // update the prob model
-//                String first = two[0];
-//                String second = two[1];
-//                // create a couple
-//                Couple couple = new Couple(first, second);
-//                couple.setProb(Double.parseDouble(prob));
-//                // add a couple to the map with a "fake" integer value 0
-//                probabilities.put(couple, new Integer(0));
-//            }
-//        }
-//    }
     private void loadProbabilities(String probFilename) throws FileNotFoundException {
         System.out.println("Load conditional probabilities model...");
-        InputStream bistream = new FileInputStream(probFilename); //ResourceUtil.getResourceAsStream(TCommon.BIGRAM_MODEL);
+        InputStream bistream = new FileInputStream(probFilename);
         List<BigramJson> listbigrams = JsonUtils.Instance.getObject(bistream, new TypeReference<List<BigramJson>>(){});
         for (BigramJson bj : listbigrams) {
             String first = bj.getF();
@@ -246,9 +227,7 @@ public class Resolver {
      *
      */
     public void showProbabilities() {
-        Iterator<Couple> couples = probabilities.keySet().iterator();
-        while (couples.hasNext()) {
-            Couple c = couples.next();
+        for (Couple c : probabilities.keySet()) {
             System.out.println(c);
         }
     }
@@ -258,9 +237,7 @@ public class Resolver {
      *
      */
     public void showUnigram() {
-        Iterator<String> tokens = unigram.keySet().iterator();
-        while (tokens.hasNext()) {
-            String token = tokens.next();
+        for (String token : unigram.keySet()) {
             System.out.println(token + "\t" + unigram.get(token));
         }
     }

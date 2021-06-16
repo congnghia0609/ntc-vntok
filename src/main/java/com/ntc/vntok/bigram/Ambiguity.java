@@ -93,8 +93,7 @@ public class Ambiguity {
             return false;
         }
         Ambiguity a = (Ambiguity) obj;
-        return first.equalsIgnoreCase(a.first)
-                && second.equalsIgnoreCase(a.second) && third.equalsIgnoreCase(a.third);
+        return first.equalsIgnoreCase(a.first) && second.equalsIgnoreCase(a.second) && third.equalsIgnoreCase(a.third);
     }
 
     @Override

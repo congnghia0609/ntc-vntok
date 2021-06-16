@@ -78,6 +78,7 @@ public class Estimator {
      *
      * @param unigramDataFile
      * @param bigramDataFile
+     * @throws java.io.FileNotFoundException
      */
     public Estimator(String unigramDataFile, String bigramDataFile) throws FileNotFoundException {
         init();
@@ -212,7 +213,7 @@ public class Estimator {
      * @param prob
      */
     private void validateProbabilityValue(double prob) {
-        if ((prob < 0) || (prob > 1)) {
+        if (prob < 0 || prob > 1) {
             System.err.println("Error! Invalid probability!");
         }
     }
@@ -246,7 +247,7 @@ public class Estimator {
      * Get the conditional probability of a couple
      *
      * @param couple
-     * @return
+     * @return double probability
      */
     private double getConditionalProbability(Couple couple) {
         int index = Collections.binarySearch(probabilities, couple, new CoupleComparator());
@@ -292,7 +293,7 @@ public class Estimator {
     }
     
     private void loadModels(String unigramDataFile, String bigramDataFile) throws FileNotFoundException {
-        System.out.println("Loading models...");
+        System.out.println("Loading models from file...");
         // load unigram model
         InputStream unistream = new FileInputStream(unigramDataFile);
         unigram = JsonUtils.Instance.getObject(unistream, new TypeReference<Map<String, Integer>>(){});
