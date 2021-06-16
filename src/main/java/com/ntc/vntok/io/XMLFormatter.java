@@ -24,16 +24,13 @@ import com.ntc.vntok.tokens.TaggedWord;
  * @since Mar 25, 2021
  */
 public class XMLFormatter implements IOutputFormatter {
-    /**
-     * (non-Javadoc)
-     * @param lexeme
-	 */
+
     @Override
 	public String outputLexeme(TaggedWord lexeme) {
-		StringBuilder stBuf = new StringBuilder();
-		stBuf.append("<w>");
-		stBuf.append(lexeme.getText());
-		stBuf.append("</w>\n");
-		return stBuf.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append("<w>");
+		sb.append(lexeme.getText());
+		sb.append("</w>\n");
+		return sb.toString();
 	}
 }

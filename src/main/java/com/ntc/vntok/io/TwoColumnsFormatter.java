@@ -24,20 +24,17 @@ import com.ntc.vntok.tokens.TaggedWord;
  */
 public class TwoColumnsFormatter implements IOutputFormatter {
 
-    /**
-     * (non-Javadoc)
-     */
     @Override
     public String outputLexeme(TaggedWord token) {
-        StringBuffer stBuf = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         // output the text
-        stBuf.append(token.getText());
+        sb.append(token.getText());
         // a tab character
-        stBuf.append("\t");
+        sb.append("\t");
         // its type
-        stBuf.append(token.getRule().getName());
+        sb.append(token.getRule().getName());
         // end of line
-        stBuf.append("\n");
-        return stBuf.toString();
+        sb.append("\n");
+        return sb.toString();
     }
 }
