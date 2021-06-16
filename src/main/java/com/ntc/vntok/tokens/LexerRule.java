@@ -28,7 +28,6 @@ public class LexerRule {
      * The name of the lexical category that this rule matches
      */
     private final String name;
-
     /**
      * The regular expression used for matching
      */

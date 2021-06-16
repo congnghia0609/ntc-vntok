@@ -30,12 +30,10 @@ public class TaggedWord implements Comparable<TaggedWord> {
      * The text
      */
     private final String text;
-
     /**
      * The line location of the text in the file
      */
     private int line;
-
     /**
      * The column location of the text in the file
      */
@@ -179,22 +177,14 @@ public class TaggedWord implements Comparable<TaggedWord> {
      */
     @Override
     public String toString() {
-        // return "[\"" + text + "\"" + " at (" + line + "," + column + ")]";
-        // return rule.getName() + ": " + text;
         return text.trim();
     }
 
-    /* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         return getText().hashCode();
     }
 
-    /* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -204,13 +194,9 @@ public class TaggedWord implements Comparable<TaggedWord> {
             return false;
         }
         // two lexer is considered equal if their text are equal.
-        // 
         return ((TaggedWord) obj).getText().equals(getText());
     }
 
-    /* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
     @Override
     public int compareTo(TaggedWord o) {
         return getText().compareTo(o.getText());
