@@ -23,7 +23,7 @@ package com.ntc.vntok.segmenter;
 public abstract class AbstractLexiconRecognizer {
 
     /**
-     * @param token
+     * @param token a String
      * @return <tt>true</tt> if the token is accepted, <tt>false</tt> otherwise.
      */
     public abstract boolean accept(String token);

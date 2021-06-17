@@ -37,8 +37,8 @@ public class AdjacencyMatrixVertexIterator implements VertexIterator {
     /**
      * Constructor.
      *
-     * @param g
-     * @param u
+     * @param g AdjacencyMatrixGraph
+     * @param u vertex u
      */
     public AdjacencyMatrixVertexIterator(AdjacencyMatrixGraph g, int u) {
         this.graph = g;

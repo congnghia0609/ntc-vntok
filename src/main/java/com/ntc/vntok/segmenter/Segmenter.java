@@ -115,7 +115,7 @@ public class Segmenter {
     /**
      * Build a segmenter with an ambiguity resolver.
      *
-     * @param resolver
+     * @param resolver a Resolver
      */
     public Segmenter(AbstractResolver resolver) {
         System.out.println("Creating lexical segmenter...");
@@ -133,9 +133,9 @@ public class Segmenter {
     /**
      * Build a segmenter with an ambiguity resolver and VTConfig.
      *
-     * @param resolver
+     * @param resolver a Resolver
      * @param cfg VTConfig
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public Segmenter(AbstractResolver resolver, VTConfig cfg) throws FileNotFoundException {
         System.out.println("Creating lexical segmenter...");
@@ -152,9 +152,9 @@ public class Segmenter {
     /**
      * Build a segmenter with a properties object and an ambiguity resolver.
      *
-     * @param properties
-     * @param resolver
-     * @throws java.io.FileNotFoundException
+     * @param properties a Properties
+     * @param resolver a Resolver
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public Segmenter(Properties properties, AbstractResolver resolver) throws FileNotFoundException {
         // create DFA lexicon recognizer
@@ -299,7 +299,6 @@ public class Segmenter {
      * Prepare to segment a phrase.
      *
      * @param phrase a phrase to be segmented.
-     * @see #segment(String)
      * @return an array of syllables of the phrase
      */
     private String[] prepare(String phrase) {
@@ -318,7 +317,6 @@ public class Segmenter {
      * @param syllables an array of syllables
      * @param path a path, that is an array of vertices
      * @return a segmentation.
-     * @see #segment(String)
      */
     private String[] buildSegmentation(String[] syllables, int[] path) {
         String[] segmentation = new String[path.length - 1];
@@ -341,8 +339,7 @@ public class Segmenter {
     /**
      * Segment a phrase.
      *
-     * @see #normalize(String)
-     * @param phrase
+     * @param phrase a string phrase
      * @return a list of possible segmentations.
      */
     public List<String[]> segment(String phrase) {

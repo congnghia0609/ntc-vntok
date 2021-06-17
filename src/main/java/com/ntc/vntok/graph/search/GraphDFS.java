@@ -36,7 +36,7 @@ public class GraphDFS {
     /**
      * Init the data.
      *
-     * @param g
+     * @param g a Graph
      */
     private void init(IGraph g) {
         this.graph = g;
@@ -65,8 +65,8 @@ public class GraphDFS {
      * Search vertices of the graph in the same connected component as u.
      *
      * @see #search(int)
-     * @param g
-     * @param u
+     * @param g a Graph
+     * @param u a vertex u
      */
     public GraphDFS(IGraph g, int u) {
         this(g);
@@ -79,8 +79,8 @@ public class GraphDFS {
      * component.
      *
      * @see #search(Edge)
-     * @param g
-     * @param e
+     * @param g a Graph
+     * @param e a Edge
      */
     public GraphDFS(IGraph g, Edge e) {
         this(g);
@@ -116,7 +116,7 @@ public class GraphDFS {
      * builds a spanning tree of the graph with a parent-link representation. We can find any given vertex's parent in
      * the tree (<tt>spanningTree</tt>) or any given vertex's order in the search.
      *
-     * @param edge
+     * @param edge a Edge
      */
     private void search(Edge edge) {
         int u = edge.getU();
@@ -162,7 +162,7 @@ public class GraphDFS {
     /**
      * Get the parent vertex of a vertex in the spanning tree.
      *
-     * @param u
+     * @param u a vertex
      * @return the parent vertex of a vertex in the spanning tree.
      */
     public int spanningTree(int u) {

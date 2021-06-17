@@ -133,9 +133,9 @@ public class GraphUtilities {
     }
 
     /**
-     * Checks the projectivity of a graph. A graph is projective if for all edges (u,v), forall k (u < k < v or v < k <
-     * u), there exists a path from u to k, that is (u,k) is an edge of the transitive closure of g. @param g a graph
-     * @param g graph
+     * Checks the projectivity of a graph. A graph is projective if for all edges (u,v), forall k
+     * there exists a path from u to k, that is (u,k) is an edge of the transitive closure of g.
+     * @param g a graph
      * @return <code>true</code> or <code>false</code>
      */
     public static boolean isProjective(IGraph g) {

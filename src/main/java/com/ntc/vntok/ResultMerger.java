@@ -67,8 +67,8 @@ public class ResultMerger {
     }
 
     /**
-     * @param token
-     * @param nextToken
+     * @param token a TaggedWord
+     * @param nextToken a TaggedWord
      * @return a lexer token merging from two tokens or <tt>null</tt>.
      */
     private TaggedWord mergeDate(TaggedWord token, TaggedWord nextToken) {
@@ -87,7 +87,7 @@ public class ResultMerger {
     /**
      * Merge the result of the tokenization.
      *
-     * @param tokens
+     * @param tokens a List TaggedWord
      * @return a list of lexer tokens
      */
     public List<TaggedWord> mergeList(List<TaggedWord> tokens) {

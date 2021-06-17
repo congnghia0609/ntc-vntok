@@ -35,8 +35,8 @@ public class AdjacencyListVertexIterator implements VertexIterator {
     /**
      * Construct the iterator over vertices adjacent to vertex u.
      *
-     * @param g
-     * @param u
+     * @param g AdjacencyListGraph
+     * @param u vertex u
      */
     public AdjacencyListVertexIterator(AdjacencyListGraph g, int u) {
         this.graph = g;

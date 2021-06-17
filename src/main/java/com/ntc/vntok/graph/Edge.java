@@ -29,8 +29,8 @@ public class Edge {
     /**
      * Constructor.
      *
-     * @param u
-     * @param v
+     * @param u vertex u
+     * @param v vertex v
      */
     public Edge(int u, int v) {
         this.u = u;
@@ -41,9 +41,9 @@ public class Edge {
     /**
      * Constructor
      *
-     * @param u
-     * @param v
-     * @param weight
+     * @param u vertex u
+     * @param v vertex v
+     * @param weight Edge weight
      */
     public Edge(int u, int v, double weight) {
         this(u, v);

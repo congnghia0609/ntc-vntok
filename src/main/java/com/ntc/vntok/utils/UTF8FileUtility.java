@@ -89,7 +89,7 @@ public class UTF8FileUtility {
 	/**
 	 * Create a buffered reader to read from a UTF-8 text file.
 	 * 
-	 * @param filename
+	 * @param filename a filename
 	 */
 	public static void createReader(String filename) {
 		try {
@@ -102,7 +102,7 @@ public class UTF8FileUtility {
 	/**
 	 * Create a buffered reader to read from an input stream.
 	 * 
-	 * @param inputStream
+	 * @param inputStream a InputStream
 	 */
 	private static void createReader(InputStream inputStream) {
 		try {
@@ -133,7 +133,7 @@ public class UTF8FileUtility {
 	/**
 	 * Create a buffered writer to write to a UTF-8 text file.
 	 * 
-	 * @param filename
+	 * @param filename a filename
 	 */
 	public static void createWriter(String filename) {
 		try {
@@ -146,7 +146,7 @@ public class UTF8FileUtility {
 	/**
 	 * Create a buffered writer given an output stream
 	 * 
-	 * @param outputStream
+	 * @param outputStream a OutputStream
 	 */
 	private static void createWriter(OutputStream outputStream) {
 		try {
@@ -195,7 +195,7 @@ public class UTF8FileUtility {
 	 * lines to an array of string and close the reader. If there is a POS
 	 * in a file, bypass it by calling method {@link #processTab(String)}.
 	 * 
-	 * @param fileName
+	 * @param fileName a fileName
 	 * @return an array of strings
 	 */
 	public static String[] getLinesWithPOS(String fileName) {
@@ -224,7 +224,7 @@ public class UTF8FileUtility {
 
 	/**
 	 * Gets a list of lines from a file.
-	 * @param fileName
+	 * @param fileName a fileName
 	 * @return a list of strings
 	 */
 	public static List<String> getLineList(String fileName) {
@@ -238,7 +238,7 @@ public class UTF8FileUtility {
 	
 	/**
 	 * Get all lines of the file (including POS information).
-	 * @param fileName
+	 * @param fileName a fileName
 	 * @return String[]
 	 */
 	public static String[] getLines(String fileName) {
@@ -265,7 +265,7 @@ public class UTF8FileUtility {
 	
 	/**
 	 * Gets a list of lines of a file. 
-	 * @param fileName
+	 * @param fileName a fileName
 	 * @return a list of strings
 	 */
 	public static List<String> getLinesAsList(String fileName) {
@@ -290,7 +290,7 @@ public class UTF8FileUtility {
 	/**
 	 * Write a line to the writer without a new line.
 	 * 
-	 * @param line
+	 * @param line a String
 	 */
 	public static void write(String line) {
 		try {
@@ -302,7 +302,7 @@ public class UTF8FileUtility {
 	
 	/**
 	 * Write a line to the writer, a new line is added at the end. 
-	 * @param line
+	 * @param line a String
 	 */
 	public static void writeln(String line) {
 		try {
@@ -316,7 +316,7 @@ public class UTF8FileUtility {
 	/**
 	 * Write an array of lines to the writer, each on a new line.
 	 * 
-	 * @param lines
+	 * @param lines a String
 	 */
 	public static void write(String[] lines) {
 		for (int j = 0; j < lines.length; j++) {
@@ -336,7 +336,7 @@ public class UTF8FileUtility {
 
 	/**
 	 * Add a file listener.
-	 * @param listener
+	 * @param listener a FileListener
 	 */
 	public static void addFileListener(FileListener listener) {
 		fileListeners.add(listener);
@@ -345,7 +345,7 @@ public class UTF8FileUtility {
 	/**
 	 * 
 	 * Remove a file listener.
-	 * @param listener
+	 * @param listener a FileListener
 	 */
 	public static void removeFileListener(FileListener listener) {
 		if (fileListeners.contains(listener))
@@ -355,8 +355,8 @@ public class UTF8FileUtility {
 	/**
 	 * Notify all registered listeners about the current
 	 * processed line. 
-	 * @param line
-	 * @param lineNumber
+	 * @param line a String
+	 * @param lineNumber a line number
 	 */
 	public static void notify(String line, int lineNumber) {
 		for (FileListener listener : fileListeners) {

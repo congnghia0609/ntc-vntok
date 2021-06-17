@@ -126,7 +126,7 @@ public class GenUnigram {
      * Load a corpus and update the frequencies.
      *
      * @param corpus a corpus
-     * @throws IOException
+     * @throws java.io.IOException a IOException
      */
     public static void loadCorpus(String corpus) throws IOException {
         List<String> lines = FileUtils.readLines(new File(corpus), "UTF-8");
@@ -147,7 +147,6 @@ public class GenUnigram {
      * Output the unigram to a plain text file in the form of two columns.
      *
      * @param filename a flat text filename
-     * @see {@link #marshal(String)}
      */
     public static void print(String filename) {
         // create a file writer

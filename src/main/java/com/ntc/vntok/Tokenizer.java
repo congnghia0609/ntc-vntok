@@ -138,8 +138,8 @@ public class Tokenizer {
      * Creates a tokenizer from a lexers filename and a segmenter.
      *
      * @param lexersFilename the file that contains lexer rules
-     * @param segmenter a lexical segmenter<ol></ol>
-     * @throws java.io.FileNotFoundException
+     * @param segmenter a lexical segmenter
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public Tokenizer(String lexersFilename, Segmenter segmenter) throws FileNotFoundException {
         this.segmenter = segmenter;
@@ -156,9 +156,9 @@ public class Tokenizer {
     /**
      * Creates a tokenizer from a properties object and a segmenter. This is the prefered way to create a tokenizer.
      *
-     * @param properties
-     * @param segmenter
-     * @throws java.io.FileNotFoundException
+     * @param properties a Properties
+     * @param segmenter a Segmenter
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public Tokenizer(Properties properties, Segmenter segmenter) throws FileNotFoundException {
         this.segmenter = segmenter;
@@ -223,8 +223,8 @@ public class Tokenizer {
      * Tokenize a reader. If ambiguities are not resolved, this method selects the first segmentation for a phrase if
      * there are more than one segmentations. Otherwise, it selects automatically the most probable segmentation
      * returned by the ambiguity resolver.
-     * @param reader
-     * @throws java.io.IOException
+     * @param reader a Reader
+     * @throws java.io.IOException a IOException
      */
     public void tokenize(Reader reader) throws IOException {
         // Firstly, the result list is emptied
@@ -329,7 +329,7 @@ public class Tokenizer {
     /**
      * A phrase is simple if it contains only one syllable.
      *
-     * @param phrase
+     * @param phrase a String
      * @return true/false
      */
     private boolean isSimplePhrase(String phrase) {
@@ -501,7 +501,6 @@ public class Tokenizer {
      *
      * @param filename a file to export the result to
      * @param outputer an outputer
-     * @see IOutputFormatter
      */
     public void exportResult(String filename, Outputer outputer) {
         System.out.print("Exporting result of tokenization...");
@@ -521,7 +520,7 @@ public class Tokenizer {
     /**
      * Export the result of tokenization to a text file using the plain output format.
      *
-     * @param filename
+     * @param filename a string filename
      */
     public void exportResult(String filename) {
         System.out.print("Exporting result of tokenization...");
@@ -561,7 +560,7 @@ public class Tokenizer {
     /**
      * Return <code>true</code> if the ambiguities are resolved by a resolver. The default value is <code>false</code>.
      *
-     * @return
+     * @return true/false
      */
     public boolean isAmbiguitiesResolved() {
         return isAmbiguitiesResolved;
@@ -579,7 +578,7 @@ public class Tokenizer {
     /**
      * Return the lexical segmenter
      *
-     * @return
+     * @return a Segmenter
      */
     public Segmenter getSegmenter() {
         return segmenter;

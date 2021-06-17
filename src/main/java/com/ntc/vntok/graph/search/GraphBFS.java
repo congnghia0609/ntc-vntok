@@ -36,7 +36,7 @@ public class GraphBFS {
     /**
      * Search all vertices of the graph.
      *
-     * @param g
+     * @param g a Graph
      */
     public GraphBFS(IGraph g) {
         init(g);
@@ -50,8 +50,8 @@ public class GraphBFS {
     /**
      * Search the graph starting from vertex <tt>u</tt>.
      *
-     * @param g
-     * @param u
+     * @param g a Graph
+     * @param u vertex u
      */
     public GraphBFS(IGraph g, int u) {
         init(g);
@@ -62,7 +62,7 @@ public class GraphBFS {
     /**
      * Search the graph starting at an edge.
      *
-     * @param edge
+     * @param edge Edge
      */
     private void search(Edge edge) {
         // the capacity of the edge queue is at most
@@ -97,7 +97,7 @@ public class GraphBFS {
     /**
      * Init the data.
      *
-     * @param g
+     * @param g a Graph
      */
     private void init(IGraph g) {
         this.graph = g;
@@ -126,7 +126,7 @@ public class GraphBFS {
     /**
      * Get the parent vertex of a vertex in the spanning tree.
      *
-     * @param u
+     * @param u a vertex
      * @return the parent vertex of <code>u</code>.
      */
     public int spanningTree(int u) {
@@ -150,8 +150,8 @@ public class GraphBFS {
     /**
      * Print out a shortest path from vertex <tt>u</tt> to vertex <tt>v</tt>.
      *
-     * @param u
-     * @param v
+     * @param u a vertex u
+     * @param v a vertex v
      */
     public void shortestPath(int u, int v) {
         // backtracking up to the spanning tree from

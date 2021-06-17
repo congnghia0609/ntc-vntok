@@ -52,8 +52,8 @@ public class ResultSplitter {
     /**
      * Creates a result splitter from a named entity prefix filename.
      *
-     * @param namePrefixFilename
-     * @throws java.io.FileNotFoundException
+     * @param namePrefixFilename a name prefix filename
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public ResultSplitter(String namePrefixFilename) throws FileNotFoundException {
         // load the prefix lexicon
@@ -66,7 +66,7 @@ public class ResultSplitter {
      * Creates a result splitter from a properties filename.
      *
      * @param properties a properties file.
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public ResultSplitter(Properties properties) throws FileNotFoundException {
         this(properties.getProperty("namePrefix"));
@@ -79,7 +79,7 @@ public class ResultSplitter {
     /**
      * Splits a named entity token into two tokens.
      *
-     * @param token
+     * @param token a TaggedWord
      * @return two tagged tokens
      */
     public TaggedWord[] split(TaggedWord token) {

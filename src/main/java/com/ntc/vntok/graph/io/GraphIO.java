@@ -92,7 +92,7 @@ public class GraphIO {
      * graph.</li>
      * </ul>
      *
-     * @param filename
+     * @param filename a graph from a text data file name
      * @see #scanAdjacencyList(Reader)
      * @return an adjacency list graph.
      */
@@ -110,7 +110,7 @@ public class GraphIO {
     /**
      * Scans a graph from a reader.
      *
-     * @param reader
+     * @param reader a Reader
      * @see #scanAdjacencyMatrix(String)
      * @return an adjacency matrix graph.
      */
@@ -167,7 +167,7 @@ public class GraphIO {
      * <li>The other lines contains a matrix representing the graph.
      * </ul>
      *
-     * @param filename
+     * @param filename a graph from a text data file name
      * @see #scanAdjacencyMatrix(Reader)
      * @return an adjacency list graph.
      */
@@ -185,7 +185,7 @@ public class GraphIO {
     /**
      * Print to the standard output all edges of the graph
      *
-     * @param graph
+     * @param graph a Graph
      */
     public static void printEdges(IGraph graph) {
         Edge[] edges = null;
@@ -214,7 +214,7 @@ public class GraphIO {
     /**
      * Print out a dense graph to the standard output.
      *
-     * @param graph
+     * @param graph a Graph
      */
     private static void printDenseGraph(IGraph graph) {
         int n = graph.getNumberOfVertices();
@@ -241,7 +241,7 @@ public class GraphIO {
     /**
      * Print out a graph.
      *
-     * @param graph
+     * @param graph a Graph
      */
     public static void print(IGraph graph) {
         int vC = graph.getNumberOfVertices();
@@ -261,7 +261,7 @@ public class GraphIO {
      * Scan a weighted graph from an input stream reader. This method is usually invoked by the method
      * {@link #scanAdjacencyListWeighted(String)}.
      *
-     * @param inputStreamReader
+     * @param inputStreamReader a InputStreamReader
      * @see #scanAdjacencyListWeighted(String)
      * @return an adjacency list weighted graph.
      */
@@ -310,7 +310,7 @@ public class GraphIO {
      * </ul>
      * See the samples directory for sample weighted graphs.
      *
-     * @param filename
+     * @param filename a graph from a text data file name
      * @return an adjacency list weighted graph.
      */
     public static IWeightedGraph scanAdjacencyListWeighted(String filename) {

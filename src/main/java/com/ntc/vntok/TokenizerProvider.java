@@ -121,9 +121,9 @@ public class TokenizerProvider {
     /**
      * Instantiate a tokenizer provider object, parameters are read from a properties file.
      *
-     * @param propertiesFilename
+     * @param propertiesFilename a properties filename
      * @return a provider object
-     * @throws java.io.IOException
+     * @throws java.io.IOException a IOException
      */
     public static TokenizerProvider getInstance(String propertiesFilename) throws IOException {
         if (provider == null) {
@@ -135,9 +135,9 @@ public class TokenizerProvider {
     /**
      * Instantiate a tokenizer provider object, parameters are read from a properties object.
      *
-     * @param properties
+     * @param properties a properties filename
      * @return a provider object
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public static TokenizerProvider getInstance(Properties properties) throws FileNotFoundException {
         if (provider == null) {
@@ -158,7 +158,7 @@ public class TokenizerProvider {
     /**
      * Returns the tokenizer
      *
-     * @return
+     * @return Tokenizer
      */
     public Tokenizer getTokenizer() {
         return tokenizer;
@@ -166,7 +166,6 @@ public class TokenizerProvider {
 
     /**
      * Dispose the data provider
-     *
      */
     public void dispose() {
         // dispose the tokenizer this will dispose the lexical tokenizer and the automata

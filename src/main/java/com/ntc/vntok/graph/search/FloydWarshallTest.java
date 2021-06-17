@@ -62,9 +62,6 @@ public class FloydWarshallTest {
 
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         new FloydWarshallTest(INPUT_FILE);
     }

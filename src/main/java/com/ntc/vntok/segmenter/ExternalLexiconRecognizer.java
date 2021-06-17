@@ -80,7 +80,7 @@ public class ExternalLexiconRecognizer extends AbstractLexiconRecognizer {
      * Creates an external lexicon recognizer given a lexicon.
      *
      * @param externalLexiconFilename a lexicon filename
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public ExternalLexiconRecognizer(String externalLexiconFilename) throws FileNotFoundException {
         // load the prefix lexicon

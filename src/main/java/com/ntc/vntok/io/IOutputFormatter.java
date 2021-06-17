@@ -27,7 +27,7 @@ public interface IOutputFormatter {
     /**
      * Output a token
      *
-     * @param token
+     * @param token a TaggedWord
      * @return a string representing the output of the token.
      */
     public String outputLexeme(TaggedWord token);

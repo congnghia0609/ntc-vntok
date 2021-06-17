@@ -59,7 +59,7 @@ public class VnTok {
     /**
      * Default constructor
      *
-     * @throws java.io.IOException
+     * @throws java.io.IOException a IOException
      */
     public VnTok() throws IOException {
         // create a unigram resolver. 
@@ -101,7 +101,7 @@ public class VnTok {
      * Creates a tokenizer with parameters given in a properties object.
      *
      * @param properties Properties
-     * @throws java.io.IOException
+     * @throws java.io.IOException a IOException
      */
     public VnTok(Properties properties) throws IOException {
         tokenizer = TokenizerProvider.getInstance(properties).getTokenizer();
@@ -111,8 +111,8 @@ public class VnTok {
     /**
      * Creates a tokenizer with parameters given in a properties file
      *
-     * @param propertiesFilename
-     * @throws java.io.IOException
+     * @param propertiesFilename a properties filename
+     * @throws java.io.IOException a IOException
      */
     public VnTok(String propertiesFilename) throws IOException {
         Properties properties = new Properties();
@@ -155,9 +155,6 @@ public class VnTok {
      *
      * @param text a text to tokenize.
      * @return an array of tokenized sentences.
-     * @see TokenizerOptions
-     * @see Tokenizer
-     * @see SentenceDetector
      */
     public String[] tokenize2(String text) {
         List<String> result = new ArrayList<>();
@@ -230,7 +227,7 @@ public class VnTok {
      *
      * @param inputFile input file
      * @param outputFile output file
-     * @throws javax.xml.bind.JAXBException
+     * @throws javax.xml.bind.JAXBException a JAXBException
      */
     public void tokenize(String inputFile, String outputFile) throws JAXBException {
         UTF8FileUtility.createWriter(outputFile);
@@ -250,7 +247,7 @@ public class VnTok {
      *
      * @param inputDir an input dir
      * @param outputDir an output dir
-     * @throws javax.xml.bind.JAXBException
+     * @throws javax.xml.bind.JAXBException a JAXBException
      */
     public void tokenizeDirectory(String inputDir, String outputDir) throws JAXBException {
         TextFileFilter fileFilter = new TextFileFilter(TokenizerOptions.TEXT_FILE_EXTENSION);
@@ -298,9 +295,9 @@ public class VnTok {
     /**
      * The starting point of the programme.
      *
-     * @param args
-     * @throws javax.xml.bind.JAXBException
-     * @throws java.io.IOException
+     * @param args a string array
+     * @throws javax.xml.bind.JAXBException a JAXBException
+     * @throws java.io.IOException a IOException
      */
     public static void main(String[] args) throws JAXBException, IOException {
         // create Options object

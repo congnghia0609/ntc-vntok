@@ -27,8 +27,8 @@ public interface IWeightedGraph extends IGraph {
     /**
      * Get the edge determined by two vertices.
      *
-     * @param u
-     * @param v
+     * @param u vertex u
+     * @param v vertex v
      * @return the edge or <tt>null</tt> if there does not a such edge.
      */
     public Edge getEdge(int u, int v);

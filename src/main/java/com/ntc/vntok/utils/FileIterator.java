@@ -57,9 +57,6 @@ public class FileIterator {
         return result.toArray(new File[result.size()]);
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         FileFilter textFileFilter = new TextFileFilter();
         File directory = new File("samples");

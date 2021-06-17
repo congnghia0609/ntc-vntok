@@ -136,8 +136,8 @@ public class CaseConverter {
     /**
      * Create a map file with characters in UTF-8 encoding.
      *
-     * @param filename
-     * @throws IOException
+     * @param filename a file name
+     * @throws java.io.IOException a IOException
      */
     public void convert(String filename) throws IOException {
         FileOutputStream fos = new FileOutputStream(filename);
@@ -160,7 +160,7 @@ public class CaseConverter {
     /**
      * Check to see if a string contains a Vietnamese uppercase character or not.
      *
-     * @param string
+     * @param string a string
      * @return <tt>true/false</tt>
      */
     @SuppressWarnings("static-access")

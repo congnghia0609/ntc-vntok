@@ -49,7 +49,7 @@ public class DFASimulator extends Simulator {
     /**
      * Find the next configuration of the DFA.
      *
-     * @param configuration
+     * @param configuration DFAConfiguration
      * @return The next configuration of current configuration or null if the simulator cannot go further.
      */
     protected DFAConfiguration next(DFAConfiguration configuration) {

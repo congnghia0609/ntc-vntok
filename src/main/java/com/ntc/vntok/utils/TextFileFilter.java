@@ -37,7 +37,7 @@ public class TextFileFilter implements FileFilter {
     /**
      * Constructs a text file filter given an extension.
      *
-     * @param extension
+     * @param extension a text file extension
      */
     public TextFileFilter(String extension) {
         this.extension = extension;

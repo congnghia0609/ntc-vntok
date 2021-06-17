@@ -55,7 +55,6 @@ public class GenBigram {
 
     /**
      * Load all corpora.
-     *
      */
     private void loadCorpora() {
         // get the corpora directory
@@ -83,11 +82,10 @@ public class GenBigram {
     /**
      * Load a corpus and update the bigram set
      *
-     * @param corpus
-     * @throws IOException
+     * @param corpus a file corpus
+     * @throws java.io.IOException a IOException
      */
     private void loadCorpus(String corpus) throws IOException {
-
         String[] lines = UTF8FileUtility.getLines(corpus);
         String first = "";
         for (int i = 0; i < lines.length; i++) {
@@ -109,11 +107,6 @@ public class GenBigram {
         bigram = new HashMap<>();
     }
 
-    /**
-     * Get the bigram set.
-     *
-     * @return
-     */
     public Map<Couple, Couple> getBigram() {
         return bigram;
     }
@@ -121,8 +114,7 @@ public class GenBigram {
     /**
      * Output bigram to a text file.
      *
-     * @param filename
-     * @see {@link #marshalResults(String)}.
+     * @param filename a filename
      */
     public void print(String filename) {
         try {
@@ -144,7 +136,7 @@ public class GenBigram {
     /**
      * Marshal the map to an JSON file using the lexicon format.
      *
-     * @param filename
+     * @param filename a filename
      */
     public void marshal(String filename) {
         // prepare a map for marshalling
@@ -159,9 +151,6 @@ public class GenBigram {
         FileUtil.writeFileJson(filename, smap);
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         GenBigram bimodel = new GenBigram(false);
         bimodel.marshal(TCommon.BIGRAM_MODEL);

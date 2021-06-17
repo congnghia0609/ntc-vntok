@@ -48,22 +48,22 @@ public interface IGraph {
     /**
      * Insert an edge to the graph
      *
-     * @param edge
+     * @param edge Edge
      */
     void insert(Edge edge);
 
     /**
      * Remove an edge from the graph.
      *
-     * @param edge
+     * @param edge Edge
      */
     void remove(Edge edge);
 
     /**
      * Check to see the existence of the edge (u,v).
      *
-     * @param u
-     * @param v
+     * @param u vertex u
+     * @param v vertex v
      * @return <code>true/false</code>
      */
     boolean edge(int u, int v);

@@ -27,8 +27,8 @@ public abstract class WeightedGraph extends Graph implements IWeightedGraph {
     /**
      * Default constructor.
      *
-     * @param n
-     * @param directed
+     * @param n a number vertex
+     * @param directed is directed graph
      */
     public WeightedGraph(int n, boolean directed) {
         super(n, directed);

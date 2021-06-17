@@ -28,8 +28,8 @@ public class AdjacencyMatrixGraph extends Graph {
     private final boolean adj[][];
 
     /**
-     * @param n
-     * @param directed
+     * @param n a number vertex
+     * @param directed is directed graph
      */
     public AdjacencyMatrixGraph(int n, boolean directed) {
         super(n, directed);

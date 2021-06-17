@@ -28,7 +28,7 @@ public class GraphConnectivity {
     /**
      * Get the number of connected components of the graph. We use the DFS algorithm to visit all connected components.
      *
-     * @param graph
+     * @param graph a Graph
      * @return the number of components of the graph
      */
     public static int countComponents(IGraph graph) {
@@ -39,9 +39,9 @@ public class GraphConnectivity {
     /**
      * Check the connectivity between two given vertices.
      *
-     * @param graph
-     * @param u
-     * @param v
+     * @param graph Graph
+     * @param u vertex u
+     * @param v vertex v
      * @return <code>true</code> or <code>false</code>
      */
     public static boolean isConnected(IGraph graph, int u, int v) {
@@ -56,7 +56,7 @@ public class GraphConnectivity {
     /**
      * Get all isolated vertices of a graph.
      *
-     * @param graph
+     * @param graph Graph
      * @return An array of isolated vertices. A vertex is called isolated if it does not have an intransition.
      */
     public static int[] getIsolatedVertices(IGraph graph) {

@@ -74,7 +74,7 @@ public class Resolver {
      *
      * @param probFilename a conditional probability filename
      * @param unigramFilename unigram filename
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public Resolver(String probFilename, String unigramFilename) throws FileNotFoundException {
         init();
@@ -102,7 +102,8 @@ public class Resolver {
     /**
      * Load unigram model and calculate probabilities.
      *
-     * @param unigramFilename
+     * @param unigramFilename a unigram filename
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     private void loadUnigram(String unigramFilename) throws FileNotFoundException {
         System.out.println("Loading unigram model...");
@@ -132,7 +133,8 @@ public class Resolver {
     /**
      * Load a probability file and initialize the <code>probabilities</code> map.
      *
-     * @param probFilename
+     * @param probFilename a probabilities filename
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     private void loadProbabilities(String probFilename) throws FileNotFoundException {
         System.out.println("Load conditional probabilities model...");
@@ -154,7 +156,7 @@ public class Resolver {
      * Resolve an ambiguity group of three tokens. This updates the selection of an ambiguity by calling the method
      * <code>setIsFirstGroup</code> on the ambiguity.
      *
-     * @param ambiguity
+     * @param ambiguity a Ambiguity
      */
     public void resolve(Ambiguity ambiguity) {
         // check to see if the ambiguity has been resolved or not yet
@@ -201,10 +203,9 @@ public class Resolver {
     /**
      * Resolve an ambiguity that composes of three tokens.
      *
-     * @param first
-     * @param second
-     * @param third
-     * @see #resolve(Ambiguity)
+     * @param first a String first
+     * @param second a String second
+     * @param third a String third
      */
     public void resolve(String first, String second, String third) {
         resolve(new Ambiguity(first, second, third));
@@ -214,7 +215,6 @@ public class Resolver {
      * Resolve a list of ambiguities.
      *
      * @param ambiguities a list of ambiguities.
-     * @see #resolve(Ambiguity)
      */
     public void resolve(List<Ambiguity> ambiguities) {
         for (Ambiguity a : ambiguities) {
@@ -224,7 +224,6 @@ public class Resolver {
 
     /**
      * Show the conditional probabilities set.
-     *
      */
     public void showProbabilities() {
         for (Couple c : probabilities.keySet()) {
@@ -234,7 +233,6 @@ public class Resolver {
 
     /**
      * Show the unigram probabilities.
-     *
      */
     public void showUnigram() {
         for (String token : unigram.keySet()) {
@@ -245,7 +243,7 @@ public class Resolver {
     /**
      * Get the set of ambiguities that have been resolved by the resolver.
      *
-     * @return
+     * @return a Set Ambiguity
      */
     public Set<Ambiguity> getAmbiguities() {
         return ambiguities;

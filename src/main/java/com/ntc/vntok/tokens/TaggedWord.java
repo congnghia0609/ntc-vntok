@@ -69,8 +69,8 @@ public class TaggedWord implements Comparable<TaggedWord> {
     /**
      * Create a lexer token from a lexer rule and a text.
      *
-     * @param rule
-     * @param text
+     * @param rule LexerRule
+     * @param text String
      */
     public TaggedWord(LexerRule rule, String text) {
         this.rule = rule;

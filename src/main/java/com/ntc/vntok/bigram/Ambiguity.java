@@ -52,7 +52,7 @@ public class Ambiguity {
     /**
      * Update the <code>isFirstGroup</code> value.
      *
-     * @param b
+     * @param b a boolean
      */
     public void setIsFirstGroup(boolean b) {
         this.isFirstGroup = b;
@@ -61,7 +61,7 @@ public class Ambiguity {
     /**
      * Get the selection
      *
-     * @return
+     * @return boolean
      */
     public boolean getIsFirstGroup() {
         return isFirstGroup;
@@ -70,7 +70,7 @@ public class Ambiguity {
     /**
      * Get a selection.
      *
-     * @return
+     * @return String array
      */
     public String[] getSelection() {
         String[] firstGroup = {first, second};

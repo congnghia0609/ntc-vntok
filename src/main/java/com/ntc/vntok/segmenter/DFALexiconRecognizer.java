@@ -37,8 +37,6 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
 
     /**
      * Private constructor.
-     *
-     * @param dfaLexiconFilename
      */
     private DFALexiconRecognizer() {
         if (lexiconDFA == null) {
@@ -54,7 +52,7 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
     /**
      * Private constructor.
      *
-     * @param dfaLexiconFilename
+     * @param dfaLexiconFilename a dfa lexicon filename
      */
     private DFALexiconRecognizer(String dfaLexiconFilename) throws FileNotFoundException {
         if (lexiconDFA == null) {
@@ -91,7 +89,7 @@ public class DFALexiconRecognizer extends AbstractLexiconRecognizer {
     /**
      * @param dfaLexiconFilename the DFA lexicon file
      * @return The singleton instance of the lexicon DFA.
-     * @throws java.io.FileNotFoundException
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public static DFALexiconRecognizer getInstance(String dfaLexiconFilename) throws FileNotFoundException {
         if (recognizer == null) {

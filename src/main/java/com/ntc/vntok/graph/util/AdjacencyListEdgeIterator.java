@@ -36,8 +36,8 @@ public class AdjacencyListEdgeIterator implements EdgeIterator {
     /**
      * Construct the iterator over vertices adjacent to vertex u.
      *
-     * @param g
-     * @param u
+     * @param g AdjacencyListWeightedGraph
+     * @param u vertex u
      */
     public AdjacencyListEdgeIterator(AdjacencyListWeightedGraph g, int u) {
         this.graph = g;

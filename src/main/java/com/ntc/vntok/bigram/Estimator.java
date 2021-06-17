@@ -76,9 +76,9 @@ public class Estimator {
     /**
      * Construct an estimator given data files.
      *
-     * @param unigramDataFile
-     * @param bigramDataFile
-     * @throws java.io.FileNotFoundException
+     * @param unigramDataFile a unigram data file
+     * @param bigramDataFile a bigram data file
+     * @throws java.io.FileNotFoundException a FileNotFoundException
      */
     public Estimator(String unigramDataFile, String bigramDataFile) throws FileNotFoundException {
         init();
@@ -101,7 +101,7 @@ public class Estimator {
      * Find all couples in the bigram model that has the first string is <code>first</code>.
      *
      * @param first a string
-     * @return
+     * @return Couple array
      */
     private Couple[] findFirst(String first) {
         List<Couple> couples = tokenMap.get(first);
@@ -140,7 +140,6 @@ public class Estimator {
 
     /**
      * Estimates lambda values
-     *
      */
     private void estimate() {
         // calculate conditional probabilities
@@ -210,7 +209,7 @@ public class Estimator {
     /**
      * Validate a probability value (between 0 and 1)
      *
-     * @param prob
+     * @param prob a probability value
      */
     private void validateProbabilityValue(double prob) {
         if (prob < 0 || prob > 1) {
@@ -221,8 +220,8 @@ public class Estimator {
     /**
      * Get the probability of a token in the unigram model P(w_i)
      *
-     * @param token
-     * @return
+     * @param token a String
+     * @return the probability of a token
      */
     private double getUnigramProbability(String token) {
         if (unigram.keySet().contains(token)) {
@@ -235,9 +234,9 @@ public class Estimator {
     /**
      * Get the conditional probability of a couple of tokens.
      *
-     * @param first
-     * @param second
-     * @return
+     * @param first a String first
+     * @param second a String second
+     * @return the conditional probability of a couple of tokens
      */
     private double getConditionalProbability(String first, String second) {
         return getConditionalProbability(new Couple(first, second));
@@ -246,7 +245,7 @@ public class Estimator {
     /**
      * Get the conditional probability of a couple
      *
-     * @param couple
+     * @param couple a Couple
      * @return double probability
      */
     private double getConditionalProbability(Couple couple) {
@@ -259,9 +258,6 @@ public class Estimator {
 
     /**
      * Load data files and fill unigram and bigram models.
-     *
-     * @param unigramDataFile
-     * @param bigramDataFile
      */
     private void loadModels() {
         System.out.println("Loading models...");
@@ -292,6 +288,12 @@ public class Estimator {
         System.out.println("tokenMap's size = " + tokenMap.size());
     }
     
+    /**
+     * Load data files and fill unigram and bigram models.
+     *
+     * @param unigramDataFile a unigram data file
+     * @param bigramDataFile a bigram data file
+     */
     private void loadModels(String unigramDataFile, String bigramDataFile) throws FileNotFoundException {
         System.out.println("Loading models from file...");
         // load unigram model
@@ -397,9 +399,6 @@ public class Estimator {
         marshalConditionalProbabilities(TCommon.CONDITIONAL_PROBABILITIES);
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         Estimator estimator = new Estimator();
 //		estimator.buildConditionalProbabilities();

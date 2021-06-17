@@ -153,7 +153,7 @@ public class ShortestPathFinder {
      * Find the maximal possible weight of a path of the graph. This value is used in the Dijkstra algorithm. In a
      * graph, there are at most n edges in each path.
      *
-     * @return
+     * @return double the maximal possible weight of a path of the graph
      */
     private double maxWeight() {
         Edge[] edges = GraphUtilities.getWeightedEdges(graph);
@@ -170,7 +170,7 @@ public class ShortestPathFinder {
      * Get the last spanning edge of a shortest path that leads to a vertex
      * <tt>v</tt>.
      *
-     * @param v
+     * @param v a edge v
      * @return the last edge of a shortest path that leads to <tt>v</tt>.
      * @see #dijkstra(int)
      */
@@ -190,7 +190,7 @@ public class ShortestPathFinder {
     /**
      * Get the minimal weight of the path from vertex zero to vertex u.
      *
-     * @param u
+     * @param u a vertex u
      * @return the weight of shortest paths to <tt>u</tt>.
      */
     public double getWeight(int u) {
@@ -203,7 +203,7 @@ public class ShortestPathFinder {
      * <tt>v</tt>. A shortest path can be easily constructed from the minimal spanning tree. To find all possible
      * shortest paths to <tt>v</tt>, use the method {@link #getAllShortestPaths(int)} instead.
      *
-     * @param v
+     * @param v a vertex v
      * @return an array of vertex indices from the start vertex to <tt>v</tt>.
      */
     public int[] getAShortestPath(int v) {
@@ -234,7 +234,7 @@ public class ShortestPathFinder {
      * startVertex
      *
      * @see #getAShortestPath(int)
-     * @param v
+     * @param v a vertex v
      * @return all shortest paths.
      */
     public Node[] getAllShortestPaths(int v) {
@@ -276,9 +276,9 @@ public class ShortestPathFinder {
     /**
      * Create a list of vertices from an array of size m of vertices.
      *
-     * @param a
-     * @param m
-     * @return
+     * @param a an array of size m of vertices
+     * @param m size m
+     * @return a Node
      */
     private Node getPath(int[] a, int m) {
         Node list = new Node();
@@ -293,7 +293,7 @@ public class ShortestPathFinder {
     /**
      * Get incoming edges to a vertex.
      *
-     * @param v
+     * @param v a vertex v
      * @return an array of edges
      */
     private Edge[] getIncomingEdges(int v) {

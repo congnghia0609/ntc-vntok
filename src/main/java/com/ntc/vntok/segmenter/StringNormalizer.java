@@ -107,7 +107,7 @@ public class StringNormalizer {
     }
 
     /**
-     * @param filename
+     * @param filename a filename
      * @return an instance of the class.
      */
     public static StringNormalizer getInstance(String filename) {
@@ -118,7 +118,7 @@ public class StringNormalizer {
     }
     
     /**
-     * @param properties
+     * @param properties a Properties
      * @return an instance of the class.
      */
     public static StringNormalizer getInstance(Properties properties) {

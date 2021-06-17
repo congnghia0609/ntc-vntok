@@ -30,7 +30,7 @@ public class GraphDegree {
     /**
      * Constructor.
      *
-     * @param g
+     * @param g Graph
      */
     public GraphDegree(IGraph g) {
         this.graph = g;
@@ -49,7 +49,7 @@ public class GraphDegree {
     /**
      * Get the degree of a vertex.
      *
-     * @param u
+     * @param u vertex u
      * @return the degree of a vertex
      */
     public int degree(int u) {

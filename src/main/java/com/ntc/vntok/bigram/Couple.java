@@ -46,64 +46,34 @@ public class Couple implements Comparable<Couple> {
         prob = 0;
     }
 
-    /**
-     * Get the first token.
-     *
-     * @return
-     */
     public String getFirst() {
         return first;
     }
 
-    /**
-     * Get the second token.
-     *
-     * @return
-     */
     public String getSecond() {
         return second;
     }
 
-    /**
-     * Return the fequency
-     *
-     * @return
-     */
     public int getFreq() {
         return freq;
     }
 
-    /**
-     * Increase the frequency of this couple by one
-     *
-     * @return
-     */
     public int incFreq() {
         freq += 1;
         return freq;
     }
 
-    /**
-     * Get the probability
-     *
-     * @return
-     */
     public double getProb() {
         return prob;
     }
 
-    /**
-     * Set the probability for the couple.
-     *
-     * @param prob
-     */
     public void setProb(double prob) {
         this.prob = prob;
     }
 
     /**
      * Two couples are equal if the corresponding strings are equal (ignore case).
-     * @param o is object
+     * @param o is object Couple
      */
     @Override
     public boolean equals(Object o) {
