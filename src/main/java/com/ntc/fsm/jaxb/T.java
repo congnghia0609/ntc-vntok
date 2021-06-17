@@ -27,74 +27,34 @@ public class T {
     protected String inp;
     protected String out;
 
-    /**
-     * Gets the value of the src property.
-     *
-     */
     public int getSrc() {
         return src;
     }
 
-    /**
-     * Sets the value of the src property.
-     *
-     */
     public void setSrc(int value) {
         this.src = value;
     }
 
-    /**
-     * Gets the value of the tar property.
-     *
-     */
     public int getTar() {
         return tar;
     }
 
-    /**
-     * Sets the value of the tar property.
-     *
-     */
     public void setTar(int value) {
         this.tar = value;
     }
 
-    /**
-     * Gets the value of the inp property.
-     *
-     * @return possible object is {@link String }
-     *
-     */
     public String getInp() {
         return inp;
     }
 
-    /**
-     * Sets the value of the inp property.
-     *
-     * @param value allowed object is {@link String }
-     *
-     */
     public void setInp(String value) {
         this.inp = value;
     }
 
-    /**
-     * Gets the value of the out property.
-     *
-     * @return possible object is {@link String }
-     *
-     */
     public String getOut() {
         return out;
     }
 
-    /**
-     * Sets the value of the out property.
-     *
-     * @param value allowed object is {@link String }
-     *
-     */
     public void setOut(String value) {
         this.out = value;
     }

@@ -33,7 +33,7 @@ public interface ISimulator {
     /**
      * Run the FSM on an input string and get the result.
      *
-     * @param input
+     * @param input String
      * @return the result of the run.
      */
     public String run(String input);

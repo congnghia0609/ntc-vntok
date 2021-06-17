@@ -40,7 +40,7 @@ public abstract class Simulator implements ISimulator {
     /**
      * Add a simulator listener.
      *
-     * @param simulatorListener
+     * @param simulatorListener a simulator listener
      */
     public void addSimulatorListener(ISimulatorListener simulatorListener) {
         listeners.add(simulatorListener);
@@ -49,7 +49,7 @@ public abstract class Simulator implements ISimulator {
     /**
      * Remove a simulator listener.
      *
-     * @param simulatorListener
+     * @param simulatorListener a simulator listener
      */
     public void removeSimulatorListener(ISimulatorListener simulatorListener) {
         listeners.remove(simulatorListener);
@@ -58,7 +58,7 @@ public abstract class Simulator implements ISimulator {
     /**
      * Notify all registered listeners about a configuration.
      *
-     * @param configEvent
+     * @param configEvent a ConfigurationEvent
      */
     public void notify(ConfigurationEvent configEvent) {
         for (ISimulatorListener simulatorListener : listeners) {

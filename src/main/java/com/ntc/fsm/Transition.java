@@ -70,7 +70,7 @@ public class Transition {
     /**
      * Copy constructor.
      *
-     * @param t
+     * @param t Transition
      */
     public Transition(Transition t) {
         source = t.getSource();

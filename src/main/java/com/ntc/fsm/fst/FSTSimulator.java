@@ -46,7 +46,7 @@ public class FSTSimulator extends Simulator {
     /**
      * Find the next configuration of the FST.
      *
-     * @param configuration
+     * @param configuration FSTConfiguration
      * @return The next configuration of current configuration or null if the simulator cannot go further.
      */
     protected FSTConfiguration next(FSTConfiguration configuration) {

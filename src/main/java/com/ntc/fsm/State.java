@@ -44,7 +44,7 @@ public class State implements Comparable<State> {
     /**
      * Instantiate a new state
      *
-     * @param id
+     * @param id a id state
      */
     public State(int id) {
         this.id = id;
@@ -55,7 +55,7 @@ public class State implements Comparable<State> {
     /**
      * Copy constructor
      *
-     * @param s
+     * @param s State
      */
     public State(State s) {
         this.id = s.getId();
@@ -152,7 +152,7 @@ public class State implements Comparable<State> {
     /**
      * Test if this state is equal to another state
      *
-     * @param q
+     * @param q Object State
      * @return <code>true</code> or <code>false</code>
      */
     @Override

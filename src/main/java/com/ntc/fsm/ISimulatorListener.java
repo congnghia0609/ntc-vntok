@@ -25,7 +25,7 @@ public interface ISimulatorListener {
     /**
      * Performs some operation based on a configuration event.
      *
-     * @param configurationEvent
+     * @param configurationEvent ConfigurationEvent
      */
     public void update(ConfigurationEvent configurationEvent);
 }

@@ -25,34 +25,18 @@ public class S {
     protected int id;
     protected byte type;
 
-    /**
-     * Gets the value of the id property.
-     *
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * Sets the value of the id property.
-     *
-     */
     public void setId(int value) {
         this.id = value;
     }
 
-    /**
-     * Gets the value of the type property.
-     *
-     */
     public byte getType() {
         return type;
     }
 
-    /**
-     * Sets the value of the type property.
-     *
-     */
     public void setType(byte value) {
         this.type = value;
     }

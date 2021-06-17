@@ -169,8 +169,8 @@ public abstract class FSM {
     /**
      * Get a transition of the machine given source and target vertices.
      *
-     * @param src
-     * @param tar
+     * @param src a number source
+     * @param tar a number target
      * @return a transition or <tt>null</tt>.
      */
     public Transition getTransition(int src, int tar) {
