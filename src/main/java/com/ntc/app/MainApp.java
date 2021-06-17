@@ -17,7 +17,6 @@
 package com.ntc.app;
 
 import com.ntc.vntok.VTConfig;
-import com.ntc.vntok.VietTokenizer;
 import com.ntc.vntok.VnTok;
 
 /**
