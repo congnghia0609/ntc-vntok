@@ -1,6 +1,15 @@
 # ntc-vntok
 ntc-vntok is a library Tokenizer for the Vietnamese language.  
 
+## Maven
+```Xml
+<dependency>
+    <groupId>com.streetcodevn</groupId>
+    <artifactId>ntc-vntok</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
 ## Quick start
 ```java
 String s = "VNTok là công cụ tách từ Tiếng Việt.";
